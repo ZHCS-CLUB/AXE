@@ -1,0 +1,23 @@
+*.class
+*.iml
+.idea/
+.vscode/
+.DS_Store
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+#workspace Files
+
+target/
+.settings/
+.classpath
+.project
+.factorypath
+
+.gitkeep
+.vscode-upload.json
+node_modules
+dist
