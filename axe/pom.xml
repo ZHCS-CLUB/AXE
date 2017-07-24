@@ -9,5 +9,7 @@
   <modules>
   	<module>axe-sigar</module>
   	<module>axe-apm</module>
+  	<module>axe-shiro</module>
+  	<module>axe-captcha</module>
   </modules>
 </project>

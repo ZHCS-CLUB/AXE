@@ -66,9 +66,9 @@ public class APMInterceptor {
 		apmLog.setTag(log.value());
 		apmLog.setActionTime(Times.now());
 		apmLog.setArgs(point.getArgs());
-		Stopwatch stopwatch = Stopwatch.begin();
 		Object obj = null;
 		try {
+			Stopwatch stopwatch = Stopwatch.beginNano();
 			obj = point.proceed();
 			stopwatch.stop();
 			apmLog.setActionDuration(stopwatch.getDuration());
