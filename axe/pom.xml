@@ -8,5 +8,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>axe-sigar</module>
+  	<module>axe-apm</module>
   </modules>
 </project>
