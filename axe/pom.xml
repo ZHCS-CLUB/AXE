@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>club.zhcs</groupId>
 	<artifactId>axe</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<name>AXE</name>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
@@ -29,6 +29,7 @@
 		<module>axe-sigar</module>
 		<module>axe-apm</module>
 		<module>axe-captcha</module>
+		<module>axe-swagger</module>
 	</modules>
 
 	<build>

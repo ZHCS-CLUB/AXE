@@ -6,12 +6,13 @@
 		<artifactId>axe</artifactId>
 		<version>1.0.1</version>
 	</parent>
-	<artifactId>axe-sigar</artifactId>
-	<name>sigar</name>
-	<description>spring-boot使用 sigar增加监控信息</description>
+	<artifactId>axe-swagger</artifactId>
+	<name>axe-swagger</name>
+	<description>swagger 配置</description>
 
 	<properties>
 		<spring-boot.version>1.5.4.RELEASE</spring-boot.version>
+		<swagger.version>2.7.0</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -27,23 +28,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
 			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-			<version>${spring-boot.version}</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.fusesource</groupId>
-			<artifactId>sigar</artifactId>
-			<version>1.6.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutz</artifactId>
-			<version>1.r.62</version>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
 		</dependency>
 	</dependencies>
 </project>

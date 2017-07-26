@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -59,6 +60,7 @@ public class CaptchaView implements View {
 	 * 
 	 * @see org.springframework.web.servlet.View#getContentType()
 	 */
+	@Override
 	public String getContentType() {
 		return null;
 	}
@@ -70,6 +72,7 @@ public class CaptchaView implements View {
 	 * javax.servlet.http.HttpServletRequest,
 	 * javax.servlet.http.HttpServletresponseonse)
 	 */
+	@Override
 	public void render(Map<String, ?> model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("image/jpeg");
 		response.setHeader("Pragma", "No-cache");
@@ -82,7 +85,8 @@ public class CaptchaView implements View {
 		} else {
 			logger.debug("写入输出流失败:" + imageVerification.getVerifyCode() + ".");
 		}
-		request.getSession().setAttribute(CAPTCHA_SESSION_KEY, imageVerification.getVerifyCode());
+		HttpSession session = request.getSession();
+		session.setAttribute(CAPTCHA_SESSION_KEY, imageVerification.getVerifyCode());
 		out.flush();
 		out.close();
 	}
