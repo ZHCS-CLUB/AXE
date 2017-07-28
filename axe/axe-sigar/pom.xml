@@ -4,46 +4,34 @@
 	<parent>
 		<groupId>club.zhcs</groupId>
 		<artifactId>axe</artifactId>
-		<version>1.1</version>
+		<version>1.2</version>
 	</parent>
 	<artifactId>axe-sigar</artifactId>
 	<name>sigar</name>
 	<description>spring-boot使用 sigar增加监控信息</description>
 
-	<properties>
-		<spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.fusesource</groupId>
 			<artifactId>sigar</artifactId>
 			<version>1.6.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutz</artifactId>
-			<version>1.r.62</version>
 		</dependency>
 	</dependencies>
 </project>

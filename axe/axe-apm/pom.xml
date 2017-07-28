@@ -4,24 +4,15 @@
 	<parent>
 		<groupId>club.zhcs</groupId>
 		<artifactId>axe</artifactId>
-		<version>1.1</version>
+		<version>1.2</version>
 	</parent>
 	<artifactId>axe-apm</artifactId>
 	<name>apm</name>
 	<description>性能监控</description>
-	<properties>
-		<spring-boot.version>1.5.4.RELEASE</spring-boot.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
-			<version>${spring-boot.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.nutz</groupId>
-			<artifactId>nutz</artifactId>
-			<version>1.r.62</version>
 		</dependency>
 	</dependencies>
 </project>

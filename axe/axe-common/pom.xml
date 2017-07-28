@@ -1,0 +1,18 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>club.zhcs</groupId>
+    <artifactId>axe</artifactId>
+    <version>1.2</version>
+  </parent>
+  <artifactId>axe-common</artifactId>
+  <name>axe-common</name>
+  <description>axe 通用模块</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>org.nutz</groupId>
+  		<artifactId>nutz</artifactId>
+  		<version>1.r.62</version>
+  	</dependency>
+  </dependencies>
+</project>

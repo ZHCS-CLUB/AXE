@@ -4,14 +4,13 @@
 	<parent>
 		<groupId>club.zhcs</groupId>
 		<artifactId>axe</artifactId>
-		<version>1.1</version>
+		<version>1.2</version>
 	</parent>
 	<artifactId>axe-swagger</artifactId>
 	<name>axe-swagger</name>
 	<description>swagger 配置</description>
 
 	<properties>
-		<spring-boot.version>1.5.4.RELEASE</spring-boot.version>
 		<swagger.version>2.7.0</swagger.version>
 	</properties>
 
@@ -19,17 +18,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
