@@ -24,14 +24,17 @@ public class APMInterceptor {
 
 	UserCollector collector;
 
+	URLProvider urlProvider;
+
 	/**
 	 * @param appender
 	 * @param collector
 	 */
-	public APMInterceptor(APMAppender appender, UserCollector collector) {
+	public APMInterceptor(APMAppender appender, UserCollector collector, URLProvider urlProvider) {
 		super();
 		this.appender = appender;
 		this.collector = collector;
+		this.urlProvider = urlProvider;
 	}
 
 	@Pointcut("@annotation(club.zhcs.apm.APM)")
@@ -66,6 +69,9 @@ public class APMInterceptor {
 		apmLog.setTag(log.value());
 		apmLog.setActionTime(Times.now());
 		apmLog.setArgs(point.getArgs());
+		if (urlProvider != null) {
+			apmLog.setUrl(urlProvider.provide());
+		}
 		Object obj = null;
 		try {
 			Stopwatch stopwatch = Stopwatch.beginNano();

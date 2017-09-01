@@ -84,15 +84,6 @@ public class Result {
 	}
 
 	/**
-	 * 未登录
-	 * 
-	 * @return
-	 */
-	public static Result unlogin() {
-		return Result.me().setOperationState(OperationState.UNLOGINED);
-	}
-
-	/**
 	 * 操作结果数据 假设一个操作要返回很多的数据 一个用户名 一个产品 一个相关产品列表 一个产品的评论信息列表 我们以key
 	 * value形式进行保存，页面获取data对象读取其对于的value即可
 	 */
@@ -101,7 +92,7 @@ public class Result {
 	/**
 	 * 带状态的操作 比如登录有成功和失败
 	 */
-	private OperationState operationState = OperationState.DEFAULT;
+	private OperationState operationState = OperationState.SUCCESS;
 
 	private Object[] errors;
 
@@ -166,7 +157,7 @@ public class Result {
 	 * 清空结果
 	 */
 	public Result clear() {
-		this.operationState = OperationState.DEFAULT;
+		this.operationState = OperationState.SUCCESS;
 		if (data != null) {
 			this.data.clear();
 		}

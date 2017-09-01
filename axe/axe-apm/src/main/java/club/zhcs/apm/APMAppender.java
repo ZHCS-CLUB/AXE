@@ -11,6 +11,8 @@ public interface APMAppender {
 
 	public static class APMLog {
 
+		String url;
+
 		String tag;
 
 		String user;
@@ -24,6 +26,21 @@ public interface APMAppender {
 		Object retuenObj;
 
 		boolean exception;
+
+		/**
+		 * @return the url
+		 */
+		public String getUrl() {
+			return url;
+		}
+
+		/**
+		 * @param url
+		 *            the url to set
+		 */
+		public void setUrl(String url) {
+			this.url = url;
+		}
 
 		/*
 		 * (non-Javadoc)

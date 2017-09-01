@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class APMConfiguration {
 
 	@Bean
-	public APMInterceptor apmInterceptor(APMAppender appender, UserCollector collector) {
-		return new APMInterceptor(appender, collector);
+	public APMInterceptor apmInterceptor(APMAppender appender, UserCollector collector, URLProvider urlProvider) {
+		return new APMInterceptor(appender, collector, urlProvider);
 	}
 
 	@Bean
@@ -24,8 +24,21 @@ public class APMConfiguration {
 		return new APMAppender() {
 			Log logger = Logs.get();
 
+			@Override
 			public void append(APMLog log) {
 				logger.info(log);
+			}
+		};
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public URLProvider urlProvider() {
+		return new URLProvider() {
+
+			@Override
+			public String provide() {
+				return null;
 			}
 		};
 	}
@@ -35,6 +48,7 @@ public class APMConfiguration {
 	public UserCollector userCollector() {
 		return new UserCollector() {
 
+			@Override
 			public String collector() {
 				return null;
 			}

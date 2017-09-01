@@ -19,6 +19,7 @@ public class SigarFactory {
 
 	static {
 		List<NutResource> resources = Scans.me().scan("sigar", ".(so|sl|dylib|dll|lib)$");
+		Files.deleteDir(Files.checkFile(LIB_PATH));// 先清空
 		for (NutResource resource : resources) {
 			try {
 				Files.write(String.format("%s/%s", LIB_PATH, resource.getName()), resource.getInputStream());
