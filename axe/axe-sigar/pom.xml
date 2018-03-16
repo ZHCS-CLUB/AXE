@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>club.zhcs</groupId>
 		<artifactId>axe</artifactId>
-		<version>1.4</version>
+		<version>1.5.10</version>
 	</parent>
 	<artifactId>axe-sigar</artifactId>
 	<name>sigar</name>

@@ -5,7 +5,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.context.request.async.DeferredResult;
+
+import com.google.common.collect.Sets;
 
 import io.swagger.models.Swagger;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -30,11 +31,11 @@ public class SwaggerAutoConfiguration {
 	private SwaggerConfigurationProerties swaggerConfigurationProerties;
 
 	@Bean
-	public Docket api() {
+	public Docket docket() {
 		return new Docket(DocumentationType.SWAGGER_2)
-				.genericModelSubstitutes(DeferredResult.class)
-				.useDefaultResponseMessages(false)
-				.forCodeGeneration(true)
+				.produces(Sets.newHashSet("application/json"))
+				.consumes(Sets.newHashSet("application/json"))
+				.protocols(Sets.newHashSet("http", "https"))
 				.pathMapping(swaggerConfigurationProerties.getPathMapping())
 				.select()
 				.apis(RequestHandlerSelectors.basePackage(swaggerConfigurationProerties.getBasePackage()))

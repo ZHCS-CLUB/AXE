@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>club.zhcs</groupId>
 	<artifactId>axe</artifactId>
-	<version>1.4</version>
+	<version>1.5.10</version>
 	<name>AXE</name>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
@@ -12,7 +12,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.5.6.RELEASE</version>
+		<version>1.5.10.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<licenses>
