@@ -10,11 +10,6 @@
   <description>axe 通用模块</description>
   <dependencies>
   	<dependency>
-  		<groupId>org.nutz</groupId>
-  		<artifactId>nutz</artifactId>
-  		<version>1.r.62</version>
-  	</dependency>
-  	<dependency>
   		<groupId>org.apache.logging.log4j</groupId>
   		<artifactId>log4j-api</artifactId>
   		<scope>provided</scope>
