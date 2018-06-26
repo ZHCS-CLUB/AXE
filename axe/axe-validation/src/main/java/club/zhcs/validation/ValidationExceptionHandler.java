@@ -26,38 +26,47 @@ import club.zhcs.common.Result;
 @ControllerAdvice
 public class ValidationExceptionHandler {
 
-	@ResponseBody
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Result handle(MethodArgumentNotValidException exception) {
-		final List<NutMap> errors = new ArrayList<NutMap>();
-		Lang.each(exception.getBindingResult().getAllErrors(), new Each<ObjectError>() {
+    @ResponseBody
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handle(MethodArgumentNotValidException exception) {
+        final List<NutMap> errors = new ArrayList<NutMap>();
+        final List<String> infos = Lang.list();
+        Lang.each(exception.getBindingResult().getAllErrors(), new Each<ObjectError>() {
 
-			@Override
-			public void invoke(int index, ObjectError error, int length) throws ExitLoop, ContinueLoop, LoopException {
-				errors.add(NutMap.NEW().addv("msg", error.getDefaultMessage()).addv("obj", error.getObjectName()).addv("arguments", error.getArguments()).addv("code",
-						error.getCode()).addv("codes", error.getCodes()));
-			}
-		});
-		return Result.fail(errors);
-	}
+            @Override
+            public void invoke(int index, ObjectError error, int length) throws ExitLoop, ContinueLoop, LoopException {
+                infos.add(error.getDefaultMessage());
+                errors.add(NutMap.NEW()
+                                 .addv("msg", error.getDefaultMessage())
+                                 .addv("obj", error.getObjectName())
+                                 .addv("arguments", error.getArguments())
+                                 .addv("code",
+                                       error.getCode())
+                                 .addv("codes", error.getCodes()));
+            }
+        });
+        return Result.fail(infos).addData("details", errors);
+    }
 
-	@ResponseBody
-	@ExceptionHandler(ValidationException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Result handle(ValidationException exception) {
-		if (exception instanceof ConstraintViolationException) {
+    @ResponseBody
+    @ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Result handle(ValidationException exception) {
+        if (exception instanceof ConstraintViolationException) {
 
-			final List<NutMap> errors = new ArrayList<NutMap>();
-			Lang.each(((ConstraintViolationException) exception).getConstraintViolations(), new Each<ConstraintViolation>() {
+            final List<NutMap> errors = new ArrayList<NutMap>();
+            final List<String> infos = Lang.list();
+            Lang.each(((ConstraintViolationException) exception).getConstraintViolations(), new Each<ConstraintViolation>() {
 
-				@Override
-				public void invoke(int index, ConstraintViolation error, int length) throws ExitLoop, ContinueLoop, LoopException {
-					errors.add(NutMap.NEW().addv("msg", error.getMessage()).addv("obj", error.getConstraintDescriptor()).addv("arguments", error.getExecutableParameters()));
-				}
-			});
-			return Result.fail(errors);
-		}
-		return Result.fail("参数不正确");
-	}
+                @Override
+                public void invoke(int index, ConstraintViolation error, int length) throws ExitLoop, ContinueLoop, LoopException {
+                    infos.add(error.getMessage());
+                    errors.add(NutMap.NEW().addv("msg", error.getMessage()).addv("obj", error.getConstraintDescriptor()).addv("arguments", error.getExecutableParameters()));
+                }
+            });
+            return Result.fail(infos).addData("details", errors);
+        }
+        return Result.fail("参数不正确");
+    }
 }
