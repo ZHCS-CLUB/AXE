@@ -8,9 +8,8 @@ import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration
 import springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration;
 
 /**
- * @author 王贵源<wangguiyuan@sinosoft.com.cn>
+ * @author 王贵源 wangguiyuan@sinosoft.com.cn
  *
- * @date 2018-06-02 21:46:20
  */
 @Configuration
 @ConditionalOnProperty(name = "swagger.enabled", matchIfMissing = true)
