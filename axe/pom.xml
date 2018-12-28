@@ -61,6 +61,7 @@
 		<module>axe-validation</module>
 		<module>axe-common</module>
 		<module>axe-swagger-ui</module>
+		<module>axe-shiro</module>
 	</modules>
 	<profiles>
 		<profile>
