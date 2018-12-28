@@ -18,7 +18,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
  */
 public class JwtUtil {
 
-    private static final long EXPIRE_TIME = 50 * 60 * 1000;
+    private static final long EXPIRE_TIME = 5 * 60 * 1000;
 
     /**
      * 校验token是否正确
@@ -61,7 +61,7 @@ public class JwtUtil {
     }
 
     /**
-     * 生成签名,50min后过期
+     * 生成签名,5min后过期
      *
      * @param username
      *            用户名
@@ -70,7 +70,23 @@ public class JwtUtil {
      * @return 加密的token
      */
     public static String sign(String username, String secret) {
-        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        return sign(username, secret, EXPIRE_TIME);
+
+    }
+
+    /**
+     * 生成 token 签名
+     * 
+     * @param username
+     *            用户名
+     * @param secret
+     *            密码
+     * @param expire
+     *            过期时间
+     * @return 加密的 token
+     */
+    public static String sign(String username, String secret, long expire) {
+        Date date = new Date(System.currentTimeMillis() + expire);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带username信息
         return JWT.create()
