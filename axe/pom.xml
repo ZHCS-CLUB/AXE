@@ -137,8 +137,8 @@
 	</build>
 	<distributionManagement>
 		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+			<id>nutz</id>
+			<url>http://jfrog.nutz.cn/artifactory/snapshots/</url>
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
