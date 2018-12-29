@@ -1,5 +1,6 @@
 package club.zhcs.validation;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
@@ -11,14 +12,15 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 @Configuration
 public class ValidationAutoConfiguration {
 
-	@Bean
-	public MethodValidationPostProcessor methodValidationPostProcessor() {
-		return new MethodValidationPostProcessor();
-	}
+    @Bean
+    @ConditionalOnMissingBean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
+    }
 
-	@Bean
-	public ValidationExceptionHandler validationExceptionHandler() {
-		return new ValidationExceptionHandler();
-	}
+    @Bean
+    public ValidationExceptionHandler validationExceptionHandler() {
+        return new ValidationExceptionHandler();
+    }
 
 }
