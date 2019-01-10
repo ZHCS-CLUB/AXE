@@ -63,7 +63,6 @@ public class JwtRealm extends AuthorizingRealm {
         if (userDetail == null) {
             throw new AuthenticationException("用户不存在!");
         }
-
         if (!JwtUtil.verify(token, username, userDetail.getPassword())) {
             throw new AuthenticationException("用户名或密码错误");
         }

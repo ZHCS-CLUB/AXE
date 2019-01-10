@@ -8,7 +8,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 /**
@@ -19,6 +19,10 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 public class JwtUtil {
 
     private static final long EXPIRE_TIME = 5 * 60 * 1000;
+
+    public static void main(String[] args) {
+        System.err.println(sign("18512345678", "d75c0c92f4c502eacf1843e4e0a0b9e4", 1000 * 60 * 5));
+    }
 
     /**
      * 校验token是否正确
@@ -40,8 +44,8 @@ public class JwtUtil {
             verifier.verify(token);
             return true;
         }
-        catch (TokenExpiredException exception) {
-            throw Lang.makeThrow("令牌已过期");
+        catch (JWTVerificationException exception) {
+            throw Lang.makeThrow("token 不合法");
         }
     }
 

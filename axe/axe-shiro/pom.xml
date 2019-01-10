@@ -35,5 +35,10 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>club.zhcs</groupId>
+			<artifactId>axe-common</artifactId>
+			<version>2.1.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>
