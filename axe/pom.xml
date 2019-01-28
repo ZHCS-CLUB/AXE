@@ -62,6 +62,7 @@
 		<module>axe-common</module>
 		<module>axe-swagger-ui</module>
 		<module>axe-shiro</module>
+		<module>axe-chinare-crm</module>
 	</modules>
 	<profiles>
 		<profile>

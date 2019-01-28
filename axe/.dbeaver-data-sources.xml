@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="mysql5-168704573a6-53e1a0deb6819064" provider="mysql" driver="mysql5" name="MySQL - ef2 2" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="mxkf.kerbores.com" port="3306" server="" database="ef2" url="jdbc:mysql://mxkf.kerbores.com:3306/ef2" user="root" password="NFRWJE19Rx1l8w==" type="dev">
+			<provider-property name="@dbeaver-serverTimezone@" value="Etc/GMT+8"/>
+		</connection>
+	</data-source>
+	<filters/>
+</data-sources>
