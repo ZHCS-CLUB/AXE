@@ -204,7 +204,4 @@ public class Numbers extends Nums {
         return bg.setScale(precision, RoundingMode.HALF_UP).toPlainString();
     }
 
-    public static void main(String[] args) {
-        System.err.println(keepPrecision(0.000000, 2));
-    }
 }

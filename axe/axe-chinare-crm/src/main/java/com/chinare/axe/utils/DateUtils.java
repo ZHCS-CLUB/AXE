@@ -104,11 +104,19 @@ public class DateUtils extends Times {
      * @return startFromSunday 为true 则返回上一个周日 为false则返回上一个周一
      */
     public static Date getWeekStart(boolean startFromSunday) {
-        return addDays(getDayStart(), -1 * (Times.C(now()).get(Calendar.DAY_OF_WEEK) - 1 - (startFromSunday ? 0 : 1)));
+        return addDays(getDayStart(),
+                       -1
+                                      * (Times.C(now()).get(Calendar.DAY_OF_WEEK)
+                                         - 1
+                                         - (startFromSunday ? 0 : 1)));
     }
 
     public static Date getWeekStart(boolean startFromSunday, Date date) {
-        return addDays(getDayStart(date), -1 * (Times.C(now()).get(Calendar.DAY_OF_WEEK) - 1 - (startFromSunday ? 0 : 1)));
+        return addDays(getDayStart(date),
+                       -1
+                                          * (Times.C(now()).get(Calendar.DAY_OF_WEEK)
+                                             - 1
+                                             - (startFromSunday ? 0 : 1)));
     }
 
     /**
@@ -208,11 +216,6 @@ public class DateUtils extends Times {
         ca.setTime(d);
         ca.set(Calendar.DAY_OF_MONTH, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
         return getDayEnd(ca.getTime());
-    }
-
-    public static void main(String[] args) {
-        System.err.println(getWeekEnd(false));
-
     }
 
     /**
