@@ -2,66 +2,71 @@ package com.chinare.axe.auth;
 
 import java.util.List;
 
-import com.chinare.axe.Result;
-
 /**
  * @author 王贵源( kerbores@gmail.com)
  * @date 2018-11-07 14:36:47
  */
 public interface AuthService {
 
-	public static class LoginDto {
-		String name;
-		String password;
+    public static class LoginDto {
+        String name;
+        String password;
+        boolean rememberMe;
 
-		/**
-		 * 
-		 */
-		public LoginDto() {
-			super();
-		}
+        public boolean isRememberMe() {
+            return rememberMe;
+        }
 
-		/**
-		 * @param code
-		 * @param name
-		 * @param password
-		 */
-		public LoginDto(String name, String password) {
-			super();
-			this.name = name;
-			this.password = password;
-		}
+        public void setRememberMe(boolean rememberMe) {
+            this.rememberMe = rememberMe;
+        }
 
-		public String getName() {
-			return name;
-		}
+        /**
+         * 
+         */
+        public LoginDto() {
+            super();
+        }
 
-		public void setName(String name) {
-			this.name = name;
-		}
+        /**
+         * @param code
+         * @param name
+         * @param password
+         */
+        public LoginDto(String name, String password) {
+            super();
+            this.name = name;
+            this.password = password;
+        }
 
-		public String getPassword() {
-			return password;
-		}
+        public String getName() {
+            return name;
+        }
 
-		public void setPassword(String password) {
-			this.password = password;
-		}
+        public void setName(String name) {
+            this.name = name;
+        }
 
-	}
+        public String getPassword() {
+            return password;
+        }
 
-	public Result login(String user, String password);
+        public void setPassword(String password) {
+            this.password = password;
+        }
 
-	public List<String> roles();
+    }
 
-	public List<String> permissions();
+    public List<String> roles();
 
-	public User user();
+    public List<String> permissions();
 
-	public String token();
+    public User user();
 
-	public String userName();
+    public String token();
 
-	public User login(LoginDto loginDto);
+    public String userName();
+
+    public User login(LoginDto loginDto);
 
 }

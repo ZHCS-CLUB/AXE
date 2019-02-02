@@ -15,7 +15,6 @@ import springfox.documentation.swagger.web.TagsSorter;
 
 /**
  * @author kerbores
- *
  */
 @ConfigurationProperties("swagger")
 public class SwaggerConfigurationProerties {
@@ -140,8 +139,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param name
-         *            the name to set
+         * @param name the name to set
          */
         public void setName(String name) {
             this.name = name;
@@ -155,8 +153,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param description
-         *            the description to set
+         * @param description the description to set
          */
         public void setDescription(String description) {
             this.description = description;
@@ -170,8 +167,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param modelRef
-         *            the modelRef to set
+         * @param modelRef the modelRef to set
          */
         public void setModelRef(String modelRef) {
             this.modelRef = modelRef;
@@ -185,8 +181,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param parameterType
-         *            the parameterType to set
+         * @param parameterType the parameterType to set
          */
         public void setParameterType(String parameterType) {
             this.parameterType = parameterType;
@@ -200,8 +195,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param required
-         *            the required to set
+         * @param required the required to set
          */
         public void setRequired(String required) {
             this.required = required;
@@ -267,8 +261,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param title
-         *            the title to set
+         * @param title the title to set
          */
         public void setTitle(String title) {
             this.title = title;
@@ -282,8 +275,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param description
-         *            the description to set
+         * @param description the description to set
          */
         public void setDescription(String description) {
             this.description = description;
@@ -297,8 +289,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param version
-         *            the version to set
+         * @param version the version to set
          */
         public void setVersion(String version) {
             this.version = version;
@@ -312,8 +303,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param license
-         *            the license to set
+         * @param license the license to set
          */
         public void setLicense(String license) {
             this.license = license;
@@ -327,8 +317,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param licenseUrl
-         *            the licenseUrl to set
+         * @param licenseUrl the licenseUrl to set
          */
         public void setLicenseUrl(String licenseUrl) {
             this.licenseUrl = licenseUrl;
@@ -342,8 +331,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param termsOfServiceUrl
-         *            the termsOfServiceUrl to set
+         * @param termsOfServiceUrl the termsOfServiceUrl to set
          */
         public void setTermsOfServiceUrl(String termsOfServiceUrl) {
             this.termsOfServiceUrl = termsOfServiceUrl;
@@ -357,8 +345,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param contact
-         *            the contact to set
+         * @param contact the contact to set
          */
         public void setContact(Contact contact) {
             this.contact = contact;
@@ -372,8 +359,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param basePackage
-         *            the basePackage to set
+         * @param basePackage the basePackage to set
          */
         public void setBasePackage(String basePackage) {
             this.basePackage = basePackage;
@@ -387,8 +373,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param basePath
-         *            the basePath to set
+         * @param basePath the basePath to set
          */
         public void setBasePath(List<String> basePath) {
             this.basePath = basePath;
@@ -402,8 +387,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param excludePath
-         *            the excludePath to set
+         * @param excludePath the excludePath to set
          */
         public void setExcludePath(List<String> excludePath) {
             this.excludePath = excludePath;
@@ -417,8 +401,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param globalOperationParameters
-         *            the globalOperationParameters to set
+         * @param globalOperationParameters the globalOperationParameters to set
          */
         public void setGlobalOperationParameters(List<GlobalOperationParameter> globalOperationParameters) {
             this.globalOperationParameters = globalOperationParameters;
@@ -432,8 +415,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param ignoredParameterTypes
-         *            the ignoredParameterTypes to set
+         * @param ignoredParameterTypes the ignoredParameterTypes to set
          */
         public void setIgnoredParameterTypes(List<Class<?>> ignoredParameterTypes) {
             this.ignoredParameterTypes = ignoredParameterTypes;
@@ -464,8 +446,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param name
-         *            the name to set
+         * @param name the name to set
          */
         public void setName(String name) {
             this.name = name;
@@ -479,8 +460,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param url
-         *            the url to set
+         * @param url the url to set
          */
         public void setUrl(String url) {
             this.url = url;
@@ -494,8 +474,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param email
-         *            the email to set
+         * @param email the email to set
          */
         public void setEmail(String email) {
             this.email = email;
@@ -553,8 +532,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param post
-         *            the post to set
+         * @param post the post to set
          */
         public void setPost(List<GlobalResponseMessageBody> post) {
             this.post = post;
@@ -568,8 +546,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param get
-         *            the get to set
+         * @param get the get to set
          */
         public void setGet(List<GlobalResponseMessageBody> get) {
             this.get = get;
@@ -583,8 +560,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param put
-         *            the put to set
+         * @param put the put to set
          */
         public void setPut(List<GlobalResponseMessageBody> put) {
             this.put = put;
@@ -598,8 +574,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param patch
-         *            the patch to set
+         * @param patch the patch to set
          */
         public void setPatch(List<GlobalResponseMessageBody> patch) {
             this.patch = patch;
@@ -613,8 +588,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param delete
-         *            the delete to set
+         * @param delete the delete to set
          */
         public void setDelete(List<GlobalResponseMessageBody> delete) {
             this.delete = delete;
@@ -628,8 +602,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param head
-         *            the head to set
+         * @param head the head to set
          */
         public void setHead(List<GlobalResponseMessageBody> head) {
             this.head = head;
@@ -643,8 +616,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param options
-         *            the options to set
+         * @param options the options to set
          */
         public void setOptions(List<GlobalResponseMessageBody> options) {
             this.options = options;
@@ -658,8 +630,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param trace
-         *            the trace to set
+         * @param trace the trace to set
          */
         public void setTrace(List<GlobalResponseMessageBody> trace) {
             this.trace = trace;
@@ -692,8 +663,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param code
-         *            the code to set
+         * @param code the code to set
          */
         public void setCode(int code) {
             this.code = code;
@@ -707,8 +677,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param message
-         *            the message to set
+         * @param message the message to set
          */
         public void setMessage(String message) {
             this.message = message;
@@ -722,8 +691,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param modelRef
-         *            the modelRef to set
+         * @param modelRef the modelRef to set
          */
         public void setModelRef(String modelRef) {
             this.modelRef = modelRef;
@@ -788,8 +756,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param apiSorter
-         *            the apiSorter to set
+         * @param apiSorter the apiSorter to set
          */
         public void setApiSorter(String apiSorter) {
             this.apiSorter = apiSorter;
@@ -803,8 +770,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param jsonEditor
-         *            the jsonEditor to set
+         * @param jsonEditor the jsonEditor to set
          */
         public void setJsonEditor(Boolean jsonEditor) {
             this.jsonEditor = jsonEditor;
@@ -818,8 +784,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param showRequestHeaders
-         *            the showRequestHeaders to set
+         * @param showRequestHeaders the showRequestHeaders to set
          */
         public void setShowRequestHeaders(Boolean showRequestHeaders) {
             this.showRequestHeaders = showRequestHeaders;
@@ -833,8 +798,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param submitMethods
-         *            the submitMethods to set
+         * @param submitMethods the submitMethods to set
          */
         public void setSubmitMethods(String submitMethods) {
             this.submitMethods = submitMethods;
@@ -848,8 +812,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param requestTimeout
-         *            the requestTimeout to set
+         * @param requestTimeout the requestTimeout to set
          */
         public void setRequestTimeout(Long requestTimeout) {
             this.requestTimeout = requestTimeout;
@@ -863,8 +826,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param deepLinking
-         *            the deepLinking to set
+         * @param deepLinking the deepLinking to set
          */
         public void setDeepLinking(Boolean deepLinking) {
             this.deepLinking = deepLinking;
@@ -878,8 +840,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param displayOperationId
-         *            the displayOperationId to set
+         * @param displayOperationId the displayOperationId to set
          */
         public void setDisplayOperationId(Boolean displayOperationId) {
             this.displayOperationId = displayOperationId;
@@ -893,8 +854,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param defaultModelsExpandDepth
-         *            the defaultModelsExpandDepth to set
+         * @param defaultModelsExpandDepth the defaultModelsExpandDepth to set
          */
         public void setDefaultModelsExpandDepth(Integer defaultModelsExpandDepth) {
             this.defaultModelsExpandDepth = defaultModelsExpandDepth;
@@ -908,8 +868,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param defaultModelExpandDepth
-         *            the defaultModelExpandDepth to set
+         * @param defaultModelExpandDepth the defaultModelExpandDepth to set
          */
         public void setDefaultModelExpandDepth(Integer defaultModelExpandDepth) {
             this.defaultModelExpandDepth = defaultModelExpandDepth;
@@ -923,8 +882,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param defaultModelRendering
-         *            the defaultModelRendering to set
+         * @param defaultModelRendering the defaultModelRendering to set
          */
         public void setDefaultModelRendering(ModelRendering defaultModelRendering) {
             this.defaultModelRendering = defaultModelRendering;
@@ -938,8 +896,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param displayRequestDuration
-         *            the displayRequestDuration to set
+         * @param displayRequestDuration the displayRequestDuration to set
          */
         public void setDisplayRequestDuration(Boolean displayRequestDuration) {
             this.displayRequestDuration = displayRequestDuration;
@@ -953,8 +910,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param docExpansion
-         *            the docExpansion to set
+         * @param docExpansion the docExpansion to set
          */
         public void setDocExpansion(DocExpansion docExpansion) {
             this.docExpansion = docExpansion;
@@ -968,8 +924,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param filter
-         *            the filter to set
+         * @param filter the filter to set
          */
         public void setFilter(Object filter) {
             this.filter = filter;
@@ -983,8 +938,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param maxDisplayedTags
-         *            the maxDisplayedTags to set
+         * @param maxDisplayedTags the maxDisplayedTags to set
          */
         public void setMaxDisplayedTags(Integer maxDisplayedTags) {
             this.maxDisplayedTags = maxDisplayedTags;
@@ -998,8 +952,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param operationsSorter
-         *            the operationsSorter to set
+         * @param operationsSorter the operationsSorter to set
          */
         public void setOperationsSorter(OperationsSorter operationsSorter) {
             this.operationsSorter = operationsSorter;
@@ -1013,8 +966,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param showExtensions
-         *            the showExtensions to set
+         * @param showExtensions the showExtensions to set
          */
         public void setShowExtensions(Boolean showExtensions) {
             this.showExtensions = showExtensions;
@@ -1028,8 +980,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param tagsSorter
-         *            the tagsSorter to set
+         * @param tagsSorter the tagsSorter to set
          */
         public void setTagsSorter(TagsSorter tagsSorter) {
             this.tagsSorter = tagsSorter;
@@ -1043,8 +994,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param validatorUrl
-         *            the validatorUrl to set
+         * @param validatorUrl the validatorUrl to set
          */
         public void setValidatorUrl(String validatorUrl) {
             this.validatorUrl = validatorUrl;
@@ -1065,7 +1015,7 @@ public class SwaggerConfigurationProerties {
         /**
          * 鉴权传递的Header参数
          */
-        private String keyName = "TOKEN";
+        private String keyName = "Authorization";
 
         /**
          * 需要开启鉴权URL的正则
@@ -1080,8 +1030,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param name
-         *            the name to set
+         * @param name the name to set
          */
         public void setName(String name) {
             this.name = name;
@@ -1095,8 +1044,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param keyName
-         *            the keyName to set
+         * @param keyName the keyName to set
          */
         public void setKeyName(String keyName) {
             this.keyName = keyName;
@@ -1110,8 +1058,7 @@ public class SwaggerConfigurationProerties {
         }
 
         /**
-         * @param authRegex
-         *            the authRegex to set
+         * @param authRegex the authRegex to set
          */
         public void setAuthRegex(String authRegex) {
             this.authRegex = authRegex;
@@ -1127,8 +1074,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param enabled
-     *            the enabled to set
+     * @param enabled the enabled to set
      */
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
@@ -1142,8 +1088,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param title
-     *            the title to set
+     * @param title the title to set
      */
     public void setTitle(String title) {
         this.title = title;
@@ -1157,8 +1102,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param description
-     *            the description to set
+     * @param description the description to set
      */
     public void setDescription(String description) {
         this.description = description;
@@ -1172,8 +1116,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param version
-     *            the version to set
+     * @param version the version to set
      */
     public void setVersion(String version) {
         this.version = version;
@@ -1187,8 +1130,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param license
-     *            the license to set
+     * @param license the license to set
      */
     public void setLicense(String license) {
         this.license = license;
@@ -1202,8 +1144,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param licenseUrl
-     *            the licenseUrl to set
+     * @param licenseUrl the licenseUrl to set
      */
     public void setLicenseUrl(String licenseUrl) {
         this.licenseUrl = licenseUrl;
@@ -1217,8 +1158,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param termsOfServiceUrl
-     *            the termsOfServiceUrl to set
+     * @param termsOfServiceUrl the termsOfServiceUrl to set
      */
     public void setTermsOfServiceUrl(String termsOfServiceUrl) {
         this.termsOfServiceUrl = termsOfServiceUrl;
@@ -1232,8 +1172,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param ignoredParameterTypes
-     *            the ignoredParameterTypes to set
+     * @param ignoredParameterTypes the ignoredParameterTypes to set
      */
     public void setIgnoredParameterTypes(List<Class<?>> ignoredParameterTypes) {
         this.ignoredParameterTypes = ignoredParameterTypes;
@@ -1247,8 +1186,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param contact
-     *            the contact to set
+     * @param contact the contact to set
      */
     public void setContact(Contact contact) {
         this.contact = contact;
@@ -1262,8 +1200,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param basePackage
-     *            the basePackage to set
+     * @param basePackage the basePackage to set
      */
     public void setBasePackage(String basePackage) {
         this.basePackage = basePackage;
@@ -1277,8 +1214,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param basePath
-     *            the basePath to set
+     * @param basePath the basePath to set
      */
     public void setBasePath(List<String> basePath) {
         this.basePath = basePath;
@@ -1292,8 +1228,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param excludePath
-     *            the excludePath to set
+     * @param excludePath the excludePath to set
      */
     public void setExcludePath(List<String> excludePath) {
         this.excludePath = excludePath;
@@ -1307,8 +1242,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param docket
-     *            the docket to set
+     * @param docket the docket to set
      */
     public void setDocket(Map<String, DocketInfo> docket) {
         this.docket = docket;
@@ -1322,8 +1256,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param host
-     *            the host to set
+     * @param host the host to set
      */
     public void setHost(String host) {
         this.host = host;
@@ -1337,8 +1270,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param globalOperationParameters
-     *            the globalOperationParameters to set
+     * @param globalOperationParameters the globalOperationParameters to set
      */
     public void setGlobalOperationParameters(List<GlobalOperationParameter> globalOperationParameters) {
         this.globalOperationParameters = globalOperationParameters;
@@ -1352,8 +1284,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param uiConfig
-     *            the uiConfig to set
+     * @param uiConfig the uiConfig to set
      */
     public void setUiConfig(UiConfig uiConfig) {
         this.uiConfig = uiConfig;
@@ -1367,8 +1298,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param applyDefaultResponseMessages
-     *            the applyDefaultResponseMessages to set
+     * @param applyDefaultResponseMessages the applyDefaultResponseMessages to set
      */
     public void setApplyDefaultResponseMessages(Boolean applyDefaultResponseMessages) {
         this.applyDefaultResponseMessages = applyDefaultResponseMessages;
@@ -1382,8 +1312,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param globalResponseMessage
-     *            the globalResponseMessage to set
+     * @param globalResponseMessage the globalResponseMessage to set
      */
     public void setGlobalResponseMessage(GlobalResponseMessage globalResponseMessage) {
         this.globalResponseMessage = globalResponseMessage;
@@ -1397,8 +1326,7 @@ public class SwaggerConfigurationProerties {
     }
 
     /**
-     * @param authorization
-     *            the authorization to set
+     * @param authorization the authorization to set
      */
     public void setAuthorization(Authorization authorization) {
         this.authorization = authorization;

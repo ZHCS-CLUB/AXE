@@ -44,7 +44,7 @@ public class ImageVerification {
 	public BufferedImage creatImage() {
 
 		// 在内存中创建图象
-		int width = 20 * IMAGE_VERIFICATION_LENGTH + 20, height = 35;
+		int width = 20 * IMAGE_VERIFICATION_LENGTH + 20, height = 40;
 		BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
 		// 获取图形上下文
