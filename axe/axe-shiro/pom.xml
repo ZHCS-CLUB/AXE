@@ -38,7 +38,7 @@
 		<dependency>
 			<groupId>club.zhcs</groupId>
 			<artifactId>axe-common</artifactId>
-			<version>2.1.1-SNAPSHOT</version>
+			<version>2.1.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
