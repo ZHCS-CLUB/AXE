@@ -25,15 +25,8 @@ public class ImageVerification {
 
     private CaptchaGener captchaGener = new DefaultCaptchaGener();
 
-    /**
-     * 
-     */
     public ImageVerification() {}
 
-    /**
-     * @param iMAGE_VERIFICATION_LENGTH
-     * @param captchaGener
-     */
     public ImageVerification(int iMAGE_VERIFICATION_LENGTH, CaptchaGener captchaGener) {
         super();
         IMAGE_VERIFICATION_LENGTH = iMAGE_VERIFICATION_LENGTH;

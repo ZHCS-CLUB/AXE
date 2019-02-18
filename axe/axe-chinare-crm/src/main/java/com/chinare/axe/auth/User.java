@@ -2,7 +2,6 @@ package com.chinare.axe.auth;
 
 /**
  * @author 王贵源(kerbores @ gmail.com)
- * @date 2018-11-07 14:23:24
  */
 public class User {
     String userName;
@@ -33,7 +32,8 @@ public class User {
     }
 
     /**
-     * @param userName the userName to set
+     * @param userName
+     *            the userName to set
      */
     public void setUserName(String userName) {
         this.userName = userName;
@@ -47,7 +47,8 @@ public class User {
     }
 
     /**
-     * @param password the password to set
+     * @param password
+     *            the password to set
      */
     public void setPassword(String password) {
         this.password = password;

@@ -12,8 +12,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 /**
- * @author 王贵源<kerbores@gmail.com>
- * @date 2018-12-27 16:20:39
+ * @author 王贵源 (kerbores@gmail.com)
  */
 public class JwtUtil {
 
@@ -28,8 +27,13 @@ public class JwtUtil {
 
     /**
      * 校验token是否正确
-     * @param token  密钥
-     * @param secret 用户的密码
+     * 
+     * @param token
+     *            密钥
+     * @param username
+     *            用户名
+     * @param secret
+     *            密钥
      * @return 是否正确
      */
     public static boolean verify(String token, String username, String secret) {
@@ -47,7 +51,10 @@ public class JwtUtil {
     }
 
     /**
-     * -获得token中的信息无需secret解密也能获得
+     * /** -获得token中的信息无需secret解密也能获得
+     * 
+     * @param token
+     *            jwtToken
      * @return token中包含的用户名
      */
     public static String getUsername(String token) {
@@ -61,8 +68,10 @@ public class JwtUtil {
     }
 
     /**
-     * @param username 用户名
-     * @param secret   用户的密码
+     * @param username
+     *            用户名
+     * @param secret
+     *            用户的密码
      * @return 加密的token
      */
     public static String sign(String username, String secret) {
@@ -71,10 +80,13 @@ public class JwtUtil {
     }
 
     /**
-     * @param username   用户名
-     * @param secret     密码
-     * @param rememberMe 记住我
-     * @return
+     * @param username
+     *            用户名
+     * @param secret
+     *            密码
+     * @param rememberMe
+     *            记住我
+     * @return jwt token
      */
     public static String sign(String username, String secret, boolean rememberMe) {
         return sign(username, secret, rememberMe ? REMEMBER_EXPIRE_TIME : EXPIRE_TIME);
@@ -83,9 +95,13 @@ public class JwtUtil {
 
     /**
      * 生成 token 签名
-     * @param username 用户名
-     * @param secret   密码
-     * @param expire   过期时间
+     * 
+     * @param username
+     *            用户名
+     * @param secret
+     *            密码
+     * @param expire
+     *            过期时间
      * @return 加密的 token
      */
     public static String sign(String username, String secret, long expire) {

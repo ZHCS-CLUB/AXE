@@ -68,7 +68,8 @@ public class FileUtils {
      * 转换文件大小
      * 
      * @param length
-     * @return
+     *            文件长度
+     * @return 文件大小字串描述
      */
     public static String formetFileSize(double length) {
         DecimalFormat df = new DecimalFormat("#.00");

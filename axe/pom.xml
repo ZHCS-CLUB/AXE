@@ -54,27 +54,16 @@
 		<url>https://github.com/ZHCS-CLUB/AXE.git</url>
 	</scm>
 	<modules>
-		<module>axe-sigar</module>
+		<!-- <module>axe-sigar</module>
 		<module>axe-apm</module>
 		<module>axe-captcha</module>
 		<module>axe-swagger</module>
 		<module>axe-validation</module>
 		<module>axe-common</module>
 		<module>axe-swagger-ui</module>
-		<module>axe-shiro</module>
+		<module>axe-shiro</module> -->
 		<module>axe-chinare-crm</module>
 	</modules>
-	<profiles>
-		<profile>
-			<id>doclint-java8-disable</id>
-			<activation>
-				<jdk>[1.8,)</jdk>
-			</activation>
-			<properties>
-				<javadoc.opts>-Xdoclint:none</javadoc.opts>
-			</properties>
-		</profile>
-	</profiles>
 	<build>
 		<plugins>
 			<plugin>
@@ -90,9 +79,13 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>attach-javadocs</id> 
+						<id>attach-javadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
 						<configuration>
-							<additionalparam>${javadoc.opts}</additionalparam>
+							<additionalparam>-Xdoclint:none</additionalparam>
 						</configuration>
 					</execution>
 				</executions>
@@ -106,6 +99,9 @@
 						<goals>
 							<goal>jar-no-fork</goal>
 						</goals>
+						<configuration>
+							<additionalparam>${javadoc.opts}</additionalparam>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

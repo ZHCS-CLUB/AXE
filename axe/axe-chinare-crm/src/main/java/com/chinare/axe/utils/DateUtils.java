@@ -30,8 +30,8 @@ public class DateUtils extends Times {
     /**
      * 从今日开始的日期加减
      * 
-     * @param 增加天数
-     *            正数为之后日期负数为之前日期
+     * @param days
+     *            增加天数 正数为之后日期负数为之前日期
      * @return 目标日期
      */
     public static Date addDays(int days) {
@@ -56,7 +56,8 @@ public class DateUtils extends Times {
      * 获取当日凌晨
      * 
      * @param d
-     * @return
+     *            日期
+     * @return 当日凌晨 date 对象
      */
     public static Date getDayStart(Date d) {
         return D(format("yyyy-MM-dd 00:00:00", d));
@@ -80,7 +81,7 @@ public class DateUtils extends Times {
     }
 
     /**
-     * 获取当前日期的周结束<周日或者周六>
+     * 获取当前日期的周结束(周日或者周六)
      * 
      * @param startFromSunday
      *            从周日开始计算周 标识
@@ -97,7 +98,7 @@ public class DateUtils extends Times {
     }
 
     /**
-     * 获取当前日期的周开始<周一或者周日>
+     * 获取当前日期的周开始(周一或者周日)
      * 
      * @param startFromSunday
      *            从周日开始计算周 标识
@@ -126,7 +127,7 @@ public class DateUtils extends Times {
      *            基础时间
      * @param seconds
      *            秒数
-     * @return
+     * @return 日期对象
      */
     public static Date addSeconds(Date base, long seconds) {
         return D(base.getTime() + seconds * 1000);
@@ -137,7 +138,7 @@ public class DateUtils extends Times {
      * 
      * @param seconds
      *            秒数
-     * @return
+     * @return 日期对象
      */
     public static Date addSeconds(long seconds) {
         return addSeconds(now(), seconds);
@@ -147,7 +148,8 @@ public class DateUtils extends Times {
      * 获取元旦日期
      * 
      * @param d
-     * @return
+     *            日期
+     * @return 元旦日期
      */
     public static Date getYearStart(Date d) {
         String year = format("yyyy", d);
@@ -158,7 +160,7 @@ public class DateUtils extends Times {
     /**
      * 获取元旦日期
      * 
-     * @return
+     * @return 元旦日期
      */
     public static Date getYearStart() {
         return getYearStart(now());
@@ -168,7 +170,8 @@ public class DateUtils extends Times {
      * 获取年末日期
      * 
      * @param d
-     * @return
+     *            日期
+     * @return 年末日期
      */
     public static Date getYearEnd(Date d) {
         String year = format("yyyy", d);
@@ -179,7 +182,7 @@ public class DateUtils extends Times {
     /**
      * 获取年末日期
      * 
-     * @return
+     * @return 年末日期
      */
     public static Date getYearEnd() {
         return getYearEnd(now());
@@ -189,7 +192,8 @@ public class DateUtils extends Times {
      * 获取月初日期
      * 
      * @param d
-     * @return
+     *            日期
+     * @return 月初日期
      */
     public static Date getMonthStart(Date d) {
         String month = format("yyyy-MM", d) + "-01";
@@ -199,7 +203,7 @@ public class DateUtils extends Times {
     /**
      * 获取月初日期
      * 
-     * @return
+     * @return 月初日期
      */
     public static Date getMonthStart() {
         return getMonthStart(now());
@@ -209,7 +213,8 @@ public class DateUtils extends Times {
      * 获取月末日期
      * 
      * @param d
-     * @return
+     *            日期
+     * @return 月末日期
      */
     public static Date getMonthEnd(Date d) {
         Calendar ca = Calendar.getInstance();
@@ -221,7 +226,7 @@ public class DateUtils extends Times {
     /**
      * 获取月末日期
      * 
-     * @return
+     * @return 月末日期
      */
     public static Date getMonthEnd() {
         return getMonthEnd(now());

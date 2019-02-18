@@ -4,7 +4,6 @@ import java.util.List;
 
 /**
  * @author 王贵源( kerbores@gmail.com)
- * @date 2018-11-07 14:36:47
  */
 public interface AuthService {
 
@@ -21,17 +20,15 @@ public interface AuthService {
             this.rememberMe = rememberMe;
         }
 
-        /**
-         * 
-         */
         public LoginDto() {
             super();
         }
 
         /**
-         * @param code
          * @param name
+         *            用户名
          * @param password
+         *            密码
          */
         public LoginDto(String name, String password) {
             super();

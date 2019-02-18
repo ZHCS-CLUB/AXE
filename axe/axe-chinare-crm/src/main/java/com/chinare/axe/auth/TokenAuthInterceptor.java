@@ -2,7 +2,6 @@ package com.chinare.axe.auth;
 
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -19,16 +18,12 @@ import com.chinare.axe.auth.Auth.Logical;
 
 /**
  * @author 王贵源( kerbores@gmail.com)
- * @date 2018-11-07 14:22:20
  */
 @Aspect
 public class TokenAuthInterceptor {
 
     AuthService authService;
 
-    /**
-     * 
-     */
     public TokenAuthInterceptor(AuthService authService) {
         this.authService = authService;
     }
@@ -75,11 +70,6 @@ public class TokenAuthInterceptor {
         throw new AuthException();
     }
 
-    /**
-     * @param auth
-     * @return
-     * @throws ExecutionException
-     */
     private boolean checkAuth(Auth auth) {
         if (authService.user() == null) {
             return false;
@@ -91,11 +81,6 @@ public class TokenAuthInterceptor {
 
     }
 
-    /**
-     * @param value
-     * @param logical
-     * @return
-     */
     private boolean checkPermission(String[] value, Logical logical) {
         if (logical == Logical.AND) {
             for (String p : value) {
@@ -117,10 +102,6 @@ public class TokenAuthInterceptor {
         }
     }
 
-    /**
-     * @param p
-     * @return
-     */
     private boolean hasPermission(String p) {
         List<String> list = authService.permissions();
         for (String permission : list) {
@@ -131,11 +112,6 @@ public class TokenAuthInterceptor {
         return false;
     }
 
-    /**
-     * @param value
-     * @param logical
-     * @return
-     */
     private boolean checkRole(String[] value, Logical logical) {
         if (logical == Logical.AND) {
             for (String r : value) {
@@ -158,10 +134,6 @@ public class TokenAuthInterceptor {
 
     }
 
-    /**
-     * @param r
-     * @return
-     */
     private boolean hasRole(String r) {
         for (String role : authService.roles()) {
             if (Strings.equals(role, r)) {
