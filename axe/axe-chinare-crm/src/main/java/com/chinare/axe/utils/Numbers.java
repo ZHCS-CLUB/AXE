@@ -24,18 +24,20 @@ public class Numbers extends Nums {
      */
     public static String format(double number, int precision) {
         if (number == 0) {
-            String temp = "0.";
+        	StringBuilder bld = new StringBuilder();
+        	bld.append("0.");
             for (int i = 0; i < precision; i++) {
-                temp += "0";
+            	bld.append("0");
             }
-            return temp;
+            return bld.toString();
         }
         number = keepPrecision(number, precision);
-        String base = "###,###.";
+        StringBuilder bld = new StringBuilder();
+    	bld.append("###,###.");
         for (int i = 0; i < precision; i++) {
-            base += "#";
+        	bld.append("#");
         }
-        NumberFormat formatter = new DecimalFormat(base);
+        NumberFormat formatter = new DecimalFormat(bld.toString());
         String target = formatter.format(number);
         int ps = 0;
         if (target.split("\\.").length > 1) {

@@ -18,6 +18,9 @@ import org.nutz.log.Logs;
  *         create at 2014年5月10日
  */
 public class FileUtils {
+	
+	private FileUtils() {
+	}
     /**
      * 清除SVN
      * 
@@ -56,8 +59,7 @@ public class FileUtils {
                     size += getDirSize(f);
                 return size;
             } else {
-                double size = file.length();
-                return size;
+                return file.length();
             }
         } else {
             return 0.0;
@@ -158,21 +160,6 @@ public class FileUtils {
         return fastFindFile(dir, name, 1);
     }
 
-    // /**
-    // * 获取APK版本信息
-    // *
-    // * @param filePath
-    // * 文件路径
-    // * @return APK内置版本信息
-    // */
-    // public static String getApkVersionInfo(String filePath) {
-    // try {
-    // return GetApkInfo.getApkInfoByFilePath(filePath).getVersionName();
-    // } catch (IOException e) {
-    // log.error(e.getMwssage());
-    // return null;
-    // }
-    // }
 
     /**
      * 快速查找文件

@@ -8,45 +8,45 @@ import java.lang.annotation.Target;
 /**
  * @author 王贵源( kerbores@gmail.com)
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ ElementType.TYPE, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Auth {
 
-    /**
-     * 
-     * @author 王贵源(wangguiyuan@chinare.com.cn)
-     *
-     */
-    public static enum Logical {
-        AND, OR
-    }
+	/**
+	 * 
+	 * @author 王贵源(wangguiyuan@chinare.com.cn)
+	 *
+	 */
+	enum Logical {
+		AND, OR
+	}
 
-    /**
-     * 
-     * @author 王贵源(wangguiyuan@chinare.com.cn)
-     *
-     */
-    public static enum AuthType {
-        ROLE, PERMISSION
-    }
+	/**
+	 * 
+	 * @author 王贵源(wangguiyuan@chinare.com.cn)
+	 *
+	 */
+	enum AuthType {
+		ROLE, PERMISSION
+	}
 
-    /**
-     * 逻辑关系
-     * 
-     * @return 逻辑关系
-     */
-    Logical logical() default Logical.AND;
+	/**
+	 * 逻辑关系
+	 * 
+	 * @return 逻辑关系
+	 */
+	Logical logical() default Logical.AND;
 
-    /**
-     * 
-     * @return 权限值
-     */
-    String[] value();
+	/**
+	 * 
+	 * @return 权限值
+	 */
+	String[] value();
 
-    /**
-     * 类型
-     * 
-     * @return 鉴权类型
-     */
-    AuthType type() default AuthType.PERMISSION;
+	/**
+	 * 类型
+	 * 
+	 * @return 鉴权类型
+	 */
+	AuthType type() default AuthType.PERMISSION;
 }

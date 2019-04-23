@@ -31,16 +31,18 @@ public class DefaultCaptchaGener implements CaptchaGener {
 	 * 
 	 * @see com.sino.scaffold.captcha.CaptchaGener#gen(int)
 	 */
+	@Override
 	public String gen(int length) {
 		if (length <= 0) {
 			return "";
 		}
 		char[] pools = pool.toCharArray();
-		String target = "";
-		while (target.length() < length) {
-			target += pools[R.random(0, pools.length - 1)];
+		StringBuilder bld = new StringBuilder();
+
+		while (bld.length() < length) {
+			bld.append(pools[R.random(0, pools.length - 1)]);
 		}
-		return target;
+		return bld.toString();
 	}
 
 }

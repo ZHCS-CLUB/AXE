@@ -14,6 +14,9 @@ import org.nutz.lang.Times;
  *
  */
 public class DateUtils extends Times {
+	
+	public static final String DATE_FORMAT_MONTH="yyyy-MM";
+	public static final String DATE_FORMAT_DAY="yyyy-MM-dd";
     /**
      * 日期加减
      * 
@@ -48,8 +51,7 @@ public class DateUtils extends Times {
      * @return 天数
      */
     public static double daysBetween(Date start, Date end) {
-        double i = (end.getTime() - start.getTime()) / 1000 / 24 / 60 / 60d;
-        return new BigDecimal(i).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        return BigDecimal.valueOf((end.getTime() - start.getTime()) / 1000.0d / 24.0d / 60.0d / 60.0d).setScale(0, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
@@ -196,7 +198,7 @@ public class DateUtils extends Times {
      * @return 月初日期
      */
     public static Date getMonthStart(Date d) {
-        String month = format("yyyy-MM", d) + "-01";
+        String month = format(DATE_FORMAT_MONTH, d) + "-01";
         return D(month);
     }
 
@@ -235,47 +237,44 @@ public class DateUtils extends Times {
     // 获取时间相关序列
     public static String getSequence() {
         String sequence = format("yyyyMMDD", now());
-        int _x = ms();
-        sequence += _x % 10000;
+        sequence += ms() % 10000;
         return sequence;
     }
 
     public static String getYearStartMonth() {
-        return format("yyyy-MM", getYearStart());
+        return format(DATE_FORMAT_MONTH, getYearStart());
     }
 
     public static String getYearStartMonth(Date date) {
-        return format("yyyy-MM", getYearStart(date));
+        return format(DATE_FORMAT_MONTH, getYearStart(date));
     }
 
     public static String getYearEndMonth() {
-        return format("yyyy-MM", getYearEnd());
+        return format(DATE_FORMAT_MONTH, getYearEnd());
     }
 
     public static String getYearEndMonth(Date date) {
-        return format("yyyy-MM", getYearEnd(date));
+        return format(DATE_FORMAT_MONTH, getYearEnd(date));
     }
 
     public static String getMonthStartDate() {
-        return format("yyyy-MM-dd", getMonthStart());
+        return format(DATE_FORMAT_DAY, getMonthStart());
     }
 
     public static String getMonthStartDate(Date date) {
-        return format("yyyy-MM-dd", getMonthStart(date));
+        return format(DATE_FORMAT_DAY, getMonthStart(date));
     }
 
     public static String getMonthEndDate() {
-        return format("yyyy-MM-dd", getMonthEnd());
+        return format(DATE_FORMAT_DAY, getMonthEnd());
     }
 
     public static String getMonthEndDate(Date date) {
-        return format("yyyy-MM-dd", getMonthEnd(date));
+        return format(DATE_FORMAT_DAY, getMonthEnd(date));
     }
 
     public static int getDayOfMonth() {
-        Calendar aCalendar = Calendar.getInstance(Locale.CHINA);
-        int day = aCalendar.getActualMaximum(Calendar.DATE);
-        return day;
+        return Calendar.getInstance(Locale.CHINA).getActualMaximum(Calendar.DATE);
     }
 
 }

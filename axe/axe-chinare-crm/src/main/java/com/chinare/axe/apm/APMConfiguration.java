@@ -1,6 +1,5 @@
 package com.chinare.axe.apm;
 
-import org.nutz.log.Log;
 import org.nutz.log.Logs;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -21,38 +20,19 @@ public class APMConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public APMAppender apmAppender() {
-		return new APMAppender() {
-			Log logger = Logs.get();
-
-			@Override
-			public void append(APMLog log) {
-				logger.info(log);
-			}
-		};
+		return Logs.get()::debug;
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public URLProvider urlProvider() {
-		return new URLProvider() {
-
-			@Override
-			public String provide() {
-				return null;
-			}
-		};
+		return () -> null;
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	public UserCollector userCollector() {
-		return new UserCollector() {
-
-			@Override
-			public String collector() {
-				return null;
-			}
-		};
+		return () -> null;
 	}
 
 }
