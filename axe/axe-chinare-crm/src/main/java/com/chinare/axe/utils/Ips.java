@@ -32,6 +32,7 @@ public class Ips {
 				}
 			}
 		} catch (Exception e) {
+			return null;
 		}
 		return null;
 	}

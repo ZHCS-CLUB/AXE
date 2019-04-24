@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.nutz.log.Logs;
+
 /**
  * 农历(阴历)工具类
  * 
@@ -94,7 +96,7 @@ public class LunarCalendar {
 	/**
 	 * 农历数据， 1901 ~ 2100 年之间正确
 	 */
-	static final  long[] lunarInfo = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0,
+	static final long[] lunarInfo = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0,
 			0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
 			0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0,
 			0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0,
@@ -121,59 +123,53 @@ public class LunarCalendar {
 	 * @param cal 日历
 	 */
 	public LunarCalendar(Calendar cal) {
-		@SuppressWarnings("unused")
-		int yearCyl, monCyl, dayCyl;
 		int leapMonth = 0;
 		Date baseDate = null;
 		try {
 			baseDate = chineseDateFormat.parse("1900年1月31日");
 		} catch (ParseException e) {
+			Logs.get().debug(e);
 		}
 
 		// 求出和1900年1月31日相差的天数
 		int offset = (int) ((cal.getTime().getTime() - baseDate.getTime()) / 86400000L);
-		dayCyl = offset + 40;
-		monCyl = 14;
 
 		// 用offset减去每农历年的天数
 		// 计算当天是农历第几天
 		// i最终结果是农历的年份
 		// offset是当年的第几天
-		int iYear, daysOfYear = 0;
+		int iYear = 0;
+		int daysOfYear = 0;
 		for (iYear = 1900; iYear < 2050 && offset > 0; iYear++) {
 			daysOfYear = yearDays(iYear);
 			offset -= daysOfYear;
-			monCyl += 12;
 		}
 		if (offset < 0) {
 			offset += daysOfYear;
 			iYear--;
-			monCyl -= 12;
 		}
 		// 农历年份
 		year = iYear;
 
-		yearCyl = iYear - 1864;
 		leapMonth = leapMonth(iYear); // 闰哪个月,1-12
 		leap = false;
 
 		// 用当年的天数offset,逐个减去每月（农历）的天数，求出当天是本月的第几天
-		int iMonth, daysOfMonth = 0;
+		int iMonth = 0;
+		int daysOfMonth = 0;
 		for (iMonth = 1; iMonth < 13 && offset > 0; iMonth++) {
 			// 闰月
 			if (leapMonth > 0 && iMonth == (leapMonth + 1) && !leap) {
 				--iMonth;
 				leap = true;
 				daysOfMonth = leapDays(year);
-			} else
+			} else {
 				daysOfMonth = monthDays(year, iMonth);
-
+			}
 			offset -= daysOfMonth;
 			// 解除闰月
 			if (leap && iMonth == (leapMonth + 1))
 				leap = false;
-			if (!leap)
-				monCyl++;
 		}
 		// offset为0时，并且刚才计算的月份是闰月，要校正
 		if (offset == 0 && leapMonth > 0 && iMonth == leapMonth + 1) {
@@ -182,14 +178,12 @@ public class LunarCalendar {
 			} else {
 				leap = true;
 				--iMonth;
-				--monCyl;
 			}
 		}
 		// offset小于0时，也要校正
 		if (offset < 0) {
 			offset += daysOfMonth;
 			--iMonth;
-			--monCyl;
 		}
 		month = iMonth;
 		day = offset + 1;
@@ -200,13 +194,13 @@ public class LunarCalendar {
 	}
 
 	// ====== 传回农历 y年的生肖
-	final public String animalsYear() {
-		final String[] Animals = new String[] { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
-		return Animals[(year - 4) % 12];
+	public final String animalsYear() {
+		final String[] animals = new String[] { "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊", "猴", "鸡", "狗", "猪" };
+		return animals[(year - 4) % 12];
 	}
 
 	// ====== 传入 offset 传回干支, 0=甲子
-	final public String cyclical() {
+	public final String cyclical() {
 		int num = year - 1900 + 36;
 		return (cyclicalm(num));
 	}
@@ -225,13 +219,13 @@ public class LunarCalendar {
 	}
 
 	private String toCharector(int year) {
-		String target = "";
+		StringBuilder target = new StringBuilder();
 		while (year != 0) {
 			int index = year % 10;
 			year = year / 10;
-			target = numbers[index] + target;
+			target.append(numbers[index]);
 		}
-		return target;
+		return target.reverse().toString();
 	}
 
 	@Override

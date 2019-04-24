@@ -2,10 +2,8 @@ package com.chinare.axe.utils;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +15,7 @@ import org.nutz.http.Request.METHOD;
 import org.nutz.http.Response;
 import org.nutz.http.Sender;
 import org.nutz.http.sender.PostSender;
+import org.nutz.img.Images;
 import org.nutz.lang.Files;
 import org.nutz.lang.Lang;
 import org.nutz.lang.util.NutMap;
@@ -30,7 +29,10 @@ import org.nutz.repo.Base64;
  * @author Kerbores
  * 
  */
-public class Images extends org.nutz.img.Images {
+public class ImageUtils extends Images {
+	private ImageUtils() {
+	}
+
 	static NutFilePool pool = new NutFilePool(System.getProperty("java.io.tmpdir"), 3000);// 创建一个临时文件池
 
 	/**
@@ -52,7 +54,7 @@ public class Images extends org.nutz.img.Images {
 		bfi = zoomScale(bfi, (int) (bfi.getWidth() * scale), (int) (bfi.getHeight() * scale));// 等比缩放
 		File f = pool.createFile("." + Files.getSuffixName(src));
 		write(bfi, f);// 写入
-		bfi = clipScale(f.getPath(), f.getPath(), new int[] { startX, startY }, new int[] { endX, endY });// 裁剪
+		clipScale(f.getPath(), f.getPath(), new int[] { startX, startY }, new int[] { endX, endY });// 裁剪
 		return read(f);
 	}
 
@@ -75,10 +77,6 @@ public class Images extends org.nutz.img.Images {
 	public static BufferedImage zoomAndClip(File src, double scale, Point start, int w, int h) throws IOException {
 		return zoomAndClip(src, scale, start.getX(), start.getY(), start.getX() + w, start.getY() + h);
 	}
-
-//	public static BufferedImage zoomAndClip(String srcPath, double scale, Point start, int w, int h) throws Exception {
-//		return zoomAndClip(f, scale, start, w, h);
-//	}
 
 	/**
 	 * 坐标点
@@ -136,10 +134,10 @@ public class Images extends org.nutz.img.Images {
 	 * @param outFile 输出文件
 	 * @return 文件
 	 */
-	public static File GenerateImage(String imgStr, File outFile) {
+	public static File generateImage(String imgStr, File outFile) {
 		if (imgStr == null) // 图像数据为空
 			return null;
-		try {
+		try (OutputStream out = new FileOutputStream(outFile)) {
 			// Base64解码
 			byte[] b = Base64.decode(imgStr);
 			for (int i = 0; i < b.length; ++i) {
@@ -147,10 +145,8 @@ public class Images extends org.nutz.img.Images {
 					b[i] += 256;
 				}
 			}
-			OutputStream out = new FileOutputStream(outFile);
 			out.write(b);
 			out.flush();
-			out.close();
 			return outFile;
 		} catch (Exception e) {
 			log.error(e.getMessage());
@@ -166,9 +162,9 @@ public class Images extends org.nutz.img.Images {
 	 * @param suffix 扩展名
 	 * @return 文件
 	 */
-	public static File GenerateImage(String imgStr, File outDir, String suffix) {
+	public static File generateImage(String imgStr, File outDir, String suffix) {
 		File file = new File(outDir.getPath() + File.separator + System.nanoTime() + "." + suffix);
-		return GenerateImage(imgStr, file);
+		return generateImage(imgStr, file);
 	}
 
 	/**
@@ -177,8 +173,8 @@ public class Images extends org.nutz.img.Images {
 	 * @param imgStr base64 image信息串
 	 * @return 图片文件
 	 */
-	public static File GeneratePngImage(String imgStr) {// 对字节数组字符串进行Base64解码并生成图片
-		return GenerateImage(imgStr, new File(System.nanoTime() + ".png"));
+	public static File generatePngImage(String imgStr) {// 对字节数组字符串进行Base64解码并生成图片
+		return generateImage(imgStr, new File(System.nanoTime() + ".png"));
 	}
 
 	/**
@@ -187,25 +183,13 @@ public class Images extends org.nutz.img.Images {
 	 * @param imgFile 图片文件
 	 * @return base64 图片信息串
 	 */
-	public static String GetImageStr(File imgFile) {
-		InputStream in = null;
-		byte[] data = null;
-		// 读取图片字节数组
-		try {
-			in = new FileInputStream(imgFile);
-			data = new byte[in.available()];
-			in.read(data);
-			in.close();
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		}
-		// 对字节数组Base64编码
-		return Base64.encodeToString(data, false);
+	public static String getImageStr(File imgFile) {
+		return Base64.encodeToString(Files.readBytes(imgFile), false);
 	}
 
 	public static NutMap baiduOcr(String path, String key) {
 		NutMap params = NutMap.NEW();
-		Map<String, String> header = new HashMap<String, String>();
+		Map<String, String> header = new HashMap<>();
 		header.put("apikey", key);
 
 		params.put("fromdevice", "pc");
@@ -213,7 +197,7 @@ public class Images extends org.nutz.img.Images {
 		params.put("detecttype", "LocateRecognize");
 		params.put("languagetype", "CHN_ENG");
 		params.put("imagetype", "1");
-		params.put("image", GetImageStr(new File(path)));
+		params.put("image", getImageStr(new File(path)));
 
 		Request request = Request.create("http://apis.baidu.com/apistore/idlocr/ocr", METHOD.POST, params,
 				Header.create(header));

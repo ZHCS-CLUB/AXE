@@ -131,23 +131,12 @@ public class CharSequence {
 		this.stringValue = in;
 	}
 
-	@SuppressWarnings("unused")
-	private String getStringValue() {
+	public String getStringValue() {
 		return stringValue;
 	}
 
-	private List<Integer> getValue() {
+	public List<Integer> getValue() {
 		return value;
-	}
-
-	@SuppressWarnings("unused")
-	private void setStringValue(String stringValue) {
-		this.stringValue = stringValue;
-	}
-
-	@SuppressWarnings("unused")
-	private void setValue(List<Integer> value) {
-		this.value = value;
 	}
 
 }

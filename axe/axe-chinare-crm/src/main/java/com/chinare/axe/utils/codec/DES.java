@@ -1,8 +1,14 @@
 package com.chinare.axe.utils.codec;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
@@ -18,113 +24,116 @@ import org.nutz.repo.Base64;
  */
 public class DES {
 
-    private final static String DES = "DES";
+	private DES() {
+	}
 
-    public static String DEFAULT_KEY = "abcdefgh";
+	private static final String DES_NAME = "DES";
 
-    private static Log log = Logs.get();
+	public static final String DEFAULT_KEY = "abcdefgh";
 
-    public static String encrypt(String data) {
-        return encrypt(data, DEFAULT_KEY);
-    }
+	private static Log log = Logs.get();
 
-    public static String decrypt(String data) {
-        return decrypt(data, DEFAULT_KEY);
-    }
+	public static String encrypt(String data) {
+		return encrypt(data, DEFAULT_KEY);
+	}
 
-    /**
-     * Description 根据键值进行加密
-     * 
-     * @param data
-     *            数据
-     * @param key
-     *            加密键byte数组
-     * @return 密文
-     */
-    public static String encrypt(String data, String key) {
-        byte[] bt = null;
-        try {
-            bt = encrypt(data.getBytes(), key.getBytes());
-        }
-        catch (Exception e) {
-            log.error(e);
-        }
-        return Base64.encodeToString(bt, false);
-    }
+	public static String decrypt(String data) {
+		return decrypt(data, DEFAULT_KEY);
+	}
 
-    /**
-     * Description 根据键值进行解密
-     * 
-     * @param data
-     *            数据
-     * @param key
-     *            加密键byte数组
-     * @return 明文
-     */
-    public static String decrypt(String data, String key) {
-        if (data == null)
-            return null;
+	/**
+	 * Description 根据键值进行加密
+	 * 
+	 * @param data 数据
+	 * @param key  加密键byte数组
+	 * @return 密文
+	 */
+	public static String encrypt(String data, String key) {
+		byte[] bt = null;
+		try {
+			bt = encrypt(data.getBytes(), key.getBytes());
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return Base64.encodeToString(bt, false);
+	}
 
-        byte[] buf = Base64.decode(data);
-        byte[] bt = null;
-        try {
-            bt = decrypt(buf, key.getBytes());
-        }
-        catch (Exception e) {
-            log.error(e);
-        }
-        return new String(bt);
-    }
+	/**
+	 * Description 根据键值进行解密
+	 * 
+	 * @param data 数据
+	 * @param key  加密键byte数组
+	 * @return 明文
+	 */
+	public static String decrypt(String data, String key) {
+		if (data == null)
+			return null;
 
-    /**
-     * Description 根据键值进行加密
-     * 
-     * @param data
-     *            数据
-     * @param key
-     *            加密键byte数组
-     * @return 密文
-     * @throws Exception
-     *             加密算法时
-     */
-    private static byte[] encrypt(byte[] data, byte[] key) throws Exception {
-        SecureRandom sr = new SecureRandom();
+		byte[] buf = Base64.decode(data);
+		byte[] bt = null;
+		try {
+			bt = decrypt(buf, key.getBytes());
+		} catch (Exception e) {
+			log.error(e);
+		}
+		return new String(bt);
+	}
 
-        DESKeySpec dks = new DESKeySpec(key);
+	/**
+	 * Description 根据键值进行加密
+	 * 
+	 * @param data 数据
+	 * @param key  加密键byte数组
+	 * @return 密文
+	 * @throws InvalidKeyException
+	 * @throws NoSuchAlgorithmException
+	 * @throws NoSuchPaddingException
+	 * @throws InvalidKeySpecException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 */
+	private static byte[] encrypt(byte[] data, byte[] key) throws InvalidKeyException, NoSuchAlgorithmException,
+			NoSuchPaddingException, InvalidKeySpecException, IllegalBlockSizeException, BadPaddingException {
+		SecureRandom sr = new SecureRandom();
 
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
-        SecretKey securekey = keyFactory.generateSecret(dks);
+		DESKeySpec dks = new DESKeySpec(key);
 
-        Cipher cipher = Cipher.getInstance(DES);
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES_NAME);
+		SecretKey securekey = keyFactory.generateSecret(dks);
 
-        cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
+		Cipher cipher = Cipher.getInstance(DES_NAME);
 
-        return cipher.doFinal(data);
-    }
+		cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
 
-    /**
-     * Description 根据键值进行解密
-     * 
-     * @param data
-     *            数据
-     * @param key
-     *            加密键byte数组
-     * @return 明文
-     * @throws Exception
-     *             加密算法时
-     */
-    private static byte[] decrypt(byte[] data, byte[] key) throws Exception {
-        SecureRandom sr = new SecureRandom();
+		return cipher.doFinal(data);
+	}
 
-        DESKeySpec dks = new DESKeySpec(key);
+	/**
+	 * Description 根据键值进行解密
+	 * 
+	 * @param data 数据
+	 * @param key  加密键byte数组
+	 * @return 明文
+	 * @throws InvalidKeyException
+	 * @throws NoSuchAlgorithmException
+	 * @throws InvalidKeySpecException
+	 * @throws NoSuchPaddingException
+	 * @throws BadPaddingException
+	 * @throws IllegalBlockSizeException
+	 */
+	private static byte[] decrypt(byte[] data, byte[] key) throws InvalidKeyException, NoSuchAlgorithmException,
+			InvalidKeySpecException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+		SecureRandom sr = new SecureRandom();
 
-        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
-        SecretKey securekey = keyFactory.generateSecret(dks);
+		DESKeySpec dks = new DESKeySpec(key);
 
-        Cipher cipher = Cipher.getInstance(DES);
+		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES_NAME);
+		SecretKey securekey = keyFactory.generateSecret(dks);
 
-        cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+		Cipher cipher = Cipher.getInstance(DES_NAME);
 
-        return cipher.doFinal(data);
-    }
+		cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
+
+		return cipher.doFinal(data);
+	}
 }

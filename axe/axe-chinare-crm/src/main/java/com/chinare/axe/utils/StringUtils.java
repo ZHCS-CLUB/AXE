@@ -91,6 +91,10 @@ public class StringUtils {
 
 	}
 
+	public static String reverse(String info) {
+		return new StringBuffer(info).reverse().toString();
+	}
+
 	public static <T> List<T> stringConvertList(String source, Class<T> clazz) {
 		if (Strings.isBlank(source)) {
 			return new ArrayList<>();
