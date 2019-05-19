@@ -41,7 +41,7 @@ public @interface Auth {
 	 * 
 	 * @return 权限值
 	 */
-	String[] value();
+	String[] value() default {};
 
 	/**
 	 * 类型
