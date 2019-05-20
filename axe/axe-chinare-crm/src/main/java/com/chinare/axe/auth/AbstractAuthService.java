@@ -45,7 +45,7 @@ public abstract class AbstractAuthService implements AuthService {
 			}
 		}
 		return false;
-	};
+	}
 
 	@Override
 	public String token() {

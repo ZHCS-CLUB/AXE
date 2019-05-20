@@ -8,6 +8,7 @@
 		<version>2.1.5.RELEASE</version>
 	</parent>
 	<artifactId>axe-chinare-crm</artifactId>
+	<version>2.1.5.RELEASE-20190516</version>
 	<name>axe-chinare-crm</name>
 	<description>巨灾公司项目开发基本包</description>
 	<properties>
