@@ -34,9 +34,9 @@ public abstract class AbstractAuthService implements AuthService {
 	}
 
 	/**
-	 * @param requestURL
-	 * @param withoutAuthenticationUrlRegulars
-	 * @return
+	 * @param requestURL                       请求地址
+	 * @param withoutAuthenticationUrlRegulars 放行url正则
+	 * @return 是否放行
 	 */
 	protected boolean pass(StringBuffer requestURL, String[] withoutAuthenticationUrlRegulars) {
 		for (String regular : withoutAuthenticationUrlRegulars) {

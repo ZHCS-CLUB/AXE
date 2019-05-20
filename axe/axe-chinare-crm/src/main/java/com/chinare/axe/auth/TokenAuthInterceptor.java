@@ -7,11 +7,13 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
+import org.springframework.core.annotation.AnnotationUtils;
 
 import com.chinare.axe.auth.Auth.AuthType;
 import com.chinare.axe.auth.Auth.Logical;
@@ -25,40 +27,33 @@ public class TokenAuthInterceptor {
 	AuthService authService;
 
 	String[] withoutAuthenticationUrlRegulars;
+	Log logger = Logs.get();
 
 	public TokenAuthInterceptor(AuthService authService, String[] withoutAuthenticationUrlRegulars) {
 		this.authService = authService;
 		this.withoutAuthenticationUrlRegulars = withoutAuthenticationUrlRegulars;
 	}
 
-	Log logger = Logs.get();
-
 	public Auth getAuth(JoinPoint joinPoint) {
-		String targetName = joinPoint.getTarget().getClass().getName();
-		String methodName = joinPoint.getSignature().getName();
-		Object[] arguments = joinPoint.getArgs();
-		Class targetClass = null;
-		try {
-			targetClass = Class.forName(targetName);
-		} catch (ClassNotFoundException e) {
-			logger.debug(e.getMessage());
-			return null;
-		}
-		Method[] methods = targetClass.getMethods();
-		Auth target = null;
-		for (Method method : methods) {
-			if (method.getName().equals(methodName)) {
-				Class[] clazzs = method.getParameterTypes();
-				if (clazzs.length == arguments.length) {
-					target = method.getAnnotation(Auth.class);
-					break;
-				}
+		MethodSignature joinPointObject = (MethodSignature) joinPoint.getSignature();
+		Method method = joinPointObject.getMethod();
+
+		boolean flag = method.isAnnotationPresent(Auth.class);
+		if (flag) {
+			Auth annotation = method.getAnnotation(Auth.class);
+			return annotation;
+		} else {
+			Auth classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(),
+					Auth.class);
+			if (classAnnotation != null) {
+				return classAnnotation;
+			} else {
+				return null;
 			}
 		}
-		return target;
 	}
 
-	@Around("@annotation(com.chinare.axe.auth.Auth)")
+	@Around("@within(com.chinare.axe.auth.Auth)|| @annotation(com.chinare.axe.auth.Auth)")
 	public Object filter(ProceedingJoinPoint point) throws Throwable {
 		if (!authService.authentication(this.withoutAuthenticationUrlRegulars)) {
 			throw new AuthException();

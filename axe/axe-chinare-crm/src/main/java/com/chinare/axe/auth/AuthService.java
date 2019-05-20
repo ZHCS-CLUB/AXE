@@ -65,8 +65,10 @@ public interface AuthService {
 	public User login(LoginDto loginDto);
 
 	/**
-	 * @param withoutAuthenticationUrlRegulars
-	 * @return
+	 * 认证检查
+	 * 
+	 * @param withoutAuthenticationUrlRegulars 不需要检查的url正则表达式
+	 * @return 认证检查通过状态
 	 */
 	public boolean authentication(String[] withoutAuthenticationUrlRegulars);
 
