@@ -37,20 +37,8 @@ public class TokenAuthInterceptor {
 	public Auth getAuth(JoinPoint joinPoint) {
 		MethodSignature joinPointObject = (MethodSignature) joinPoint.getSignature();
 		Method method = joinPointObject.getMethod();
-
-		boolean flag = method.isAnnotationPresent(Auth.class);
-		if (flag) {
-			Auth annotation = method.getAnnotation(Auth.class);
-			return annotation;
-		} else {
-			Auth classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(),
-					Auth.class);
-			if (classAnnotation != null) {
-				return classAnnotation;
-			} else {
-				return null;
-			}
-		}
+		return method.isAnnotationPresent(Auth.class) ? method.getAnnotation(Auth.class)
+				: AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(), Auth.class);
 	}
 
 	@Around("@within(com.chinare.axe.auth.Auth)|| @annotation(com.chinare.axe.auth.Auth)")
