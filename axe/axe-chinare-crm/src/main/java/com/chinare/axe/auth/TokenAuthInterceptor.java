@@ -24,121 +24,120 @@ import com.chinare.axe.auth.Auth.Logical;
 @Aspect
 public class TokenAuthInterceptor {
 
-	AuthService authService;
+    AuthService authService;
 
-	String[] withoutAuthenticationUrlRegulars;
-	Log logger = Logs.get();
+    List<String> withoutAuthenticationUrlRegulars;
+    Log logger = Logs.get();
 
-	public TokenAuthInterceptor(AuthService authService, String[] withoutAuthenticationUrlRegulars) {
-		this.authService = authService;
-		this.withoutAuthenticationUrlRegulars = withoutAuthenticationUrlRegulars;
-	}
+    public TokenAuthInterceptor(AuthService authService, List<String> withoutAuthenticationUrlRegulars) {
+        this.authService = authService;
+        this.withoutAuthenticationUrlRegulars = withoutAuthenticationUrlRegulars;
+    }
 
-	public Auth getAuth(JoinPoint joinPoint) {
-		MethodSignature joinPointObject = (MethodSignature) joinPoint.getSignature();
-		Method method = joinPointObject.getMethod();
+    public Auth getAuth(JoinPoint joinPoint) {
+        MethodSignature joinPointObject = (MethodSignature) joinPoint.getSignature();
+        Method method = joinPointObject.getMethod();
 
-		boolean flag = method.isAnnotationPresent(Auth.class);
-		if (flag) {
-			Auth annotation = method.getAnnotation(Auth.class);
-			return annotation;
-		} else {
-			Auth classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(),
-					Auth.class);
-			if (classAnnotation != null) {
-				return classAnnotation;
-			} else {
-				return null;
-			}
-		}
-	}
+        boolean flag = method.isAnnotationPresent(Auth.class);
+        if (flag) {
+            Auth annotation = method.getAnnotation(Auth.class);
+            return annotation;
+        } else {
+            Auth classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(), Auth.class);
+            if (classAnnotation != null) {
+                return classAnnotation;
+            } else {
+                return null;
+            }
+        }
+    }
 
-	@Around("@within(com.chinare.axe.auth.Auth)|| @annotation(com.chinare.axe.auth.Auth)")
-	public Object filter(ProceedingJoinPoint point) throws Throwable {
-		if (!authService.authentication(this.withoutAuthenticationUrlRegulars)) {
-			throw new AuthException();
-		}
-		Auth auth = getAuth(point);
-		if (auth == null || auth.value().length == 0) {// 没有注解 跳过
-			return point.proceed();
-		}
+    @Around("@within(com.chinare.axe.auth.Auth)|| @annotation(com.chinare.axe.auth.Auth)")
+    public Object filter(ProceedingJoinPoint point) throws Throwable {
+        if (!authService.authentication(this.withoutAuthenticationUrlRegulars)) {
+            throw new AuthException();
+        }
+        Auth auth = getAuth(point);
+        if (auth == null || auth.value().length == 0) {// 没有注解 跳过
+            return point.proceed();
+        }
 
-		if (checkAuth(auth)) { // 验证通过执行业务
-			return point.proceed();
-		}
-		// 不能通过 返回401状态码
-		throw new AuthException();
-	}
+        if (checkAuth(auth)) { // 验证通过执行业务
+            return point.proceed();
+        }
+        // 不能通过 返回401状态码
+        throw new AuthException();
+    }
 
-	private boolean checkAuth(Auth auth) {
-		if (authService.user() == null) {
-			return false;
-		}
-		if (auth.type() == AuthType.ROLE) {
-			return checkRole(auth.value(), auth.logical());
-		}
-		return checkPermission(auth.value(), auth.logical());
+    private boolean checkAuth(Auth auth) {
+        if (authService.user() == null) {
+            return false;
+        }
+        if (auth.type() == AuthType.ROLE) {
+            return checkRole(auth.value(), auth.logical());
+        }
+        return checkPermission(auth.value(), auth.logical());
 
-	}
+    }
 
-	private boolean checkPermission(String[] value, Logical logical) {
-		if (logical == Logical.AND) {
-			for (String p : value) {
-				if (!hasPermission(p)) {
-					logger.debugf("user does not has peermission %s", p);
-					return false;
-				}
-			}
-			return true;
-		} else {
-			for (String p : value) {
-				if (hasPermission(p)) {
-					return true;
-				}
-			}
-			logger.debugf("user does not has any permission of %s", Json.toJson(value, JsonFormat.compact()));
-			return false;
-		}
-	}
+    private boolean checkPermission(String[] value, Logical logical) {
+        if (logical == Logical.AND) {
+            for (String p : value) {
+                if (!hasPermission(p)) {
+                    logger.debugf("user does not has peermission %s", p);
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            for (String p : value) {
+                if (hasPermission(p)) {
+                    return true;
+                }
+            }
+            logger.debugf("user does not has any permission of %s", Json.toJson(value, JsonFormat.compact()));
+            return false;
+        }
+    }
 
-	private boolean hasPermission(String p) {
-		List<String> list = authService.permissions();
-		for (String permission : list) {
-			if (Strings.equals(permission, p)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    private boolean hasPermission(String p) {
+        List<String> list = authService.permissions();
+        for (String permission : list) {
+            if (Strings.equals(permission, p)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	private boolean checkRole(String[] value, Logical logical) {
-		if (logical == Logical.AND) {
-			for (String r : value) {
-				if (!hasRole(r)) {
-					logger.debugf("user does not has role %s", r);
-					return false;
-				}
-			}
-			return true;
-		} else {
-			for (String r : value) {
-				if (hasRole(r)) {
-					return true;
-				}
-			}
-			logger.debugf("user does not has any role of %s", Json.toJson(value, JsonFormat.compact()));
-			return false;
-		}
+    private boolean checkRole(String[] value, Logical logical) {
+        if (logical == Logical.AND) {
+            for (String r : value) {
+                if (!hasRole(r)) {
+                    logger.debugf("user does not has role %s", r);
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            for (String r : value) {
+                if (hasRole(r)) {
+                    return true;
+                }
+            }
+            logger.debugf("user does not has any role of %s", Json.toJson(value, JsonFormat.compact()));
+            return false;
+        }
 
-	}
+    }
 
-	private boolean hasRole(String r) {
-		for (String role : authService.roles()) {
-			if (Strings.equals(role, r)) {
-				return true;
-			}
-		}
-		return false;
-	}
+    private boolean hasRole(String r) {
+        for (String role : authService.roles()) {
+            if (Strings.equals(role, r)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
