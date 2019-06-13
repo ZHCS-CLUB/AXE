@@ -18,17 +18,6 @@
 			<id>spring</id>
 			<url>https://jfrog.nutz.cn/artifactory/spring</url>
 		</repository>
-		<repository>
-			<id>nutz-snapshots</id>
-			<url>https://jfrog.nutz.cn/artifactory/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
 	</repositories>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
