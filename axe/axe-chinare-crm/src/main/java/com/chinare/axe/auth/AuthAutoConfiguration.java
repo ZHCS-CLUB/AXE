@@ -1,6 +1,5 @@
 package com.chinare.axe.auth;
 
-import org.nutz.lang.Lang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -15,14 +14,13 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(AuthAutoConfigurationPeroperties.class)
 public class AuthAutoConfiguration {
 
-	@Autowired
-	AuthAutoConfigurationPeroperties configurationPeroperties;
+    @Autowired
+    AuthAutoConfigurationPeroperties configurationPeroperties;
 
-	@Bean
-	@ConditionalOnBean(AuthService.class)
-	public TokenAuthInterceptor tokenAuthInterceptor(AuthService authService) {
-		return new TokenAuthInterceptor(authService,
-				Lang.collection2array(configurationPeroperties.getWithoutAuthenticationUrlRegulars()));
-	}
+    @Bean
+    @ConditionalOnBean(AuthService.class)
+    public TokenAuthInterceptor tokenAuthInterceptor(AuthService authService) {
+        return new TokenAuthInterceptor(authService, configurationPeroperties.getWithoutAuthenticationUrlRegulars());
+    }
 
 }

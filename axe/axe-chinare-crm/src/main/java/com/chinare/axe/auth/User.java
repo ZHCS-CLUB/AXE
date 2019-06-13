@@ -1,5 +1,7 @@
 package com.chinare.axe.auth;
 
+import java.util.List;
+
 import org.nutz.lang.util.NutMap;
 
 /**
@@ -9,7 +11,27 @@ public class User {
 	String userName;
 	String password;
 	String token;
+	List<String> roles;
+	List<String> permissions;
 	NutMap extInfo = NutMap.NEW();
+
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public User setRoles(List<String> roles) {
+		this.roles = roles;
+		return this;
+	}
+
+	public List<String> getPermissions() {
+		return permissions;
+	}
+
+	public User setPermissions(List<String> permissions) {
+		this.permissions = permissions;
+		return this;
+	}
 
 	public User() {
 	}
@@ -17,6 +39,7 @@ public class User {
 	public User(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
+		this.token = JwtUtil.sign(userName, password);
 	}
 
 	/**
