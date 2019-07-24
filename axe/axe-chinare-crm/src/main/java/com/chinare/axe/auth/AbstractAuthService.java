@@ -29,7 +29,7 @@ public abstract class AbstractAuthService implements AuthService {
 
     @Override
     public boolean authentication(List<String> withoutAuthenticationUrlRegulars) {
-        if (pass(request.getRequestURL(), withoutAuthenticationUrlRegulars)) {
+        if (pass(request.getRequestURI(), withoutAuthenticationUrlRegulars)) {
             return true;
         }
         return user() != null;
@@ -42,9 +42,9 @@ public abstract class AbstractAuthService implements AuthService {
      *            放行url正则
      * @return 是否放行
      */
-    protected boolean pass(StringBuffer requestURL, List<String> withoutAuthenticationUrlRegulars) {
+    protected boolean pass(String uri, List<String> withoutAuthenticationUrlRegulars) {
         for (String regular : withoutAuthenticationUrlRegulars) {
-            if (Pattern.matches(regular, requestURL)) {
+            if (Pattern.matches(regular, uri)) {
                 return true;
             }
         }

@@ -5,7 +5,7 @@
 	<groupId>club.zhcs</groupId>
 	<artifactId>axe</artifactId>
 	<name>AXE</name>
-	<!-- version>2.1.6.RELEASE</version-->
+	<version>2.1.6.RELEASE.2019.07.24</version>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
 	<packaging>pom</packaging>
