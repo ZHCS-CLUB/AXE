@@ -36,7 +36,7 @@ public abstract class AbstractAuthService implements AuthService {
     }
 
     /**
-     * @param requestURL
+     * @param uri
      *            请求地址
      * @param withoutAuthenticationUrlRegulars
      *            放行url正则
