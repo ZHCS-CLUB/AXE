@@ -5,7 +5,7 @@
 	<groupId>club.zhcs</groupId>
 	<artifactId>axe</artifactId>
 	<name>AXE</name>
-	<version>2.1.6.RELEASE.2019.07.24</version>
+	<version>2.1.7.RELEASE.2019.09.03</version>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
 	<packaging>pom</packaging>
@@ -22,7 +22,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.6.RELEASE</version>
+		<version>2.1.7.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<licenses>
