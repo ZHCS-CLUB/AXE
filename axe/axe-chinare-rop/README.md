@@ -141,6 +141,7 @@ public class RopDemoApplicationTests {
 			<version>2.1.8.RELEASE</version>
 		</dependency>
 	 ```
+	 
 	-  在application.yml中添加
 
 	```yaml
@@ -151,6 +152,7 @@ public class RopDemoApplicationTests {
 	    digest-name: SHA1
 	    endpoint: http://127.0.0.1:8080/rop.rest
 	```
+	
 	- tips
 	    - 千万不要泄露自己应用的appSecret
 	    - appSecret 不要硬编码在代码中
