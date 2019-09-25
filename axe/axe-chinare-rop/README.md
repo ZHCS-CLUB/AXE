@@ -132,28 +132,29 @@ public class RopDemoApplicationTests {
 	</bean>
 	```
   	+ spring-boot
-	  -  添加依赖
+  	
+		 -  添加依赖
 
-	 ```xml
-		<dependency>
-			<groupId>club.zhcs</groupId>
-			<artifactId>axe-chinare-rop-client</artifactId>
-			<version>2.1.8.RELEASE</version>
-		</dependency>
-	 ```
-	 
-	-  在application.yml中添加
+		 ```xml
+			<dependency>
+				<groupId>club.zhcs</groupId>
+				<artifactId>axe-chinare-rop-client</artifactId>
+				<version>2.1.8.RELEASE</version>
+			</dependency>
+		 ```
 
-	```yaml
-	rop:
-	  client:
-	    app-key: test
-	    app-secret: 098f6bcd4621d373cade4e832627b4f6
-	    digest-name: SHA1
-	    endpoint: http://127.0.0.1:8080/rop.rest
-	```
+		-  在application.yml中添加
+
+		```yaml
+		rop:
+		  client:
+			app-key: test
+			app-secret: 098f6bcd4621d373cade4e832627b4f6
+			digest-name: SHA1
+			endpoint: http://127.0.0.1:8080/rop.rest
+		```
 	
-	- tips
+- tips
 	    - 千万不要泄露自己应用的appSecret
 	    - appSecret 不要硬编码在代码中
 	    - 开发环境的appSecret和生成环境的appSecret可使用环境感知环境变量等方式进行加载,以确保安全
