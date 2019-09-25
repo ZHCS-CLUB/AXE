@@ -19,7 +19,7 @@ public interface ClientSigner extends Signer {
      *            随机串
      * @param request
      *            请求
-     * @return
+     * @return 签名字符串
      */
     public String sign(String appSecret, String timestamp, String gateway, String nonce, ROPRequest request);
 }

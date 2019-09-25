@@ -7,9 +7,6 @@ public class ROPException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     *
-     */
     public ROPException(String message) {
         super(message);
     }

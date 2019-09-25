@@ -71,7 +71,7 @@ public class ROPData<T> {
     /**
      * 未登录
      *
-     * @return
+     * @return 未登录
      */
     public static ROPData unlogin() {
         return ROPData.me().setOperationState(OperationState.UNLOGINED);
@@ -109,7 +109,7 @@ public class ROPData<T> {
     /**
      * 是否成功
      *
-     * @return
+     * @return 是否成功
      */
     public boolean isSuccess() {
         return getOperationState() == OperationState.SUCCESS;

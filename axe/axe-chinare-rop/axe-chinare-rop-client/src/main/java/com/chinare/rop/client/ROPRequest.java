@@ -237,19 +237,12 @@ public class ROPRequest {
         return this;
     }
 
-    /**
-     * 设置发送内容的编码,仅对String或者Map<String,Object>类型的data有效
-     */
     public ROPRequest setEnc(String reqEnc) {
         if (reqEnc != null)
             this.enc = reqEnc;
         return this;
     }
 
-    /**
-     * @param gateway
-     *            the gateway to set
-     */
     public ROPRequest setGateway(String gateway) {
         this.gateway = gateway;
         return this;

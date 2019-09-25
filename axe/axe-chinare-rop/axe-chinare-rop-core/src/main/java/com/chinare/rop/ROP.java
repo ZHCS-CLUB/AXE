@@ -4,7 +4,7 @@ package com.chinare.rop;
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
 public class ROP {
-    public static final String DESCRIPTION = "nutz open platform";
+    public static final String DESCRIPTION = "chinare rest open platform";
     public static final int MAJOR_VERSION = 1;
     public static final int MINOR_VERSION = 0;
     public static final String NAME = "rop";

@@ -31,9 +31,6 @@ public class ResettableStreamHttpServletRequest extends HttpServletRequestWrappe
 
         private ByteArrayInputStream stream;
 
-        /**
-         *
-         */
         public ResettableServletInputStream(ByteArrayInputStream stream) {
             this.stream = stream;
         }
@@ -130,6 +127,27 @@ public class ResettableStreamHttpServletRequest extends HttpServletRequestWrappe
         return new BufferedReader(new InputStreamReader(getInputStream()));
     }
 
+    protected void parseParam(Map<String, String[]> target, String seg) throws UnsupportedEncodingException {
+        String key = seg.split("=")[0];
+        String val = seg.split("=")[1] == null ? null : seg.split("=")[1];
+
+        String[] v;
+        if (val == null) {
+            v = target.get(key);// 获取之前的
+        } else {
+            List<String> vals = new ArrayList<>();
+            for (String v1 : val.split(",")) {
+                vals.add(URLDecoder.decode(v1, request.getCharacterEncoding()));
+            }
+            String[] v2 = target.get(key);
+            if (v2 != null) {
+                vals.addAll(Lang.array2list(v2));
+            }
+            v = Lang.collection2array(vals);
+        }
+        target.put(key, v);
+    }
+
     /**
      * @return
      * @throws IOException
@@ -154,26 +172,5 @@ public class ResettableStreamHttpServletRequest extends HttpServletRequestWrappe
         }
 
         return target;
-    }
-
-    protected void parseParam(Map<String, String[]> target, String seg) throws UnsupportedEncodingException {
-        String key = seg.split("=")[0];
-        String val = seg.split("=")[1] == null ? null : seg.split("=")[1];
-
-        String[] v;
-        if (val == null) {
-            v = target.get(key);// 获取之前的
-        } else {
-            List<String> vals = new ArrayList<>();
-            for (String v1 : val.split(",")) {
-                vals.add(URLDecoder.decode(v1, request.getCharacterEncoding()));
-            }
-            String[] v2 = target.get(key);
-            if (v2 != null) {
-                vals.addAll(Lang.array2list(v2));
-            }
-            v = Lang.collection2array(vals);
-        }
-        target.put(key, v);
     }
 }

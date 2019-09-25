@@ -39,13 +39,6 @@ public class ROPSignInterceptor {
         this.digestName = digestName;
     }
 
-    /**
-     * 声明一个切面
-     *
-     * @param point
-     * @return
-     * @throws Throwable
-     */
     @Around("@within(com.chinare.rop.server.ROP)|| @annotation(com.chinare.rop.server.ROP)")
     public Object filter(ProceedingJoinPoint point) throws Throwable {
         Signer signer = new DigestSigner(digestName);

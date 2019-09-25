@@ -33,7 +33,7 @@ public class ROPServerAutoConfiguration {
     /**
      * 没有的时候垫底的存在,不建议使用,请自行实现AppsecretFetcher并声明为bean
      *
-     * @return
+     * @return 默认 AppsecretFetcher
      */
     @Bean
     @ConditionalOnMissingBean(AppsecretFetcher.class)
@@ -41,11 +41,6 @@ public class ROPServerAutoConfiguration {
         return new DefaultMD5Fetcher();
     }
 
-    /**
-     * 注册一个拦截器,让servlet的流可重复读
-     *
-     * @return
-     */
     @Bean
     public FilterRegistrationBean filterRegistrationBean() {
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -69,23 +64,11 @@ public class ROPServerAutoConfiguration {
         return registration;
     }
 
-    /**
-     * 注册一个rop注解的aop,保证接口不被直接调用
-     *
-     * @param properties
-     * @return
-     */
     @Bean
     public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
         return new ROPSignInterceptor(properties.getDigestName());
     }
 
-    /**
-     * 注册一个servlet用来用以处理rop请求
-     *
-     * @param properties
-     * @return
-     */
     @Bean
     public ServletRegistrationBean servletRegistrationBean(ROPServerConfigurationProperties properties) {
         ServletRegistrationBean ropServletRegistrationBean = new ServletRegistrationBean(new ROPServlet());

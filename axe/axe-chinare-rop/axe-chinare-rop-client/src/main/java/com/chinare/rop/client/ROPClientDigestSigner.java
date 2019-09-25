@@ -10,9 +10,6 @@ import com.chinare.rop.core.signer.DigestSigner;
  */
 public class ROPClientDigestSigner extends DigestSigner implements ClientSigner {
 
-    /**
-     *
-     */
     public ROPClientDigestSigner(String name) {
         super(name);
     }

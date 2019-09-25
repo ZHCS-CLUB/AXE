@@ -13,14 +13,14 @@ public interface Signer {
      *            请求
      * @param fetcher
      *            密钥获取器
-     * @return
+     * @return 是否检查通过
      */
     public boolean check(HttpServletRequest request, AppsecretFetcher fetcher);
 
     /**
      * 名称
      *
-     * @return
+     * @return 签名器名称
      */
     public String name();
 
@@ -36,7 +36,7 @@ public interface Signer {
      *            随机串
      * @param dataMate
      *            数据元数据
-     * @return
+     * @return 签名字符串
      */
     public String sign(String appSecret, String timestamp, String gateway, String nonce, String dataMate);
 

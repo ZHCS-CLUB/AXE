@@ -191,7 +191,7 @@ public abstract class AbstractSinger implements Signer {
      *            随机串
      * @param dataMate
      *            数据元数据
-     * @return
+     * @return 签名字符串
      */
     public String sign(AppsecretFetcher fetcher, String appKey, String timestamp, String gateway, String nonce, String dataMate) {
         return sign(fetcher.fetch(appKey), timestamp, gateway, nonce, dataMate);
@@ -204,8 +204,7 @@ public abstract class AbstractSinger implements Signer {
      *            请求
      * @param fetcher
      *            appSecret获取器
-     * @return
-     * @throws IOException
+     * @return 签名字符串
      */
     public String sign(HttpServletRequest request, AppsecretFetcher fetcher) {
         return sign(fetcher,

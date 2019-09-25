@@ -52,12 +52,6 @@ public class ROPClient {
         return endpoint;
     }
 
-    /**
-     * 发送请求
-     *
-     * @param request
-     * @return
-     */
     public Response send(ROPRequest request) {
         return Sender.create(toRequest(request)).send();
     }

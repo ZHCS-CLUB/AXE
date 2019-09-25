@@ -19,16 +19,8 @@ import com.chinare.rop.ROPConfig;
 import com.chinare.rop.core.ROPData;
 
 /**
- * @author Kerbores(kerbores@gmail.com)
  *
- * @project nutz-plugins-ROP
- *
- * @file ROPServlet.java
- *
- * @description ROPServlet
- *
- * @time 2016年8月31日 下午3:53:13
- *
+ * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
 public class ROPServlet extends HttpServlet {
 
