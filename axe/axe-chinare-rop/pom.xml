@@ -13,5 +13,5 @@
   	<module>axe-chinare-rop-client</module>
   	<module>axe-chinare-rop-demo</module>
   </modules>
-  <description>中再集团开放平台签名延签机制</description>
+  <description>中再集团开放平台签名验签机制</description>
 </project>
