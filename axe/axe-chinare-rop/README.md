@@ -155,6 +155,6 @@ public class RopDemoApplicationTests {
 		```
 	
 - tips
-	    - 千万不要泄露自己应用的appSecret
-	    - appSecret 不要硬编码在代码中
-	    - 开发环境的appSecret和生成环境的appSecret可使用环境感知环境变量等方式进行加载,以确保安全
+	- 千万不要泄露自己应用的appSecret
+	- appSecret 不要硬编码在代码中
+	- 开发环境的appSecret和生成环境的appSecret可使用环境感知环境变量等方式进行加载,以确保安全
