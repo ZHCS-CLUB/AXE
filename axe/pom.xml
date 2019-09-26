@@ -5,7 +5,7 @@
 	<groupId>club.zhcs</groupId>
 	<artifactId>axe</artifactId>
 	<name>AXE</name>
-	<version>2.1.8.RELEASE.20190926</version>
+	<version>2.1.8.RELEASE.20190926.P</version>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
 	<packaging>pom</packaging>
@@ -121,7 +121,7 @@
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+			<url>http://jfrog.nutz.cn/artifactory/soho-project/</url>
 		</repository>
 	</distributionManagement>
 	<dependencies>

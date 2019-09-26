@@ -42,7 +42,7 @@ public class ROPServerAutoConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
+    public FilterRegistrationBean filterRegistrationBean(ROPServerConfigurationProperties properties) {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new Filter() {
 
@@ -59,7 +59,7 @@ public class ROPServerAutoConfiguration {
                 }
             }
         });
-        registration.addUrlPatterns("/*");
+        registration.addUrlPatterns(properties.getRopPath());
         registration.setOrder(1);
         return registration;
     }

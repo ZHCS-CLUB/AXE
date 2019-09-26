@@ -37,7 +37,7 @@ Chinare rest open platform
  	<dependency>
   		<groupId>club.zhcs</groupId>
   		<artifactId>axe-chinare-rop-server</artifactId>
-  		<version>2.1.8.RELEASE.20190926</version>
+  		<version>2.1.8.RELEASE.20190926.P</version>
   	</dependency>
  ```
 -  在application.yml中添加
@@ -139,7 +139,7 @@ public class RopDemoApplicationTests {
 			<dependency>
 				<groupId>club.zhcs</groupId>
 				<artifactId>axe-chinare-rop-client</artifactId>
-				<version>2.1.8.RELEASE.20190926</version>
+				<version>2.1.8.RELEASE.20190926.P</version>
 			</dependency>
 		 ```
 
