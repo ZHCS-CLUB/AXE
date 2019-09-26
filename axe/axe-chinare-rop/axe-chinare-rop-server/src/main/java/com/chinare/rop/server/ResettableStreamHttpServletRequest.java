@@ -164,11 +164,8 @@ public class ResettableStreamHttpServletRequest extends HttpServletRequestWrappe
             return target;
         }
 
-        if (Strings.isNotBlank(getHeader("Content-Type")) && getHeader("Content-Type").startsWith("application/x-www-form-urlencoded")) {// 表单参数
-            for (String seg : info.split("&")) {
-                parseParam(target, seg);
-
-            }
+        for (String seg : info.split("&")) {
+            parseParam(target, seg);
         }
 
         return target;
