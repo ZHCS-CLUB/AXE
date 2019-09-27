@@ -10,24 +10,35 @@ Chinare rest open platform
 ### 实现原理
 
 - 概述
+
     为防止中间人攻击,将请求参数特征按照一定算法进行签名,在服务器端对数据签名进行验证,如果数据被篡改那么签名将不能通过.同时,为了确保签名所使用的appSecret不被暴力破解,服务器端对请求到达时间进行了处理,对较长时间到达的请求予以拒绝.签名获取为了完全保留请求参数特征,设计了如果下的签名方法: 
 
 - 签名
     + Get请求
+
         + queryString的MD5摘要和appSecret,时间戳,请求路径,随机字符串进行字典序排序后连接成字符串后根据签名摘要算法获取摘要作为签名
+
         + 如果queryString为空则处理为空字符串
+
     + Post请求
+
         + 表单方式,使用表单的urlEncodeString作为输入流获取MD5和appSecret,时间戳,请求路径,随机字符串进行字典序排序后连接成字符串后根据签名摘要算法获取摘要作为签名
+
         + body流,使用body流的MD5摘要和appSecret,时间戳,请求路径,随机字符串进行字典序排序后连接成字符串后根据签名摘要算法获取摘要作为签名
+
         + 文件上传,按照表单方式处理,其中文件值使用文件的MD5值而不是文件内容
+
         + 参数排序,获取urlEncodeString时涉及到参数的顺序问题,一律使用参数key的字典序进行处理
+        
     + 其他语言实现
+
         按照以上规则实现签名,并将签名值appKey,时间戳,随机字符串以header方式进行传输即可
 - 验签
+
     服务器端进行验签操作,使用和签名端一致的方式进行签名验证,同时验证时间间隔,对于较长时间到达服务器的请求将拒绝(可能存在中间人攻击的风险)
     
 
-### 服务端集成(Servlet)
+### 服务端集成
 
 用于通过ROP提供服务
 
@@ -37,7 +48,7 @@ Chinare rest open platform
  	<dependency>
   		<groupId>club.zhcs</groupId>
   		<artifactId>axe-chinare-rop-server</artifactId>
-  		<version>2.1.8.RELEASE.20190926.P</version>
+  		<version>2.1.8.RELEASE.20190927</version>
   	</dependency>
  ```
 -  在application.yml中添加
@@ -49,7 +60,7 @@ rop:
     rop-path: rop.rest
     timeout: 10
 ```
-- *实现 AppsecretFetcher
+- 实现 AppsecretFetcher
 实现接口com.chinare.rop.core.signer.AppsecretFetcher并声明为iocBean
 - 开发
 开发rest接口然后在方法或者接口类上添加@ROP注解
@@ -139,7 +150,7 @@ public class RopDemoApplicationTests {
 			<dependency>
 				<groupId>club.zhcs</groupId>
 				<artifactId>axe-chinare-rop-client</artifactId>
-				<version>2.1.8.RELEASE.20190926.P</version>
+				<version>2.1.8.RELEASE.20190927</version>
 			</dependency>
 		 ```
 
