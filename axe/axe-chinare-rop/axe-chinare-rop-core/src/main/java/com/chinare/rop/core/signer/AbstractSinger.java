@@ -5,28 +5,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 import org.nutz.http.Http;
-import org.nutz.lang.ContinueLoop;
-import org.nutz.lang.Each;
-import org.nutz.lang.ExitLoop;
 import org.nutz.lang.Lang;
-import org.nutz.lang.LoopException;
 import org.nutz.lang.Streams;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
-import org.nutz.mvc.upload.FastUploading;
-import org.nutz.mvc.upload.Html5Uploading;
-import org.nutz.mvc.upload.UploadException;
-import org.nutz.mvc.upload.Uploading;
 import org.nutz.mvc.upload.UploadingContext;
-import org.nutz.mvc.upload.Uploads;
 
 import com.chinare.rop.ROPConfig;
 
@@ -78,66 +68,26 @@ public abstract class AbstractSinger implements Signer {
 		}
 	}
 
-	// NUTZ的文件上传解析先拿过来用起来
-	public Map<String, Object> getReferObject(HttpServletRequest request) {
-		try {
-			if (!"POST".equals(request.getMethod()) && !"PUT".equals(request.getMethod())) {
-				String str = "Not POST or PUT, Wrong HTTP method! --> " + request.getMethod();
-				throw new UploadException(str);
-			}
-			// 看看是不是传统的上传
-			String contentType = request.getContentType();
-			if (contentType == null) {
-				throw new UploadException("Content-Type is NULL!!");
-			}
-			if (contentType.contains("multipart/form-data")) { // 普通表单上传
-				if (log.isDebugEnabled())
-					log.debug("Select Html4 Form upload parser --> " + request.getRequestURI());
-				Uploading ing = new FastUploading();
-				return ing.parse(request, context);
-			}
-			if (contentType.contains("application/octet-stream")) { // Html5
-				// 流式上传
-				if (log.isDebugEnabled())
-					log.debug("Select Html5 Stream upload parser --> " + request.getRequestURI());
-				Uploading ing = new Html5Uploading();
-				return ing.parse(request, context);
-			}
-			// 100%是没写enctype='multipart/form-data'
-			if (contentType.contains("application/x-www-form-urlencoded")) {
-				log.warn("Using form upload ? You forgot this --> enctype='multipart/form-data' ?");
-			}
-			throw new UploadException("Unknow Content-Type : " + contentType);
-		} catch (UploadException e) {
-			throw Lang.wrapThrow(e);
-		} finally {
-			Uploads.removeInfo(request);
-		}
-	}
 
 	public String getURLEncodedParams(final HttpServletRequest request) throws IOException, ServletException {
 		final StringBuilder sb = new StringBuilder();
 		List<Part> parts = Lang.collection2list(request.getParts());
 		Collections.sort(parts, (part1,part2)->part1.getName().compareTo(part2.getName()));
-		Lang.each(parts, new Each<Part>() {
-
-			@Override
-			public void invoke(int index, Part part, int length) throws ExitLoop, ContinueLoop, LoopException {
-				String key = part.getName();
-				if (Strings.isBlank(part.getContentType())) {
-					// 参数
-					sb.append(Http.encode(key, request.getCharacterEncoding())).append('=')
-							.append(Http.encode(request.getParameter(key), request.getCharacterEncoding())).append('&');
-				} else {
-					// 文件
+		parts.stream().forEach(part->{
+			String key = part.getName();
+			if (Strings.isBlank(part.getContentType())) {
+				// 参数
+				sb.append(Http.encode(key, request.getCharacterEncoding())).append('=')
+						.append(Http.encode(request.getParameter(key), request.getCharacterEncoding())).append('&');
+			} else {
+				// 文件
 					try {
 						sb.append(Http.encode(key, request.getCharacterEncoding())).append('=')
 								.append(Http.encode(Lang.md5(part.getInputStream()), request.getCharacterEncoding()))
 								.append('&');
 					} catch (IOException e) {
-						e.printStackTrace();
+						throw Lang.wrapThrow(e);
 					}
-				}
 			}
 		});
 
@@ -146,10 +96,14 @@ public abstract class AbstractSinger implements Signer {
 		return sb.toString();
 
 	}
+	
+	public String contentType(HttpServletRequest request) {
+		return request.getHeader("Content-Type");
+	}
 
 	private boolean isCommonFileUpload(HttpServletRequest request) {
-		return request.getHeader("Content-Type") != null
-				&& request.getHeader("Content-Type").startsWith("multipart/form-data");
+		return contentType(request) != null
+				&& contentType(request).startsWith("multipart/form-data");
 	}
 
 	/**
@@ -161,8 +115,8 @@ public abstract class AbstractSinger implements Signer {
 	}
 
 	private boolean isHtml5FileUpload(HttpServletRequest request) {
-		return request.getHeader("Content-Type") != null
-				&& request.getHeader("Content-Type").startsWith("application/octet-stream");
+		return contentType(request) != null
+				&& contentType(request).startsWith("application/octet-stream");
 	}
 
 	/**

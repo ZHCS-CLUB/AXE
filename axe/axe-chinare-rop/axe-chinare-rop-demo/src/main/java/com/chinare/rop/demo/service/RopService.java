@@ -40,7 +40,11 @@ public class RopService {
 		if (response.isOK()) {
 			return Lang.map(response.getContent());
 		}
-		throw new ROPException("接口调用失败");
+		throw throwException();
+	}
+	
+	public ROPException throwException() {
+		return new ROPException("接口调用失败");
 	}
 
 	/**
@@ -52,7 +56,7 @@ public class RopService {
 		if (response.isOK()) {
 			return Lang.map(response.getContent());
 		}
-		throw new ROPException("接口调用失败");
+		throw throwException();
 	}
 
 	/**
@@ -64,7 +68,7 @@ public class RopService {
 		if (response.isOK()) {
 			return Lang.map(response.getContent());
 		}
-		throw new ROPException("接口调用失败");
+		throw throwException();
 	}
 
 	public NutMap test() {
@@ -77,6 +81,6 @@ public class RopService {
 			return Lang.map(response.getContent());
 		}
 
-		throw new ROPException("接口调用失败");
+		throw throwException();
 	}
 }
