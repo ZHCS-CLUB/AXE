@@ -68,6 +68,7 @@ public class ROPServlet extends HttpServlet {
                 response.getWriter().write(Json.toJson(ROPData.exception("request timeout")));
                 return;
             }
+            request.getParameter("id");
             // 转发之前把签名相关的信息带过去
             request.getRequestDispatcher(method).forward(request, response);// 将请求转发给真实的函数入口
         }

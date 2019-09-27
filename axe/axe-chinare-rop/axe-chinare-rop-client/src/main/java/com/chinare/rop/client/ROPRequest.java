@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.nutz.http.Cookie;
 import org.nutz.http.Header;
@@ -24,6 +23,8 @@ import org.nutz.lang.ExitLoop;
 import org.nutz.lang.Lang;
 import org.nutz.lang.LoopException;
 import org.nutz.lang.util.NutMap;
+
+import com.chinare.rop.core.signer.SignerHelper;
 
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
@@ -156,26 +157,12 @@ public class ROPRequest {
     }
 
     public String getURLEncodedParams() {
+        // 此处不影响发送的数据,只影响签名,需要按照rop的规则进行签名串的获取即可
         final StringBuilder sb = new StringBuilder();
         if (isFileUpload()) {// 文件上传的签名流
             fileUpload(sb);
         } else if (params != null) {
-            for (Entry<String, Object> en : params.entrySet()) {
-                final String key = en.getKey();
-                Object val = en.getValue();
-                if (val == null)
-                    val = "";
-                Lang.each(val, new Each<Object>() {
-                    @Override
-                    public void invoke(int index, Object ele, int length)
-                            throws ExitLoop, ContinueLoop, LoopException {
-                        sb.append(Http.encode(key, enc))
-                          .append('=')
-                          .append(Http.encode(ele, enc))
-                          .append('&');
-                    }
-                });
-            }
+            return SignerHelper.mapAsUrlParams(params, enc);
         }
         if (sb.length() > 0)
             sb.setLength(sb.length() - 1);

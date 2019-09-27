@@ -17,6 +17,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
 
 import com.chinare.rop.core.signer.AppsecretFetcher;
 import com.chinare.rop.core.signer.DefaultMD5Fetcher;
@@ -43,28 +44,35 @@ public class ROPServerAutoConfiguration {
     }
 
     @Bean
-    public FilterRegistrationBean filterRegistrationBean(ROPServerConfigurationProperties properties) {
+    public FilterRegistrationBean filterRegistrationBean(ROPServerConfigurationProperties properties, MultipartResolver multipartResolver) {
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new Filter() {
 
             @Override
-            public void destroy() {}
+            public void destroy() {
+                // 兼容低版本
+            }
 
             @Override
             public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
                 ServletRequest requestWrapper = null;
+
                 if (request instanceof HttpServletRequest) {
                     requestWrapper = new ResettableStreamHttpServletRequest((HttpServletRequest) request);
                 }
                 if (requestWrapper == null) {
                     chain.doFilter(request, response);
+                } else if (multipartResolver.isMultipart((HttpServletRequest) request)) {
+                    chain.doFilter(multipartResolver.resolveMultipart((HttpServletRequest) requestWrapper), response);
                 } else {
                     chain.doFilter(requestWrapper, response);
                 }
             }
 
             @Override
-            public void init(FilterConfig filterConfig) throws ServletException {}
+            public void init(FilterConfig filterConfig) throws ServletException {
+                // 兼容低版本
+            }
         });
         registration.addUrlPatterns(properties.getRopPath());
         registration.setOrder(1);

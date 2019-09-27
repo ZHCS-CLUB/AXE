@@ -1,6 +1,10 @@
 package com.chinare.rop.client;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.nutz.lang.Lang;
+import org.nutz.lang.Streams;
 import org.nutz.lang.Strings;
 
 import com.chinare.rop.core.signer.DigestSigner;
@@ -21,7 +25,14 @@ public class ROPClientDigestSigner extends DigestSigner implements ClientSigner 
             query = method.indexOf('?') >= 0 ? method.substring(method.indexOf('?') + 1) : "";
             return Lang.md5(query);
         }
-        return Lang.md5(request.getInputStream());
+        StringBuilder info;
+        try {
+            info = Streams.read(new InputStreamReader(request.getInputStream()));
+        }
+        catch (IOException e) {
+            throw Lang.wrapThrow(e);
+        }
+        return Lang.md5(info);
     }
 
     @Override

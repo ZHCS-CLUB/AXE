@@ -3,6 +3,7 @@ package com.chinare.rop.core.signer;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import org.nutz.lang.Each;
 import org.nutz.lang.ExitLoop;
 import org.nutz.lang.Lang;
 import org.nutz.lang.LoopException;
+import org.nutz.lang.Streams;
 import org.nutz.lang.Strings;
 import org.nutz.log.Log;
 import org.nutz.log.Logs;
@@ -71,7 +73,11 @@ public abstract class AbstractSinger implements Signer {
             }
         }
         try {
-            return Lang.md5(request.getInputStream());
+            StringBuilder info = Streams.read(new InputStreamReader(request.getInputStream()));
+            if (info.length() == 0) {
+                return Lang.md5(SignerHelper.paramMapAsUrlString(request.getParameterMap(), request.getCharacterEncoding()));
+            }
+            return Lang.md5(info);
         }
         catch (IOException e) {
             throw Lang.wrapThrow(e);
@@ -122,38 +128,43 @@ public abstract class AbstractSinger implements Signer {
         final StringBuilder sb = new StringBuilder();
         List<String> keys = new ArrayList<>(params.keySet());
         Collections.sort(keys);
-        for (final String key : keys) {
-            Object val = params.get(key);
-            if (val == null)
-                val = "";
-            Lang.each(val, new Each<Object>() {
-                @Override
-                public void invoke(int index, Object ele, int length)
-                        throws ExitLoop, ContinueLoop, LoopException {
-                    if (ele instanceof File) {// 文件
-                        sb.append(Http.encode(key, request.getCharacterEncoding()))
-                          .append('=')
-                          .append(Http.encode(Lang.md5((File) ele), request.getCharacterEncoding()))
-                          .append('&');
-                    } else if (ele instanceof TempFile) {// tempFile
-                        try {
-                            sb.append(Http.encode(key, request.getCharacterEncoding()))
-                              .append('=')
-                              .append(Http.encode(Lang.md5(((TempFile) ele).getInputStream()), request.getCharacterEncoding()))
-                              .append('&');
+        Lang.each(keys, new Each<String>() {
+
+            @Override
+            public void invoke(int index, String key, int length) throws ExitLoop, ContinueLoop, LoopException {
+                Object val = request.getParameter(key);
+                if (val != null) {
+                    sb.append(Http.encode(key, request.getCharacterEncoding()))
+                      .append('=')
+                      .append(Http.encode(val, request.getCharacterEncoding()))
+                      .append('&');
+                } else {
+                    val = params.get(key);
+                    Lang.each(val, new Each<Object>() {
+
+                        @Override
+                        public void invoke(int index, Object ele, int length) throws ExitLoop, ContinueLoop, LoopException {
+                            if (ele instanceof File) {// 文件
+                                sb.append(Http.encode(key, request.getCharacterEncoding()))
+                                  .append('=')
+                                  .append(Http.encode(Lang.md5((File) ele), request.getCharacterEncoding()))
+                                  .append('&');
+                            } else if (ele instanceof TempFile) {// tempFile
+                                try {
+                                    sb.append(Http.encode(key, request.getCharacterEncoding()))
+                                      .append('=')
+                                      .append(Http.encode(Lang.md5(((TempFile) ele).getInputStream()), request.getCharacterEncoding()))
+                                      .append('&');
+                                }
+                                catch (IOException e) {
+                                    throw Lang.wrapThrow(e);
+                                }
+                            }
                         }
-                        catch (IOException e) {
-                            throw Lang.wrapThrow(e);
-                        }
-                    } else {
-                        sb.append(Http.encode(key, request.getCharacterEncoding()))
-                          .append('=')
-                          .append(Http.encode(ele, request.getCharacterEncoding()))
-                          .append('&');
-                    }
+                    });
                 }
-            });
-        }
+            }
+        });
         if (sb.length() > 0)
             sb.setLength(sb.length() - 1);
         return sb.toString();
