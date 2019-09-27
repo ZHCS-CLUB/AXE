@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -32,64 +33,66 @@ import com.chinare.rop.server.ResettableStreamHttpServletRequest;
 @EnableConfigurationProperties(ROPServerConfigurationProperties.class)
 public class ROPServerAutoConfiguration {
 
-    /**
-     * 没有的时候垫底的存在,不建议使用,请自行实现AppsecretFetcher并声明为bean
-     *
-     * @return 默认 AppsecretFetcher
-     */
-    @Bean
-    @ConditionalOnMissingBean(AppsecretFetcher.class)
-    public AppsecretFetcher appsecretFetcher() {
-        return new DefaultMD5Fetcher();
-    }
+	/**
+	 * 没有的时候垫底的存在,不建议使用,请自行实现AppsecretFetcher并声明为bean
+	 *
+	 * @return 默认 AppsecretFetcher
+	 */
+	@Bean
+	@ConditionalOnMissingBean(AppsecretFetcher.class)
+	public AppsecretFetcher appsecretFetcher() {
+		return new DefaultMD5Fetcher();
+	}
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean(ROPServerConfigurationProperties properties, MultipartResolver multipartResolver) {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new Filter() {
+	@Bean
+	public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
+		return new ROPSignInterceptor(properties.getDigestName());
+	}
 
-            @Override
-            public void destroy() {
-                // 兼容低版本
-            }
+	@Bean
+	public FilterRegistrationBean filterRegistrationBean(ROPServerConfigurationProperties properties,
+			MultipartResolver multipartResolver) {
+		FilterRegistrationBean registration = new FilterRegistrationBean();
+		registration.setFilter(new Filter() {
 
-            @Override
-            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-                ServletRequest requestWrapper = null;
+			@Override
+			public void destroy() {
+				// 兼容低版本
+			}
 
-                if (request instanceof HttpServletRequest) {
-                    requestWrapper = new ResettableStreamHttpServletRequest((HttpServletRequest) request);
-                }
-                if (requestWrapper == null) {
-                    chain.doFilter(request, response);
-                } else if (multipartResolver.isMultipart((HttpServletRequest) request)) {
-                    chain.doFilter(multipartResolver.resolveMultipart((HttpServletRequest) requestWrapper), response);
-                } else {
-                    chain.doFilter(requestWrapper, response);
-                }
-            }
+			@Override
+			public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+					throws IOException, ServletException {
+				ServletRequest requestWrapper = null;
 
-            @Override
-            public void init(FilterConfig filterConfig) throws ServletException {
-                // 兼容低版本
-            }
-        });
-        registration.addUrlPatterns(properties.getRopPath());
-        registration.setOrder(1);
-        return registration;
-    }
+				if (request instanceof HttpServletRequest) {
+					requestWrapper = new ResettableStreamHttpServletRequest((HttpServletRequest) request);
+				}
+				if (requestWrapper == null || multipartResolver.isMultipart((HttpServletRequest) request)) {
+					chain.doFilter(request, response);
+				} else {
+					chain.doFilter(requestWrapper, response);
+				}
+			}
 
-    @Bean
-    public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
-        return new ROPSignInterceptor(properties.getDigestName());
-    }
+			@Override
+			public void init(FilterConfig filterConfig) throws ServletException {
+				// 兼容低版本
+			}
+		});
+		registration.addUrlPatterns(properties.getRopPath());
+		registration.setOrder(1);
+		return registration;
+	}
 
-    @Bean
-    public ServletRegistrationBean servletRegistrationBean(ROPServerConfigurationProperties properties) {
-        ServletRegistrationBean ropServletRegistrationBean = new ServletRegistrationBean(new ROPServlet());
-        ropServletRegistrationBean.setInitParameters(NutMap.NEW().addv("timeout", "" + properties.getTimeout()));
-        ropServletRegistrationBean.addUrlMappings(properties.getRopPath());
-        return ropServletRegistrationBean;
-    }
+	@Bean
+	public ServletRegistrationBean servletRegistrationBean(ROPServerConfigurationProperties properties,
+			MultipartConfigElement multipartConfigFactory) {
+		ServletRegistrationBean ropServletRegistrationBean = new ServletRegistrationBean(new ROPServlet());
+		ropServletRegistrationBean.setInitParameters(NutMap.NEW().addv("timeout", "" + properties.getTimeout()));
+		ropServletRegistrationBean.addUrlMappings(properties.getRopPath());
+		ropServletRegistrationBean.setMultipartConfig(multipartConfigFactory);
+		return ropServletRegistrationBean;
+	}
 
 }

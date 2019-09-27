@@ -25,7 +25,7 @@ public class DigestSigner extends AbstractSinger {
 
     @Override
     public String name() {
-        return name;
+    	return name;
     }
 
     @Override

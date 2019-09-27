@@ -2,7 +2,6 @@ package com.chinare.rop.server;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -47,11 +46,6 @@ public class ROPServlet extends HttpServlet {
          * 1. 时间戳校验 2.签名校验转移到nutz的filter中去处理,这样便于获取ioc中的对象 3.方法校验
          *
          */
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String key = headerNames.nextElement();
-            log.debugf("header name : %s and header value is : %s", key, request.getHeader(key));
-        }
         try {
             String method = request.getHeader(ROPConfig.METHOD_KEY);
             if (Strings.isBlank(method)) {// 空方法
