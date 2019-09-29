@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.nutz.lang.Strings;
 import org.nutz.lang.util.NutMap;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -97,9 +98,13 @@ public class ROPServerAutoConfiguration {
     public ServletRegistrationBean servletRegistrationBean(ROPServerConfigurationProperties properties,
                                                            MultipartConfigElement multipartConfigFactory) {
         ServletRegistrationBean ropServletRegistrationBean = new ServletRegistrationBean(new ROPServlet());
-        ropServletRegistrationBean.setInitParameters(NutMap.NEW().addv("timeout", "" + properties.getTimeout()));
         ropServletRegistrationBean.addUrlMappings(properties.getRopPath());
         ropServletRegistrationBean.setMultipartConfig(multipartConfigFactory);
+        NutMap initParameters = NutMap.NEW().setv("timeout", "" + properties.getTimeout());
+        if (Strings.isNotBlank(properties.getGateWayUri())) {
+            initParameters.setv("gateWayUri", properties.getGateWayUri());
+        }
+        ropServletRegistrationBean.setInitParameters(initParameters);
         return ropServletRegistrationBean;
     }
 

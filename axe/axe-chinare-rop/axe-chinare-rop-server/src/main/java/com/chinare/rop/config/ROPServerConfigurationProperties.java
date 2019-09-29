@@ -13,6 +13,11 @@ public class ROPServerConfigurationProperties {
     String digestName = "SHA1";
 
     /**
+     * 自行处理的gateway
+     */
+    String gateWayUri;
+
+    /**
      * 接口路径
      */
     String ropPath = "rop.endpoint";
@@ -26,6 +31,10 @@ public class ROPServerConfigurationProperties {
         return digestName;
     }
 
+    public String getGateWayUri() {
+        return gateWayUri;
+    }
+
     public String getRopPath() {
         return ropPath.startsWith("/") ? ropPath : "/" + ropPath;
     }
@@ -36,6 +45,10 @@ public class ROPServerConfigurationProperties {
 
     public void setDigestName(String digestName) {
         this.digestName = digestName;
+    }
+
+    public void setGateWayUri(String gateWayUri) {
+        this.gateWayUri = gateWayUri;
     }
 
     public void setRopPath(String ropPath) {
