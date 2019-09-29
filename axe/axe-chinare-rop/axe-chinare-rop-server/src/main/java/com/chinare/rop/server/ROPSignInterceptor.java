@@ -21,6 +21,9 @@ import com.chinare.rop.core.signer.Signer;
 @Aspect
 public class ROPSignInterceptor {
 
+    @Autowired
+    NullRequestChecker checker;
+
     String digestName;
 
     @Autowired
@@ -42,7 +45,7 @@ public class ROPSignInterceptor {
     @Around("@within(com.chinare.rop.server.ROP)|| @annotation(com.chinare.rop.server.ROP)")
     public Object filter(ProceedingJoinPoint point) throws Throwable {
         Signer signer = new DigestSigner(digestName);
-        if (signer.check(request, fetcher)) {
+        if (checker.check(request) && signer.check(request, fetcher)) {
             return point.proceed();
         } else {
             throw new ROPException("checkSign failed");
