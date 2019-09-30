@@ -1,4 +1,4 @@
-package com.chinare.rop.demo.dto;
+package com.china.rop.demo.dto;
 
 import lombok.Builder;
 import lombok.Data;

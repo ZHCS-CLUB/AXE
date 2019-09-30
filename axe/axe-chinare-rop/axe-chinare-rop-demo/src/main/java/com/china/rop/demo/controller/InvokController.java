@@ -1,4 +1,4 @@
-package com.chinare.rop.demo.controller;
+package com.china.rop.demo.controller;
 
 import org.nutz.lang.util.NutMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinare.rop.demo.service.RopService;
+import com.china.rop.demo.service.RopService;
 
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)

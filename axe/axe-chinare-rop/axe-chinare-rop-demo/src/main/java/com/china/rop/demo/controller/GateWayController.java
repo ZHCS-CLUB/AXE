@@ -1,4 +1,4 @@
-package com.chinare.rop.demo.controller;
+package com.china.rop.demo.controller;
 
 import org.nutz.lang.util.NutMap;
 import org.springframework.web.bind.annotation.RequestMapping;
