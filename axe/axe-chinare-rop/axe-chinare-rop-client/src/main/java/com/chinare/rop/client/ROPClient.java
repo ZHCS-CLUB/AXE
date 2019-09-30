@@ -78,7 +78,12 @@ public class ROPClient {
                                          .map(item -> NutMap.NEW().addv("key", item.getKey()).addv("value", item.getValue()))
                                          .collect(Collectors.toList())));
         }
-        if (signer.check(response, appSecret, request.getGateway())) {
+        String method = request.getGateway();
+        if (request.getMethod() == METHOD.GET) {
+            String query = request.getURLEncodedParams();
+            method = Strings.isBlank(query) ? request.getGateway() : request.getGateway() + "?" + query;
+        }
+        if (signer.check(response, appSecret, method)) {
             return response;
         }
         throw Lang.makeThrow("响应签名检查失败!");
