@@ -124,7 +124,7 @@
 		</snapshotRepository>
 		<repository>
 			<id>ossrh</id>
-			<url>http://jfrog.nutz.cn/artifactory/soho-project/</url>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
 	<dependencies>
