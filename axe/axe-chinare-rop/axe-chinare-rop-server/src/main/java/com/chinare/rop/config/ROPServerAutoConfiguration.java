@@ -24,6 +24,8 @@ import org.springframework.web.multipart.MultipartResolver;
 import com.chinare.rop.core.signer.AppsecretFetcher;
 import com.chinare.rop.core.signer.DefaultMD5Fetcher;
 import com.chinare.rop.server.NullRequestChecker;
+import com.chinare.rop.server.ROPExceptionHandler;
+import com.chinare.rop.server.ROPResponseBodyAdvice;
 import com.chinare.rop.server.ROPServlet;
 import com.chinare.rop.server.ROPSignInterceptor;
 import com.chinare.rop.server.RequestChecker;
@@ -62,7 +64,6 @@ public class ROPServerAutoConfiguration {
             public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
                     throws IOException, ServletException {
                 ServletRequest requestWrapper = null;
-
                 if (request instanceof HttpServletRequest) {
                     requestWrapper = new ResettableStreamHttpServletRequest((HttpServletRequest) request);
                 }
@@ -90,6 +91,18 @@ public class ROPServerAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(ROPResponseBodyAdvice.class)
+    public ROPResponseBodyAdvice responseBodyAdvice(ROPServerConfigurationProperties properties) {
+        return new ROPResponseBodyAdvice(properties);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(ROPExceptionHandler.class)
+    public ROPExceptionHandler ropExceptionHandler() {
+        return new ROPExceptionHandler();
+    }
+
+    @Bean
     public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
         return new ROPSignInterceptor(properties.getDigestName());
     }
@@ -107,5 +120,4 @@ public class ROPServerAutoConfiguration {
         ropServletRegistrationBean.setInitParameters(initParameters);
         return ropServletRegistrationBean;
     }
-
 }

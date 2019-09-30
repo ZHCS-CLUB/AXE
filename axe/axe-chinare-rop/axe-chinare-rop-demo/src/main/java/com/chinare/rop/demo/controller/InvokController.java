@@ -52,4 +52,9 @@ public class InvokController {
         return NutMap.NEW().addv("id", id);
     }
 
+    @GetMapping("wms")
+    public NutMap wms() {
+        return ropService.testWms();
+    }
+
 }

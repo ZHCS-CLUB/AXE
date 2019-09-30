@@ -2,6 +2,8 @@ package com.chinare.rop.core.signer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.nutz.http.Response;
+
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
@@ -16,6 +18,19 @@ public interface Signer {
      * @return 是否检查通过
      */
     public boolean check(HttpServletRequest request, AppsecretFetcher fetcher);
+
+    /**
+     * 响应检查
+     *
+     * @param response
+     *            响应
+     * @param appSecret
+     *            appSecret
+     * @param gateway
+     *            请求接口
+     * @return 是否通过
+     */
+    public boolean check(Response response, String appSecret, String gateway);
 
     /**
      * 名称
