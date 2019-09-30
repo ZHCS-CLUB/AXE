@@ -124,13 +124,12 @@ public class ROPClient {
     private Header signHeader(ROPRequest request) {
         String nonce = R.UU16();
         String ts = Times.now().getTime() + "";
-        Header header = null;
-        header = request.getHeader()
-                        .set(ROPConfig.APP_KEY_KEY, appKey)
-                        .set(ROPConfig.METHOD_KEY, request.getGateway())
-                        .set(ROPConfig.NONCE_KEY, nonce)
-                        .set(ROPConfig.TS_KEY, ts)
-                        .set(ROPConfig.SIGN_KEY, signer.sign(appSecret, ts, request.getGateway(), nonce, request));
+        Header header = request.getHeader()
+                               .set(ROPConfig.APP_KEY_KEY, appKey)
+                               .set(ROPConfig.METHOD_KEY, request.getGateway())
+                               .set(ROPConfig.NONCE_KEY, nonce)
+                               .set(ROPConfig.TS_KEY, ts)
+                               .set(ROPConfig.SIGN_KEY, signer.sign(appSecret, ts, request.getGateway(), nonce, request));
         return request.getData() == null || request.getData().length == 0 ? header.asFormContentType() : header.asJsonContentType();
     }
 

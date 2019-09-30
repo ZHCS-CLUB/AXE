@@ -55,7 +55,7 @@ public abstract class AbstractSigner implements Signer {
 
     protected String getDataMate(HttpServletRequest request) {
         if (Strings.equalsIgnoreCase(request.getMethod(), "GET")) {// GET请求需要处理一下
-            return Lang.md5(request.getQueryString());
+            return Lang.md5(Http.encode(request.getQueryString(), request.getCharacterEncoding()));
         }
         // 文件上传
         if (isFileUpload(request)) {

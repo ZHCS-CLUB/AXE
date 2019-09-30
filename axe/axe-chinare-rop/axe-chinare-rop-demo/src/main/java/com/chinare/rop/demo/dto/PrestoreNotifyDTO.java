@@ -9,11 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * class WayBillNotify
  *
- * @author xiaoshan
- * @title WayBillNotify
- * @Date 2019/9/27
+ * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
 @Data
 @Builder

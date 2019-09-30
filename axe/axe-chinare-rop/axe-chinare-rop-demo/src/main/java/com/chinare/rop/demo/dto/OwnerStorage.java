@@ -4,11 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * class OwnerStorage
  *
- * @author xiaoshan
- * @title OwnerStorage
- * @Date 2019/9/27
+ * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
 @Data
 @Builder

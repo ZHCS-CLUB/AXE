@@ -21,7 +21,7 @@ public interface Signer {
 
     /**
      * 响应检查
-     *
+     * 
      * @param response
      *            响应
      * @param appSecret

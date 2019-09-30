@@ -29,9 +29,6 @@ public class RopService {
     @Autowired
     ROPClient client;
 
-    /**
-     * @return
-     */
     public NutMap file() {
         Response response = client
                                   .send(ROPRequest
@@ -49,26 +46,20 @@ public class RopService {
         throw throwException();
     }
 
-    /**
-     * @return
-     */
     public NutMap get() {
         Response response = client.send(ROPRequest.create("/get",
                                                           METHOD.GET,
-                                                          NutMap.NEW().addv("ids", Lang.array(10, 11)).addv("name", R.UU64())));
+                                                          NutMap.NEW().addv("ids", Lang.array(10, 11)).addv("name", "中文")));
         if (response.isOK()) {
             return Lang.map(response.getContent());
         }
         throw throwException();
     }
 
-    /**
-     * @return
-     */
     public NutMap post() {
         Response response = client.send(ROPRequest.create("/post",
                                                           METHOD.POST,
-                                                          NutMap.NEW().addv("ids", Lang.array(10, 11)).addv("name", R.UU64())));
+                                                          NutMap.NEW().addv("ids", Lang.array(10, 11)).addv("name", "中文")));
         if (response.isOK()) {
             return Lang.map(response.getContent());
         }
