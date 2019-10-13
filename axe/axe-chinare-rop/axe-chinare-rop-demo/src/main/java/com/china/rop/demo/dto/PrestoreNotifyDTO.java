@@ -17,8 +17,8 @@ import lombok.Data;
 public class PrestoreNotifyDTO {
     private List<OwnerStorage> ownerStorages;
     @Min(value = 1, message = "运单状态不能为空")
-    private int status;
+     int status;
     @NotEmpty(message = "运单号不能为空")
-    private String waybillCode;
+     String waybillCode;
 
 }
