@@ -32,10 +32,17 @@ public class SignerHelper {
                 Object val = map.get(key);
                 if (val instanceof Collection || val.getClass().isArray()) {
                     // 数组情况的处理
-                    sb.append(Http.encode(key, enc))
-                      .append('=')
-                      .append(Http.encode(toStringInfo(val), enc))
-                      .append('&');
+                    Lang.each(val, new Each<Object>() {
+
+                        @Override
+                        public void invoke(int index, Object v, int length) throws ExitLoop, ContinueLoop, LoopException {
+                            sb.append(Http.encode(key, enc))
+                              .append('=')
+                              .append(v)
+                              .append('&');
+                        }
+                    });
+
                 } else {
                     sb.append(Http.encode(key, enc))
                       .append('=')
@@ -69,10 +76,16 @@ public class SignerHelper {
                       .append(Http.encode(val[0], enc))
                       .append('&');
                 } else {
-                    sb.append(Http.encode(key, enc))
-                      .append('=')
-                      .append(Http.encode(toStringInfo(val), enc))
-                      .append('&');
+                    Lang.each(val, new Each<Object>() {
+
+                        @Override
+                        public void invoke(int index, Object v, int length) throws ExitLoop, ContinueLoop, LoopException {
+                            sb.append(Http.encode(key, enc))
+                              .append('=')
+                              .append(v)
+                              .append('&');
+                        }
+                    });
                 }
 
             }

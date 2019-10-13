@@ -1,4 +1,4 @@
-package com.chinare.rop.demo.controller;
+package com.china.rop.demo.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

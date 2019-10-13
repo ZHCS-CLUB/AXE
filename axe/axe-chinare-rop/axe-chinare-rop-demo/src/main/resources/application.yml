@@ -7,4 +7,4 @@ rop:
   server:
     digest-name: SHA1
     rop-path: rop.rest
-    timeout: 100
+    timeout: 100#    gate-way-uri: /gate
