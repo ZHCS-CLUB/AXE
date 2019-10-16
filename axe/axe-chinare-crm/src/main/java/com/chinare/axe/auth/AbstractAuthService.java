@@ -32,13 +32,7 @@ public abstract class AbstractAuthService implements AuthService {
 
 	@Override
 	public boolean authentication(List<String> withoutAuthenticationUrlRegulars) {
-		if (skip()) {
-			return true;
-		}
-		if (pass(request.getRequestURI(), withoutAuthenticationUrlRegulars)) {
-			return true;
-		}
-		return user() != null;
+		return skip() || pass(request.getRequestURI(), withoutAuthenticationUrlRegulars) || user() != null;
 	}
 
 	/**
