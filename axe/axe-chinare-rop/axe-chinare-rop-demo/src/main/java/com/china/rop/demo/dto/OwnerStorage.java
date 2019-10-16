@@ -10,8 +10,8 @@ import lombok.Data;
 @Data
 @Builder
 public class OwnerStorage {
-    private String idNo;
-    private int status;
-    private String storageOrderCode;
+	String idNo;
+	int status;
+	String storageOrderCode;
 
 }
