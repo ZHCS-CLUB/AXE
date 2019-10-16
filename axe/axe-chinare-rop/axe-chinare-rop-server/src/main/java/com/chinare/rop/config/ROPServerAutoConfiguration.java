@@ -104,7 +104,7 @@ public class ROPServerAutoConfiguration {
 
     @Bean
     public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
-        return new ROPSignInterceptor(properties.getDigestName());
+        return new ROPSignInterceptor(properties.getDigestName(),properties.getTimeout(),properties.isEnableReplayCheck());
     }
 
     @Bean

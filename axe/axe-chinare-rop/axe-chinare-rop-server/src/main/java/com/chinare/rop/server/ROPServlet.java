@@ -24,7 +24,7 @@ import com.chinare.rop.core.ROPData;
 public class ROPServlet extends HttpServlet {
 
     static final Log log = Logs.get();
-
+    
     /**
      *
      */

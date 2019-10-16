@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>club.zhcs</groupId>
 		<artifactId>axe</artifactId>
-		<version>2.1.8.RELEASE.20190929-SNAPSHOT</version>
+		<version>2.1.8.RELEASE.20191008</version>
 	</parent>
 	<artifactId>axe-chinare-rop</artifactId>
 	<packaging>pom</packaging>
