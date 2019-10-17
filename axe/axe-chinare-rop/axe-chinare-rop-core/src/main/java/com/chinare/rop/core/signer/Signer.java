@@ -26,7 +26,7 @@ public interface Signer {
 	 * @param nonce     随机串
 	 * @return 是否通过
 	 */
-	public boolean check(Response response, String appSecret, String nonce, String gatewa);
+	public boolean check(Response response, String appSecret, String nonce, String gateway);
 
 	/**
 	 * 名称
