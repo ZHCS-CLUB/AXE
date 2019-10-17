@@ -22,11 +22,11 @@ public class JwtUtil {
 	/**
 	 * -一小时的会话
 	 */
-	private static final long EXPIRE_TIME = 60l * 60l * 1000l;
+	private static final long EXPIRE_TIME = 60L * 60L * 1000L;
 	/**
 	 * -一年的会话
 	 */
-	private static final long REMEMBER_EXPIRE_TIME = 60l * 60l * 1000l * 24l * 365l;
+	private static final long REMEMBER_EXPIRE_TIME = 60L * 60L * 1000L * 24L * 365L;
 
 	/**
 	 * 校验token是否正确

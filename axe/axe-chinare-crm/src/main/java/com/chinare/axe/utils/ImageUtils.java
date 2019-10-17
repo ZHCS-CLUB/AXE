@@ -14,7 +14,6 @@ import org.nutz.http.Request;
 import org.nutz.http.Request.METHOD;
 import org.nutz.http.Response;
 import org.nutz.http.Sender;
-import org.nutz.http.sender.PostSender;
 import org.nutz.img.Images;
 import org.nutz.lang.Files;
 import org.nutz.lang.Lang;
@@ -40,26 +39,26 @@ public class ImageUtils extends Images {
 	 * 
 	 * @param src    源图
 	 * @param scale  缩放比例
-	 * @param startX 起点X坐标
-	 * @param startY 起点Y坐标
-	 * @param endX   终点X坐标
-	 * @param endY   终点Y坐标
+	 * @param xStart 起点X坐标
+	 * @param yStart 起点Y坐标
+	 * @param xEnd   终点X坐标
+	 * @param yEnd   终点Y坐标
 	 * @return 目标图片
 	 * 
 	 * @throws IOException 当读写文件失败时抛出
 	 */
-	public static BufferedImage zoomAndClip(File src, double scale, int startX, int startY, int endX, int endY)
+	public static BufferedImage zoomAndClip(File src, double scale, int xStart, int yStart, int xEnd, int yEnd)
 			throws IOException {
 		BufferedImage bfi = read(src);
 		bfi = zoomScale(bfi, (int) (bfi.getWidth() * scale), (int) (bfi.getHeight() * scale));// 等比缩放
 		File f = pool.createFile("." + Files.getSuffixName(src));
 		write(bfi, f);// 写入
-		clipScale(f.getPath(), f.getPath(), new int[] { startX, startY }, new int[] { endX, endY });// 裁剪
+		clipScale(f.getPath(), f.getPath(), new int[] { xStart, yStart }, new int[] { xEnd, yEnd });// 裁剪
 		return read(f);
 	}
 
 	public static BufferedImage zoomAndClip(File src, double scale, Point start, Point end) throws IOException {
-		return zoomAndClip(src, scale, start.getX(), start.getY(), end.getX(), end.getY());
+		return zoomAndClip(src, scale, start.getXaxis(), start.getYaxis(), end.getXaxis(), end.getYaxis());
 	}
 
 	/**
@@ -75,7 +74,7 @@ public class ImageUtils extends Images {
 	}
 
 	public static BufferedImage zoomAndClip(File src, double scale, Point start, int w, int h) throws IOException {
-		return zoomAndClip(src, scale, start.getX(), start.getY(), start.getX() + w, start.getY() + h);
+		return zoomAndClip(src, scale, start.getXaxis(), start.getYaxis(), start.getXaxis() + w, start.getYaxis() + h);
 	}
 
 	/**
@@ -94,19 +93,19 @@ public class ImageUtils extends Images {
 		 */
 		private int y;
 
-		public int getX() {
+		public int getXaxis() {
 			return x;
 		}
 
-		public void setX(int x) {
+		public void setXaxis(int x) {
 			this.x = x;
 		}
 
-		public int getY() {
+		public int getYaxis() {
 			return y;
 		}
 
-		public void setY(int y) {
+		public void setYaxis(int y) {
 			this.y = y;
 		}
 
@@ -136,7 +135,9 @@ public class ImageUtils extends Images {
 	 */
 	public static File generateImage(String imgStr, File outFile) {
 		if (imgStr == null) // 图像数据为空
+		{
 			return null;
+		}
 		try (OutputStream out = new FileOutputStream(outFile)) {
 			// Base64解码
 			byte[] b = Base64.decode(imgStr);
@@ -201,7 +202,7 @@ public class ImageUtils extends Images {
 
 		Request request = Request.create("http://apis.baidu.com/apistore/idlocr/ocr", METHOD.POST, params,
 				Header.create(header));
-		Sender sender = PostSender.create(request);
+		Sender sender = Sender.create(request);
 		Response response = sender.send();
 		String info = response.getContent();
 

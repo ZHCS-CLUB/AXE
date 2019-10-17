@@ -77,9 +77,9 @@ public class ImageVerification {
 
 	public Color getRandColor(int b, int e) {// 给定范围获得随机颜色
 		if (b > 255)
-			b = 255;
+		{b = 255;}
 		if (e > 255)
-			e = 255;
+		{e = 255;}
 		int rc = getRandInt(b, e);
 		int gc = getRandInt(b, e);
 		int bc = getRandInt(b, e);

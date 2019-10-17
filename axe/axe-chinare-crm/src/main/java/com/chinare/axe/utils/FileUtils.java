@@ -43,7 +43,7 @@ public class FileUtils {
 	 * @param file 文件或者目录
 	 * @return java代码行数
 	 */
-	public static long countJAVACodeLines(File file) {
+	public static long countJavaCodeLines(File file) {
 		return countLines(file, ".java");
 	}
 
@@ -53,7 +53,7 @@ public class FileUtils {
 				File[] children = file.listFiles();
 				double size = 0;
 				for (File f : children)
-					size += getDirSize(f);
+				{size += getDirSize(f);}
 				return size;
 			} else {
 				return file.length();

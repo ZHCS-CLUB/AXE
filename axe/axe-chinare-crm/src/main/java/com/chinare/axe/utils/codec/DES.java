@@ -67,7 +67,7 @@ public class DES {
 	 */
 	public static String decrypt(String data, String key) {
 		if (data == null)
-			return null;
+		{return null;}
 
 		byte[] buf = Base64.decode(data);
 		byte[] bt = null;

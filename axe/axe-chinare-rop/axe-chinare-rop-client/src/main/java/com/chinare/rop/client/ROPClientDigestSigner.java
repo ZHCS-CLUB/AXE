@@ -20,7 +20,7 @@ public class ROPClientDigestSigner extends DigestSigner implements ClientSigner 
 
     protected String getDataMate(ROPRequest request) {
         if (request.isGet()) {
-            String query = request.getURLEncodedParams();
+            String query = request.getUrlEncodedParams();
             return Lang.md5(Http.encode(query, request.getEnc()));
         }
         StringBuilder info;

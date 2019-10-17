@@ -13,21 +13,37 @@ import java.lang.annotation.Target;
 public @interface Auth {
 
 	/**
+	 * 认证逻辑
 	 * 
 	 * @author 王贵源(wangguiyuan@chinare.com.cn)
 	 *
 	 */
 	enum Logical {
-		AND, OR
+		/**
+		 * 且
+		 */
+		AND, 
+		/**
+		 * 或
+		 */
+		OR
 	}
 
 	/**
+	 * 认证类型
 	 * 
 	 * @author 王贵源(wangguiyuan@chinare.com.cn)
 	 *
 	 */
 	enum AuthType {
-		ROLE, PERMISSION
+		/**
+		 * 角色
+		 */
+		ROLE, 
+		/**
+		 * 权限
+		 */
+		PERMISSION
 	}
 
 	/**

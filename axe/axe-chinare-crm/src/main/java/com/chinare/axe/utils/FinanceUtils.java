@@ -28,7 +28,7 @@ public class FinanceUtils {
 			sbf.insert(0, m1(sb, type));
 		}
 		if ('零' == sbf.charAt(0))
-			sbf.deleteCharAt(0);
+		{sbf.deleteCharAt(0);}
 	}
 
 	public static StringBuilder m1(String sb, int type) {
@@ -58,7 +58,7 @@ public class FinanceUtils {
 			t = sbf.charAt(i);
 			sbf.setCharAt(i, map.get(t));
 			if (i != 0)
-				sbf.insert(i, mode[b]);
+			{sbf.insert(i, mode[b]);}
 			b++;
 		}
 		m11(sbf);
@@ -75,9 +75,9 @@ public class FinanceUtils {
 			if (t == '零') {
 				t = sbf.charAt(i + 1);
 				if ('圆' != t && '万' != t && '亿' != t)
-					sbf.deleteCharAt(i + 1);
+				{sbf.deleteCharAt(i + 1);}
 				else
-					sbf.deleteCharAt(i);
+				{sbf.deleteCharAt(i);}
 				if (i != 0 && sbf.charAt(i - 1) == '零') {
 					sbf.deleteCharAt(i - 1);
 					i--;
@@ -89,12 +89,12 @@ public class FinanceUtils {
 	public static StringBuilder m2(String de) {
 
 		if (de.length() > 2)
-			de = de.substring(0, 2);
+		{de = de.substring(0, 2);}
 		de = de.replaceFirst("00", "");
 		StringBuilder sb = new StringBuilder(de);
 		if (sb.length() > 0) {
 			if (sb.charAt(sb.length() - 1) == '0')
-				sb.deleteCharAt(sb.length() - 1);
+			{sb.deleteCharAt(sb.length() - 1);}
 			sb.setCharAt(0, map.get(sb.charAt(0)));
 			switch (sb.length()) {
 			case 1:
@@ -103,7 +103,7 @@ public class FinanceUtils {
 			case 2:
 				sb.setCharAt(1, map.get(sb.charAt(1)));
 				if (sb.charAt(0) != '零')
-					sb.insert(1, '角');
+				{sb.insert(1, '角');}
 				sb.append("分");
 				break;
 			default:

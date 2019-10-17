@@ -27,7 +27,7 @@ public class DateUtils extends Times {
      * @return 目标日期
      */
     public static Date addDays(Date base, int days) {
-        return D(base.getTime() + days * 24 * 60 * 60 * 1000l);
+        return D(base.getTime() + days * 24 * 60 * 60 * 1000L);
     }
 
     /**

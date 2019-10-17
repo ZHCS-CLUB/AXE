@@ -83,7 +83,7 @@ public class ROPRequest {
         for (final String key : keys) {
             Object val = params.get(key);
             if (val == null)
-                val = "";
+            { val = "";}
             Lang.each(val, new Each<Object>() {
                 @Override
                 public void invoke(int index, Object ele, int length)
@@ -107,7 +107,7 @@ public class ROPRequest {
     public Cookie getCookie() {
         String s = header.get("Cookie");
         if (null == s)
-            return new Cookie();
+        { return new Cookie();}
         return new Cookie(s);
     }
 
@@ -135,10 +135,10 @@ public class ROPRequest {
             return inputStream;
         } else {
             if (header.get("Content-Type") == null)
-                header.asFormContentType(enc);
+            {header.asFormContentType(enc);}
             if (null == data) {
                 try {
-                    return new ByteArrayInputStream(getURLEncodedParams().getBytes(enc));
+                    return new ByteArrayInputStream(getUrlEncodedParams().getBytes(enc));
                 }
                 catch (UnsupportedEncodingException e) {
                     throw Lang.wrapThrow(e);
@@ -156,7 +156,7 @@ public class ROPRequest {
         return params;
     }
 
-    public String getURLEncodedParams() {
+    public String getUrlEncodedParams() {
         // 此处不影响发送的数据,只影响签名,需要按照rop的规则进行签名串的获取即可
         final StringBuilder sb = new StringBuilder();
         if (isFileUpload()) {// 文件上传的签名流
@@ -165,7 +165,7 @@ public class ROPRequest {
             return SignerHelper.mapAsUrlParams(params, enc);
         }
         if (sb.length() > 0)
-            sb.setLength(sb.length() - 1);
+        { sb.setLength(sb.length() - 1);}
         return sb.toString();
     }
 
@@ -226,7 +226,7 @@ public class ROPRequest {
 
     public ROPRequest setEnc(String reqEnc) {
         if (reqEnc != null)
-            this.enc = reqEnc;
+        {this.enc = reqEnc;}
         return this;
     }
 
@@ -237,7 +237,7 @@ public class ROPRequest {
 
     public ROPRequest setHeader(Header header) {
         if (header == null)
-            header = Header.create();
+        { header = Header.create();}
         this.header = header;
         return this;
     }

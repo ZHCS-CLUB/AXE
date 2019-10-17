@@ -60,7 +60,7 @@ public abstract class AbstractSigner implements Signer {
 		if (isFileUpload(request)) {
 			try {
 				return Lang.md5(new ByteArrayInputStream(
-						getURLEncodedParams(request).getBytes(request.getCharacterEncoding())));
+						getUrlEncodedParams(request).getBytes(request.getCharacterEncoding())));
 			} catch (IOException | ServletException e) {
 				log.debug("不支持的编码!");
 				throw Lang.wrapThrow(e);
@@ -78,7 +78,7 @@ public abstract class AbstractSigner implements Signer {
 		}
 	}
 
-	public String getURLEncodedParams(final HttpServletRequest request) throws IOException, ServletException {
+	public String getUrlEncodedParams(final HttpServletRequest request) throws IOException, ServletException {
 		final StringBuilder sb = new StringBuilder();
 		List<Part> parts = Lang.collection2list(request.getParts());
 		Collections.sort(parts, (part1, part2) -> part1.getName().compareTo(part2.getName()));
@@ -101,7 +101,7 @@ public abstract class AbstractSigner implements Signer {
 		});
 
 		if (sb.length() > 0)
-			sb.setLength(sb.length() - 1);
+		{sb.setLength(sb.length() - 1);}
 		return sb.toString();
 
 	}

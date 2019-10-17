@@ -31,44 +31,49 @@ public class LunarCalendar {
 	public static String getChinaDayString(int day) {
 		String[] chineseTen = { "初", "十", "廿", "卅" };
 		int n = day % 10 == 0 ? 9 : day % 10 - 1;
-		if (day > 30)
+		if (day > 30) {
 			return "";
-		if (day == 10)
+		}
+		if (day == 10) {
 			return "初十";
-		else
-			return chineseTen[day / 10] + chineseNumber[n];
+		} else {
+			return chineseTen[day / 10] + CHINESE_NUMBER[n];
+		}
 	}
 
 	// ====== 传回农历 y年闰月的天数
 	private static final int leapDays(int y) {
 		if (leapMonth(y) != 0) {
-			if ((lunarInfo[y - 1900] & 0x10000) != 0)
+			if ((LUNAR_INFO[y - 1900] & 0x10000) != 0) {
 				return 30;
-			else
+			} else {
 				return 29;
+			}
 		}
 		return 0;
 	}
 
 	// ====== 传回农历 y年闰哪个月 1-12 , 没闰传回 0
 	private static final int leapMonth(int y) {
-		return (int) (lunarInfo[y - 1900] & 0xf);
+		return (int) (LUNAR_INFO[y - 1900] & 0xf);
 	}
 
 	// ====== 传回农历 y年m月的总天数
 	private static final int monthDays(int y, int m) {
-		if ((lunarInfo[y - 1900] & (0x10000 >> m)) == 0)
+		if ((LUNAR_INFO[y - 1900] & (0x10000 >> m)) == 0) {
 			return 29;
-		else
+		} else {
 			return 30;
+		}
 	}
 
 	// ====== 传回农历 y年的总天数
 	private static final int yearDays(int y) {
 		int sum = 348;
 		for (int i = 0x8000; i > 0x8; i >>= 1) {
-			if ((lunarInfo[y - 1900] & i) != 0)
+			if ((LUNAR_INFO[y - 1900] & i) != 0) {
 				sum += 1;
+			}
 		}
 		return (sum + leapDays(y));
 	}
@@ -84,9 +89,9 @@ public class LunarCalendar {
 	/**
 	 * 中文月名称
 	 */
-	static final String[] chineseNumber = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二" };
+	static final String[] CHINESE_NUMBER = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二" };
 
-	static final String[] numbers = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
+	static final String[] NUMBERS = { "零", "一", "二", "三", "四", "五", "六", "七", "八", "九" };
 
 	/**
 	 * 中文日期格式
@@ -96,7 +101,7 @@ public class LunarCalendar {
 	/**
 	 * 农历数据， 1901 ~ 2100 年之间正确
 	 */
-	static final long[] lunarInfo = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0,
+	static final long[] LUNAR_INFO = new long[] { 0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0,
 			0x09ad0, 0x055d2, 0x04ae0, 0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2, 0x095b0, 0x14977,
 			0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0,
 			0x0ea50, 0x06e95, 0x05ad0, 0x02b60, 0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0, 0x1d8a6, 0x0b550, 0x056a0,
@@ -168,8 +173,9 @@ public class LunarCalendar {
 			}
 			offset -= daysOfMonth;
 			// 解除闰月
-			if (leap && iMonth == (leapMonth + 1))
+			if (leap && iMonth == (leapMonth + 1)) {
 				leap = false;
+			}
 		}
 		// offset为0时，并且刚才计算的月份是闰月，要校正
 		if (offset == 0 && leapMonth > 0 && iMonth == leapMonth + 1) {
@@ -223,7 +229,7 @@ public class LunarCalendar {
 		while (year != 0) {
 			int index = year % 10;
 			year = year / 10;
-			target.append(numbers[index]);
+			target.append(NUMBERS[index]);
 		}
 		return target.reverse().toString();
 	}
@@ -231,7 +237,7 @@ public class LunarCalendar {
 	@Override
 	public String toString() {
 		return "农历 " + toCharector(year) + "(" + cyclical() + "/" + animalsYear() + ")年" + (leap ? "闰" : "")
-				+ chineseNumber[month - 1] + "月" + getChinaDayString(day);
+				+ CHINESE_NUMBER[month - 1] + "月" + getChinaDayString(day);
 	}
 
 }
