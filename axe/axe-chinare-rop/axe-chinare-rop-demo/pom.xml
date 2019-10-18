@@ -1,18 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>club.zhcs</groupId>
+    <groupId>cn.com.chinarecrm</groupId>
     <artifactId>axe-chinare-rop</artifactId>
    <version>2.2.0.RELEASE</version>
   </parent>
   <artifactId>axe-chinare-rop-demo</artifactId>
   <dependencies>
   	<dependency>
-  		<groupId>club.zhcs</groupId>
+  		<groupId>cn.com.chinarecrm</groupId>
   		<artifactId>axe-chinare-rop-server</artifactId>
   	</dependency>
   	<dependency>
-  		<groupId>club.zhcs</groupId>
+  		<groupId>cn.com.chinarecrm</groupId>
   		<artifactId>axe-chinare-rop-client</artifactId>
   	</dependency>
   	<dependency>
