@@ -6,15 +6,15 @@ import org.nutz.json.JsonFormat;
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
-public class ROPData<T> {
+public class ROPResponse<T> {
 
     /**
      * 创建一个异常结果
      *
      * @return 一个异常结果实例,不携带异常信息
      */
-    public static ROPData exception() {
-        return ROPData.me().setOperationState(OperationState.EXCEPTION);
+    public static ROPResponse exception() {
+        return ROPResponse.me().setOperationState(OperationState.EXCEPTION);
     }
 
     /**
@@ -24,8 +24,8 @@ public class ROPData<T> {
      *            异常
      * @return 一个异常结果实例,包含参数异常的信息
      */
-    public static ROPData exception(Exception e) {
-        return ROPData.exception(e.getMessage());
+    public static ROPResponse exception(Exception e) {
+        return ROPResponse.exception(e.getMessage());
     }
 
     /**
@@ -35,8 +35,8 @@ public class ROPData<T> {
      *            异常信息
      * @return 一个异常结果实例,不携带异常信息
      */
-    public static ROPData exception(String msg) {
-        return ROPData.exception().setMsg(msg);
+    public static ROPResponse exception(String msg) {
+        return ROPResponse.exception().setMsg(msg);
     }
 
     /**
@@ -46,8 +46,8 @@ public class ROPData<T> {
      *            失败原因
      * @return ROPData实例
      */
-    public static ROPData fail(String reason) {
-        return ROPData.me().setOperationState(OperationState.FAIL).setMsg(reason);
+    public static ROPResponse fail(String reason) {
+        return ROPResponse.me().setOperationState(OperationState.FAIL).setMsg(reason);
     }
 
     /**
@@ -55,8 +55,8 @@ public class ROPData<T> {
      *
      * @return 一个不携带任何信息的ROPData实例
      */
-    public static ROPData me() {
-        return new ROPData();
+    public static ROPResponse me() {
+        return new ROPResponse();
     }
 
     /**
@@ -64,8 +64,8 @@ public class ROPData<T> {
      *
      * @return ROPData实例状态为成功无数据携带
      */
-    public static ROPData success() {
-        return ROPData.me().setOperationState(OperationState.SUCCESS);
+    public static ROPResponse success() {
+        return ROPResponse.me().setOperationState(OperationState.SUCCESS);
     }
 
     /**
@@ -73,8 +73,8 @@ public class ROPData<T> {
      *
      * @return 未登录
      */
-    public static ROPData unlogin() {
-        return ROPData.me().setOperationState(OperationState.UNLOGINED);
+    public static ROPResponse unlogin() {
+        return ROPResponse.me().setOperationState(OperationState.UNLOGINED);
     }
 
     /**
@@ -90,7 +90,7 @@ public class ROPData<T> {
      */
     private OperationState operationState = OperationState.DEFAULT;
 
-    public ROPData() {
+    public ROPResponse() {
         super();
     }
 
@@ -115,22 +115,22 @@ public class ROPData<T> {
         return getOperationState() == OperationState.SUCCESS;
     }
 
-    public ROPData<T> setData(T data) {
+    public ROPResponse<T> setData(T data) {
         this.data = data;
         return this;
     }
 
-    public ROPData setMsg(String msg) {
+    public ROPResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
 
-    public ROPData setOperationState(OperationState operationState) {
+    public ROPResponse setOperationState(OperationState operationState) {
         this.operationState = operationState;
         return this;
     }
 
-    public ROPData<T> success(T t) {
+    public ROPResponse<T> success(T t) {
         return success().setData(t);
     }
 

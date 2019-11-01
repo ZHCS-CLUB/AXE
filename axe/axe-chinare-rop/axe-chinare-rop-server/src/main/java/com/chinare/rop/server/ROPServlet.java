@@ -15,7 +15,7 @@ import org.nutz.log.Log;
 import org.nutz.log.Logs;
 
 import com.chinare.rop.ROPConfig;
-import com.chinare.rop.core.ROPData;
+import com.chinare.rop.core.ROPResponse;
 
 /**
  *
@@ -24,7 +24,7 @@ import com.chinare.rop.core.ROPData;
 public class ROPServlet extends HttpServlet {
 
     static final Log log = Logs.get();
-    
+
     /**
      *
      */
@@ -43,31 +43,32 @@ public class ROPServlet extends HttpServlet {
     @Override
     protected void service(final HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         /**
-         * 1. 时间戳校验 2.签名校验转移到nutz的filter中去处理,这样便于获取ioc中的对象 3.方法校验
+         * 1. 时间戳校验 <br>
+         * 2.签名校验转移到spring的aop中去处理,这样便于获取ioc中的对象 <br>
+         * 3.方法校验
          *
          */
         try {
             String method = request.getHeader(ROPConfig.METHOD_KEY);
             if (Strings.isBlank(method)) {// 空方法
-                response.getWriter().write(Json.toJson(ROPData.exception("null method")));
+                response.getWriter().write(Json.toJson(ROPResponse.exception("null method")));
                 return;
             }
             String timeStemp = request.getHeader(ROPConfig.TS_KEY);
             if (Strings.isBlank(timeStemp)) {
-                response.getWriter().write(Json.toJson(ROPData.exception("no timeStemp")));
+                response.getWriter().write(Json.toJson(ROPResponse.exception("no timeStemp")));
                 return;
             }
             long time = Long.parseLong(timeStemp);
             if (addSeconds(Times.D(time), Long.parseLong(getInitParameter("timeout"))).before(Times.now())) {
-                response.getWriter().write(Json.toJson(ROPData.exception("request timeout")));
+                response.getWriter().write(Json.toJson(ROPResponse.exception("request timeout")));
                 return;
             }
             String gateWay = getInitParameter("gateWayUri");
-            request.getRequestDispatcher(Strings.isBlank(gateWay) ? method : gateWay)
-                   .forward(request, response);// 将请求转发给真实的函数入口
+            request.getRequestDispatcher(Strings.isBlank(gateWay) ? method : gateWay).forward(request, response);// 将请求转发给真实的函数入口
         }
         catch (Exception e) {
-            response.getWriter().write(Json.toJson(ROPData.exception(e)));
+            response.getWriter().write(Json.toJson(ROPResponse.exception(e)));
         }
     }
 

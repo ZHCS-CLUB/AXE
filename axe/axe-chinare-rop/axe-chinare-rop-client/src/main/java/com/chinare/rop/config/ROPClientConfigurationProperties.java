@@ -24,7 +24,20 @@ public class ROPClientConfigurationProperties {
      */
     String endpoint;
 
+    /**
+     * 启用响应签名检查,建议打开,默认打开
+     */
+    boolean enableResponseCheck = true;
+
     ProxyConfigurationProperties proxy;
+
+    public boolean isEnableResponseCheck() {
+        return enableResponseCheck;
+    }
+
+    public void setEnableResponseCheck(boolean enableResponseCheck) {
+        this.enableResponseCheck = enableResponseCheck;
+    }
 
     public String getAppKey() {
         return appKey;

@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
-@Target({ElementType.TYPE, ElementType.METHOD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ROP {
 

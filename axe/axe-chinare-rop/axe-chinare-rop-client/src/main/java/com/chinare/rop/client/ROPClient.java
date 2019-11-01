@@ -22,124 +22,147 @@ import com.chinare.rop.ROPConfig;
  */
 public class ROPClient {
 
-	public static ROPClient create(String appKey, String appSecret, String endpoint, String digestName) {
-		ROPClient client = new ROPClient();
-		client.setAppKey(appKey);
-		client.setAppSecret(appSecret);
-		client.setEndpoint(endpoint);
-		client.setDigestName(digestName);
-		client.setSigner(new ROPClientDigestSigner(digestName));
-		return client;
-	}
+    public static ROPClient create(String appKey, String appSecret, String endpoint, String digestName) {
+        ROPClient client = new ROPClient();
+        client.setAppKey(appKey);
+        client.setAppSecret(appSecret);
+        client.setEndpoint(endpoint);
+        client.setDigestName(digestName);
+        client.setSigner(new ROPClientDigestSigner(digestName));
+        return client;
+    }
 
-	private String appKey;
-	private String appSecret;
-	private String digestName;
-	private String endpoint;// 调用点
-	Log log = Logs.get();
-	Proxy proxy;
+    public static ROPClient create(String appKey, String appSecret, String endpoint, String digestName, boolean enableResponseCheck) {
+        ROPClient client = new ROPClient();
+        client.setAppKey(appKey);
+        client.setAppSecret(appSecret);
+        client.setEndpoint(endpoint);
+        client.setDigestName(digestName);
+        client.setSigner(new ROPClientDigestSigner(digestName));
+        client.setEnableResponseCheck(enableResponseCheck);
+        return client;
+    }
 
-	ClientSigner signer;
+    private String appKey;
+    private String appSecret;
+    private String digestName;
+    private String endpoint;// 调用点
+    private boolean enableResponseCheck = true;
+    Log log = Logs.get();
+    Proxy proxy;
 
-	private ROPClient() {
-	}
+    ClientSigner signer;
 
-	public String getAppKey() {
-		return appKey;
-	}
+    public boolean isEnableResponseCheck() {
+        return enableResponseCheck;
+    }
 
-	public String getAppSecret() {
-		return appSecret;
-	}
+    public void setEnableResponseCheck(boolean enableResponseCheck) {
+        this.enableResponseCheck = enableResponseCheck;
+    }
 
-	public String getDigestName() {
-		return digestName;
-	}
+    private ROPClient() {}
 
-	public String getEndpoint() {
-		return endpoint;
-	}
+    public String getAppKey() {
+        return appKey;
+    }
 
-	public Proxy getProxy() {
-		return proxy;
-	}
+    public String getAppSecret() {
+        return appSecret;
+    }
 
-	public ClientSigner getSigner() {
-		return signer;
-	}
+    public String getDigestName() {
+        return digestName;
+    }
 
-	public Response send(ROPRequest request) {
-		Response response;
-		if (proxy != null) {
-			response = Sender.create(toRequest(request)).setProxy(proxy).send();
-		} else {
-			response = Sender.create(toRequest(request)).send();
-		}
-		if (!response.isOK()) {
-			throw Lang.makeThrow("请求失败,状态码:%d", response.getStatus());
-		}
-		if (log.isDebugEnabled()) {
-			Header header = response.getHeader();
-			log.debugf("response headers -> %s",
-					Json.toJson(header.getAll().stream()
-							.map(item -> NutMap.NEW().addv("key", item.getKey()).addv("value", item.getValue()))
-							.collect(Collectors.toList())));
-		}
+    public String getEndpoint() {
+        return endpoint;
+    }
 
-		if (signer.check(response, appSecret, request.getHeader().get(ROPConfig.NONCE_KEY), request.getGateway())) {
-			return response;
-		}
-		throw Lang.makeThrow("响应签名检查失败!");
-	}
+    public Proxy getProxy() {
+        return proxy;
+    }
 
-	public void setAppKey(String appKey) {
-		this.appKey = appKey;
-	}
+    public ClientSigner getSigner() {
+        return signer;
+    }
 
-	public void setAppSecret(String appSecret) {
-		this.appSecret = appSecret;
-	}
+    public Response send(ROPRequest request) {
+        Response response;
+        if (proxy != null) {
+            response = Sender.create(toRequest(request)).setProxy(proxy).send();
+        } else {
+            response = Sender.create(toRequest(request)).send();
+        }
+        if (!response.isOK()) {
+            throw Lang.makeThrow("请求失败,状态码:%d", response.getStatus());
+        }
+        if (log.isDebugEnabled()) {
+            Header header = response.getHeader();
+            log.debugf("response headers -> %s",
+                       Json.toJson(header.getAll()
+                                         .stream()
+                                         .map(item -> NutMap.NEW().addv("key", item.getKey()).addv("value", item.getValue()))
+                                         .collect(Collectors.toList())));
+        }
 
-	public void setDigestName(String digestName) {
-		this.digestName = digestName;
-	}
+        if (!isEnableResponseCheck()
+            || signer.check(response, appSecret, request.getHeader().get(ROPConfig.NONCE_KEY), request.getGateway())) {
+            return response;
+        }
+        throw Lang.makeThrow("响应签名检查失败!");
+    }
 
-	public void setEndpoint(String endpoint) {
-		this.endpoint = endpoint;
-	}
+    public void setAppKey(String appKey) {
+        this.appKey = appKey;
+    }
 
-	public void setProxy(Proxy proxy) {
-		this.proxy = proxy;
-	}
+    public void setAppSecret(String appSecret) {
+        this.appSecret = appSecret;
+    }
 
-	public void setSigner(ClientSigner signer) {
-		this.signer = signer;
-	}
+    public void setDigestName(String digestName) {
+        this.digestName = digestName;
+    }
 
-	/**
-	 * 处理header
-	 *
-	 * @param request
-	 * @return
-	 */
-	private Header signHeader(ROPRequest request) {
-		String nonce = R.UU16();
-		String ts = Times.now().getTime() + "";
-		Header header = request.getHeader().set(ROPConfig.APP_KEY_KEY, appKey)
-				.set(ROPConfig.METHOD_KEY, request.getGateway()).set(ROPConfig.NONCE_KEY, nonce)
-				.set(ROPConfig.TS_KEY, ts)
-				.set(ROPConfig.SIGN_KEY, signer.sign(appSecret, ts, request.getGateway(), nonce, request));
-		return request.getData() == null || request.getData().length == 0 ? header.asFormContentType()
-				: header.asJsonContentType();
-	}
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
 
-	public Request toRequest(ROPRequest request) {
-		Request req = Request.create(endpoint, request.getMethod());
-		req.setParams(request.getParams());
-		req.setData(request.getData());
-		req.setHeader(signHeader(request));
-		Header header = req.getHeader();
-		log.debugf("send headers %s", header);
-		return req;
-	}
+    public void setProxy(Proxy proxy) {
+        this.proxy = proxy;
+    }
+
+    public void setSigner(ClientSigner signer) {
+        this.signer = signer;
+    }
+
+    /**
+     * 处理header
+     *
+     * @param request
+     * @return
+     */
+    private Header signHeader(ROPRequest request) {
+        String nonce = R.UU16();
+        String ts = Times.now().getTime() + "";
+        Header header = request.getHeader()
+                               .set(ROPConfig.APP_KEY_KEY, appKey)
+                               .set(ROPConfig.METHOD_KEY, request.getGateway())
+                               .set(ROPConfig.NONCE_KEY, nonce)
+                               .set(ROPConfig.TS_KEY, ts)
+                               .set(ROPConfig.SIGN_KEY, signer.sign(appSecret, ts, request.getGateway(), nonce, request));
+        return request.getData() == null || request.getData().length == 0 ? header.asFormContentType()
+                                                                          : header.asJsonContentType();
+    }
+
+    public Request toRequest(ROPRequest request) {
+        Request req = Request.create(endpoint, request.getMethod());
+        req.setParams(request.getParams());
+        req.setData(request.getData());
+        req.setHeader(signHeader(request));
+        Header header = req.getHeader();
+        log.debugf("send headers %s", header);
+        return req;
+    }
 }

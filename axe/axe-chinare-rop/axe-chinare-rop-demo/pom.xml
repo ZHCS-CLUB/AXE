@@ -33,5 +33,14 @@
   		<groupId>org.projectlombok</groupId>
   		<artifactId>lombok</artifactId>
   	</dependency>
+  	<dependency>
+3
+            <groupId>com.alibaba</groupId>
+4
+            <artifactId>fastjson</artifactId>
+5
+            <version>1.2.56</version>
+6
+        </dependency>
   </dependencies>
 </project>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.chinare.rop.core.ROPData;
+import com.chinare.rop.core.ROPResponse;
 
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
@@ -23,8 +23,8 @@ public class ROPExceptionHandler {
 
     @ExceptionHandler(value = ROPException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ROPData rop(HttpServletResponse response, ROPException e) {
+    public ROPResponse rop(HttpServletResponse response, ROPException e) {
         log.error("error=>", e);
-        return ROPData.exception(e);
+        return ROPResponse.exception(e);
     }
 }

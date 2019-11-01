@@ -16,32 +16,32 @@ import com.chinare.rop.server.ROP;
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
-@RestController
 @ROP
+@RestController
 public class IndexController {
 
-	@PostMapping("file")
-	public NutMap args(@RequestParam MultipartFile[] file, @RequestParam int id, HttpServletRequest request) {
-		return NutMap.NEW().addv("name", file.length).addv("id", id);
-	}
+    @PostMapping("file")
+    public NutMap args(@RequestParam MultipartFile[] file, @RequestParam int id, HttpServletRequest request) {
+        return NutMap.NEW().addv("name", file.length).addv("id", id);
+    }
 
-	@GetMapping("test")
-	public NutMap get() {
-		return NutMap.NEW().addv("t", R.UU16());
-	}
+    @GetMapping("test")
+    public NutMap get() {
+        return NutMap.NEW().addv("t", R.UU16());
+    }
 
-	@GetMapping("get")
-	public NutMap get(@RequestParam long[] ids, @RequestParam String name) {
-		return NutMap.NEW().addv("ids", ids).addv("name", name);
-	}
+    @GetMapping("get")
+    public NutMap get(@RequestParam long[] ids, @RequestParam String name) {
+        return NutMap.NEW().addv("ids", ids).addv("name", name);
+    }
 
-	@PostMapping("post")
-	public NutMap post(@RequestParam long[] ids, @RequestParam String name) {
-		return NutMap.NEW().addv("ids", ids).addv("name", name);
-	}
+    @PostMapping("post")
+    public NutMap post(@RequestParam long[] ids, @RequestParam String name) {
+        return NutMap.NEW().addv("ids", ids).addv("name", name);
+    }
 
-	@PostMapping("test")
-	public NutMap test(@RequestBody NutMap data) {
-		return data;
-	}
+    @PostMapping("test")
+    public NutMap test(@RequestBody NutMap data) {
+        return data;
+    }
 }

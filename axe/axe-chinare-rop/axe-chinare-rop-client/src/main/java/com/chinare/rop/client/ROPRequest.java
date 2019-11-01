@@ -82,12 +82,12 @@ public class ROPRequest {
         Collections.sort(keys);
         for (final String key : keys) {
             Object val = params.get(key);
-            if (val == null)
-            { val = "";}
+            if (val == null) {
+                val = "";
+            }
             Lang.each(val, new Each<Object>() {
                 @Override
-                public void invoke(int index, Object ele, int length)
-                        throws ExitLoop, ContinueLoop, LoopException {
+                public void invoke(int index, Object ele, int length) throws ExitLoop, ContinueLoop, LoopException {
                     if (ele instanceof File) {
                         sb.append(Http.encode(key, enc))
                           .append('=')
@@ -106,8 +106,9 @@ public class ROPRequest {
 
     public Cookie getCookie() {
         String s = header.get("Cookie");
-        if (null == s)
-        { return new Cookie();}
+        if (null == s) {
+            return new Cookie();
+        }
         return new Cookie(s);
     }
 
@@ -134,8 +135,9 @@ public class ROPRequest {
         if (inputStream != null) {
             return inputStream;
         } else {
-            if (header.get("Content-Type") == null)
-            {header.asFormContentType(enc);}
+            if (header.get("Content-Type") == null) {
+                header.asFormContentType(enc);
+            }
             if (null == data) {
                 try {
                     return new ByteArrayInputStream(getUrlEncodedParams().getBytes(enc));
@@ -164,8 +166,9 @@ public class ROPRequest {
         } else if (params != null) {
             return SignerHelper.mapAsUrlParams(params, enc);
         }
-        if (sb.length() > 0)
-        { sb.setLength(sb.length() - 1);}
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 1);
+        }
         return sb.toString();
     }
 
@@ -225,8 +228,9 @@ public class ROPRequest {
     }
 
     public ROPRequest setEnc(String reqEnc) {
-        if (reqEnc != null)
-        {this.enc = reqEnc;}
+        if (reqEnc != null) {
+            this.enc = reqEnc;
+        }
         return this;
     }
 
@@ -236,8 +240,9 @@ public class ROPRequest {
     }
 
     public ROPRequest setHeader(Header header) {
-        if (header == null)
-        { header = Header.create();}
+        if (header == null) {
+            header = Header.create();
+        }
         this.header = header;
         return this;
     }

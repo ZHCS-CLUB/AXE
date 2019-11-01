@@ -61,8 +61,12 @@ public class ROPServerAutoConfiguration {
             }
 
             @Override
-            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-                    throws IOException, ServletException {
+            public void init(FilterConfig filterConfig) throws ServletException {
+                // 兼容低版本
+            }
+
+            @Override
+            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
                 ServletRequest requestWrapper = null;
                 if (request instanceof HttpServletRequest) {
                     requestWrapper = new ResettableStreamHttpServletRequest((HttpServletRequest) request);
@@ -74,10 +78,6 @@ public class ROPServerAutoConfiguration {
                 }
             }
 
-            @Override
-            public void init(FilterConfig filterConfig) throws ServletException {
-                // 兼容低版本
-            }
         });
         registration.addUrlPatterns(properties.getRopPath());
         registration.setOrder(1);
@@ -104,7 +104,7 @@ public class ROPServerAutoConfiguration {
 
     @Bean
     public ROPSignInterceptor ropSignInterceptor(ROPServerConfigurationProperties properties) {
-        return new ROPSignInterceptor(properties.getDigestName(),properties.getTimeout(),properties.isEnableReplayCheck());
+        return new ROPSignInterceptor(properties.getDigestName());
     }
 
     @Bean

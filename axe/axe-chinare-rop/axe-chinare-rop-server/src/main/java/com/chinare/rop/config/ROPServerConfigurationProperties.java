@@ -26,22 +26,14 @@ public class ROPServerConfigurationProperties {
      * 接口超时时间
      */
     long timeout = 5;
-    
+
     /**
-     * 启动重放检查
+     * @deprecated 没有使用的配置项
      */
-    boolean enableReplayCheck =  true;
+    @Deprecated
+    boolean enableReplayCheck = false;
 
-    
-    public boolean isEnableReplayCheck() {
-		return enableReplayCheck;
-	}
-
-	public void setEnableReplayCheck(boolean enableReplayCheck) {
-		this.enableReplayCheck = enableReplayCheck;
-	}
-
-	public String getDigestName() {
+    public String getDigestName() {
         return digestName;
     }
 
