@@ -27,12 +27,6 @@ public class ROPServerConfigurationProperties {
      */
     long timeout = 5;
 
-    /**
-     * @deprecated 没有使用的配置项
-     */
-    @Deprecated
-    boolean enableReplayCheck = false;
-
     public String getDigestName() {
         return digestName;
     }

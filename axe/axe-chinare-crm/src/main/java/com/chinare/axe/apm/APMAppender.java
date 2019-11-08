@@ -4,154 +4,55 @@ import java.util.Date;
 
 import org.nutz.json.Json;
 
+import lombok.Builder;
+import lombok.Data;
+
 /**
  * @author kerbores
  *
  */
 public interface APMAppender {
 
-	public static class APMLog {
+    @Data
+    @Builder
+    public static class APMLog {
 
-		String url;
+        String url;
 
-		String tag;
+        String tag;
 
-		String user;
+        String user;
 
-		Date actionTime;
+        Date actionTime;
 
-		long actionDuration;
+        long actionDuration;
 
-		Object[] args;
+        Object[] args;
 
-		Object retuenObj;
+        Object retuenObj;
 
-		boolean exception;
+        boolean exception;
 
-		/**
-		 * @return the url
-		 */
-		public String getUrl() {
-			return url;
-		}
+        Object ext;
 
-		/**
-		 * @param url the url to set
-		 */
-		public void setUrl(String url) {
-			this.url = url;
-		}
+        @Override
+        public String toString() {
+            return Json.toJson(this);
+        }
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see java.lang.Object#toString()
-		 */
-		@Override
-		public String toString() {
-			return Json.toJson(this);
-		}
+    }
 
-		/**
-		 * @return the exception
-		 */
-		public boolean isException() {
-			return exception;
-		}
+    void append(APMLog log);
 
-		/**
-		 * @param exception the exception to set
-		 */
-		public void setException(boolean exception) {
-			this.exception = exception;
-		}
-
-		/**
-		 * @return the tag
-		 */
-		public String getTag() {
-			return tag;
-		}
-
-		/**
-		 * @param tag the tag to set
-		 */
-		public void setTag(String tag) {
-			this.tag = tag;
-		}
-
-		/**
-		 * @return the user
-		 */
-		public String getUser() {
-			return user;
-		}
-
-		/**
-		 * @param user the user to set
-		 */
-		public void setUser(String user) {
-			this.user = user;
-		}
-
-		/**
-		 * @return the actionTime
-		 */
-		public Date getActionTime() {
-			return actionTime;
-		}
-
-		/**
-		 * @param actionTime the actionTime to set
-		 */
-		public void setActionTime(Date actionTime) {
-			this.actionTime = actionTime;
-		}
-
-		/**
-		 * @return the actionDuration
-		 */
-		public long getActionDuration() {
-			return actionDuration;
-		}
-
-		/**
-		 * @param actionDuration the actionDuration to set
-		 */
-		public void setActionDuration(long actionDuration) {
-			this.actionDuration = actionDuration;
-		}
-
-		/**
-		 * @return the args
-		 */
-		public Object[] getArgs() {
-			return args;
-		}
-
-		/**
-		 * @param args the args to set
-		 */
-		public void setArgs(Object[] args) {
-			this.args = args;
-		}
-
-		/**
-		 * @return the retuenObj
-		 */
-		public Object getRetuenObj() {
-			return retuenObj;
-		}
-
-		/**
-		 * @param retuenObj the retuenObj to set
-		 */
-		public void setRetuenObj(Object retuenObj) {
-			this.retuenObj = retuenObj;
-		}
-
-	}
-
-	void append(APMLog log);
-
+    /**
+     * @param provide
+     * @param collector
+     * @param log
+     * @param args
+     * @param obj
+     * @param duration
+     * @param exception
+     * @return
+     */
+    APMLog collect(String provide, String collector, APM log, Object[] args, Object obj, long duration, boolean exception);
 }

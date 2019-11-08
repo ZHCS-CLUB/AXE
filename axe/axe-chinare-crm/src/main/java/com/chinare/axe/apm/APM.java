@@ -10,11 +10,11 @@ import java.lang.annotation.Target;
  * 自定义注解 拦截Controller
  */
 
-@Target({ ElementType.PARAMETER, ElementType.METHOD })
+@Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface APM {
 
-	String value() default "";
+    String value() default "";
 
 }

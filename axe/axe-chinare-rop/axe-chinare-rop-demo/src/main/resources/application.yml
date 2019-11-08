@@ -1,5 +1,5 @@
 server:  port: 8888management:  endpoint:    health:      show-details: always  endpoints:    web:      exposure:        include:        - '*'
-rop:
+logging:  level:    com.china: debug    org.nutz: debug    com.chinare: debugspring:  http:    encoding:      force-response: truerop:
   client:    app-key: test
     app-secret: 098f6bcd4621d373cade4e832627b4f6
     digest-name: SHA1

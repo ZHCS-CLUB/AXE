@@ -1,0 +1,33 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql5-168704573a6-53e1a0deb6819064": {
+			"provider": "mysql",
+			"driver": "mysql5",
+			"name": "MySQL - ef2 2",
+			"save-password": true,
+			"show-system-objects": true,
+			"read-only": false,
+			"configuration": {
+				"host": "mxkf.kerbores.com",
+				"port": "3306",
+				"database": "ef2",
+				"url": "jdbc:mysql://mxkf.kerbores.com:3306/ef2",
+				"type": "dev",
+				"provider-properties": {
+					"@dbeaver-serverTimezone@": "Etc/GMT+8"
+				}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false
+		}
+	}
+}
