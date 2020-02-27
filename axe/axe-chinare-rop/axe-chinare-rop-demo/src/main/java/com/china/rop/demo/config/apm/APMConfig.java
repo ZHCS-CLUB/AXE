@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 
-import com.chinare.axe.apm.APMAppender;
-import com.chinare.axe.apm.DefaultAPMAppender;
+import com.chinare.axe.apm.ApmAppender;
+import com.chinare.axe.apm.DefaultApmAppender;
 import com.chinare.axe.apm.URLProvider;
 
 /**
@@ -25,11 +25,11 @@ public class APMConfig {
     }
 
     @Bean
-    public APMAppender apmAppender(HttpServletRequest request) {
-        return new DefaultAPMAppender() {
+    public ApmAppender apmAppender(HttpServletRequest request) {
+        return new DefaultApmAppender() {
             @Override
             @Async
-            public void append(APMLog log) {
+            public void append(ApmLog log) {
                 Logs.get().debug(log);
             }
         };

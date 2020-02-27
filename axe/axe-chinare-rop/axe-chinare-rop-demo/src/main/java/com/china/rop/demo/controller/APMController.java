@@ -5,12 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chinare.axe.Result;
-import com.chinare.axe.apm.APM;
+import com.chinare.axe.apm.Apm;
 
 /**
  * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
  */
-@APM
+@Apm
 @RestController
 @RequestMapping("/apm")
 public class APMController {

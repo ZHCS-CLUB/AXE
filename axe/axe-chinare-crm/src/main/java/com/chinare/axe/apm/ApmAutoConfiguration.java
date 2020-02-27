@@ -5,21 +5,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 @Configuration
-public class APMConfiguration {
+public class ApmAutoConfiguration {
 
     @Bean
-    public APMInterceptor apmInterceptor(APMAppender appender, UserCollector collector, URLProvider urlProvider) {
-        return new APMInterceptor(appender, collector, urlProvider);
+    public ApmInterceptor apmInterceptor(ApmAppender appender, UserCollector collector, URLProvider urlProvider) {
+        return new ApmInterceptor(appender, collector, urlProvider);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public APMAppender apmAppender() {
-        return new DefaultAPMAppender();
+    public ApmAppender apmAppender() {
+        return new DefaultApmAppender();
     }
 
     @Bean

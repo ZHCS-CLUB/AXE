@@ -11,16 +11,15 @@ import org.nutz.lang.Stopwatch;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.scheduling.annotation.Async;
 
-import com.chinare.axe.apm.APMAppender.APMLog;
+import com.chinare.axe.apm.ApmAppender.ApmLog;
 
 /**
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 @Aspect
-public class APMInterceptor {
+public class ApmInterceptor {
 
-    APMAppender appender;
+    ApmAppender appender;
 
     UserCollector collector;
 
@@ -33,24 +32,24 @@ public class APMInterceptor {
      * @param collector
      *            用户收集器
      * @param urlProvider
-     *            url 提供者
+     *            URL 提供者
      */
-    public APMInterceptor(APMAppender appender, UserCollector collector, URLProvider urlProvider) {
+    public ApmInterceptor(ApmAppender appender, UserCollector collector, URLProvider urlProvider) {
         super();
         this.appender = appender;
         this.collector = collector;
         this.urlProvider = urlProvider;
     }
 
-    public APM getApm(JoinPoint joinPoint) {
+    public Apm getApm(JoinPoint joinPoint) {
         MethodSignature joinPointObject = (MethodSignature) joinPoint.getSignature();
         Method method = joinPointObject.getMethod();
 
-        boolean flag = method.isAnnotationPresent(APM.class);
+        boolean flag = method.isAnnotationPresent(Apm.class);
         if (flag) {
-            return method.getAnnotation(APM.class);
+            return method.getAnnotation(Apm.class);
         } else {
-            APM classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(), APM.class);
+            Apm classAnnotation = AnnotationUtils.findAnnotation(joinPointObject.getMethod().getDeclaringClass(), Apm.class);
             if (classAnnotation != null) {
                 return classAnnotation;
             } else {
@@ -59,9 +58,9 @@ public class APMInterceptor {
         }
     }
 
-    @Around("@within(com.chinare.axe.apm.APM)|| @annotation(com.chinare.axe.apm.APM)")
+    @Around("@within(com.kerbores.mdp.axe.apm.Apm)|| @annotation(com.kerbores.mdp.axe.apm.Apm)")
     public Object filter(ProceedingJoinPoint point) throws Throwable {
-        APM log = getApm(point);
+        Apm log = getApm(point);
         Object[] args = point.getArgs();
         Object obj = null;
         long duration = 0;
@@ -82,9 +81,14 @@ public class APMInterceptor {
         return obj;
     }
 
+    /**
+     * 记录apm日志
+     * 
+     * @param log
+     *            apm日志信息
+     */
     @Async
-    public void log(APMLog log) {
+    public void log(ApmLog log) {
         appender.append(log);
     }
-
 }

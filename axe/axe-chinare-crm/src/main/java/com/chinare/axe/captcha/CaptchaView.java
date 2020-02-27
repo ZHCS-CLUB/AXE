@@ -13,8 +13,7 @@ import org.nutz.log.Logs;
 import org.springframework.web.servlet.View;
 
 /**
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 public class CaptchaView implements View {
 

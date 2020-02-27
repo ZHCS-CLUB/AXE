@@ -1,8 +1,7 @@
 package com.chinare.axe.captcha;
 
 /**
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 public interface CaptchaGener {
     /**

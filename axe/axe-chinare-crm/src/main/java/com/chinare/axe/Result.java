@@ -1,222 +1,168 @@
 package com.chinare.axe;
 
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.nutz.json.Json;
 import org.nutz.json.JsonFormat;
 import org.nutz.lang.util.NutMap;
 
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Builder.Default;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
- * @author kerbores
- *
+ * 数据返回对象封装
+ * 
+ * @author 王贵源(kerbores@gmail.com)
+ * 
+ *         create at 2019-11-21 09:47:25
+ * @param <T>
+ *            数据泛型
  */
-public class Result {
-	public enum OperationState {
-		/**
-		 * 成功
-		 */
-		SUCCESS("成功", 0),
-		/**
-		 * 失败
-		 */
-		FAIL("失败", 1),
-		/**
-		 * 异常
-		 */
-		EXCEPTION("异常发生", -1);
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Result<T> {
 
-		String mgs;
+    /**
+     * 操作状态枚举
+     * 
+     * @author 王贵源(kerbores@gmail.com)
+     * 
+     *         create at 2019-11-21 09:47:41
+     */
+    public enum OperationState {
+        /**
+         * 成功
+         */
+        SUCCESS,
+        /**
+         * 失败
+         */
+        FAIL,
+        /**
+         * 异常
+         */
+        EXCEPTION;
 
-		int code;
+    }
 
-		/**
-		 * @param mgs
-		 * @param code
-		 */
-		private OperationState(String mgs, int code) {
-			this.mgs = mgs;
-			this.code = code;
-		}
+    @Default
+    @ApiModelProperty(value = "响应扩展数据", required = false)
+    private NutMap ext = new NutMap();
 
-		/**
-		 * @return the mgs
-		 */
-		public String getMgs() {
-			return mgs;
-		}
+    @Default
+    @ApiModelProperty(value = "响应状态", required = true)
+    private OperationState state = OperationState.SUCCESS;
 
-		/**
-		 * @return the code
-		 */
-		public int getCode() {
-			return code;
-		}
+    @ApiModelProperty(value = "错误信息列表")
+    private String[] errors;
 
-	}
+    @ApiModelProperty(value = "响应数据", required = true)
+    private T data;
 
-	/**
-	 * 创建一个异常结果
-	 * 
-	 * @return 一个异常结果实例,不携带异常信息
-	 */
-	public static Result exception() {
-		return Result.me().setOperationState(OperationState.EXCEPTION);
-	}
+    /**
+     * 返回成功
+     * 
+     * @return 成功的结果
+     */
+    public static Result success() {
+        return Result.builder().build();
+    }
 
-	/**
-	 * 创建一个异常结果
-	 * 
-	 * @param e 异常
-	 * @return 一个异常结果实例,包含参数异常的信息
-	 */
-	public static Result exception(Exception e) {
-		return Result.exception(e.getMessage());
-	}
+    /**
+     * 携带数据返回成功
+     * 
+     * @param <T>
+     *            数据泛型
+     * @param t
+     *            数据
+     * @return 成功的结果
+     */
+    public static <T> Result<T> success(T t) {
+        return Result.<T> builder().data(t).build();
+    }
 
-	/**
-	 * 创建一个异常结果
-	 * 
-	 * @param msg 异常信息
-	 * @return 一个异常结果实例,不携带异常信息
-	 */
-	public static Result exception(String msg) {
-		return Result.exception().setErrors(msg);
-	}
+    /**
+     * 返回失败及原因
+     * 
+     * @param errors
+     *            失败原因
+     * @return 失败的结果
+     */
+    public static Result fail(String... errors) {
+        return Result.builder().state(OperationState.FAIL).errors(errors).build();
+    }
 
-	/**
-	 * 创建一个带失败信息的result
-	 * 
-	 * @param reason 失败原因
-	 * @return result实例
-	 */
-	public static Result fail(Object... reason) {
-		return Result.me().setOperationState(OperationState.FAIL).setErrors(reason);
-	}
+    /**
+     * 返回异常及原因
+     * 
+     * @param errors
+     *            异常原因
+     * @return 异常的结果
+     */
+    public static Result exception(String... errors) {
+        return Result.builder().state(OperationState.EXCEPTION).errors(errors).build();
+    }
 
-	/**
-	 * 获取一个result实例
-	 * 
-	 * @return 一个不携带任何信息的result实例
-	 */
-	public static Result me() {
-		return new Result();
-	}
+    /**
+     * 返回异常及原因
+     * 
+     * @param errors
+     *            异常原因
+     * @return 异常的结果
+     */
+    public static Result exception(List<String> errors) {
+        return Result.builder().state(OperationState.EXCEPTION).errors(errors.toArray(new String[errors.size()])).build();
+    }
 
-	/**
-	 * 创建一个成功结果
-	 * 
-	 * @return result实例状态为成功无数据携带
-	 */
-	public static Result success() {
-		return Result.me().setOperationState(OperationState.SUCCESS);
-	}
+    /**
+     * 返回异常及原因
+     * 
+     * @param exceptions
+     *            异常
+     * @return 异常的结果
+     */
+    public static Result exception(Throwable... exceptions) {
+        return exception(Arrays.stream(exceptions).map(Throwable::getMessage).collect(Collectors.toList()));
+    }
 
-	/**
-	 * 创建一个成功结果
-	 * 
-	 * @param data 需要携带的数据
-	 * @return result实例状态为成功数据位传入参数
-	 */
-	public static Result success(Map data) {
-		return Result.success().setData(data);
-	}
+    /**
+     * 添加扩展数据
+     * 
+     * @param key
+     *            数据key
+     * @param value
+     *            数据
+     * @return 返回结果对象
+     */
+    public Result addExtData(String key, Object value) {
+        getExt().setv(key, value);
+        return this;
+    }
 
-	/**
-	 * 操作结果数据 假设一个操作要返回很多的数据 一个用户名 一个产品 一个相关产品列表 一个产品的评论信息列表 我们以key
-	 * value形式进行保存，页面获取data对象读取其对于的value即可
-	 */
-	private NutMap data = new NutMap();
+    /**
+     * 是否成功
+     * 
+     * @return 是否成功标识
+     */
+    public boolean isSuccess() {
+        return getState() == OperationState.SUCCESS;
+    }
 
-	/**
-	 * 带状态的操作 比如登录有成功和失败
-	 */
-	private OperationState operationState = OperationState.SUCCESS;
-
-	private Object[] errors;
-
-	/**
-	 * @return the errors
-	 */
-	public Object[] getErrors() {
-		return errors;
-	}
-
-	public Result setErrors(Object... errors) {
-		this.errors = errors;
-		return this;
-	}
-
-	public Result() {
-		super();
-	}
-
-	public Result(OperationState operationState, Map data) {
-		super();
-		this.operationState = operationState;
-		this.data = NutMap.WRAP(data);
-	}
-
-	/**
-	 * 添加更多的数据
-	 * 
-	 * @param data 待添加的数据
-	 * @return 结果实例
-	 */
-	public Result addData(Map<String, Object> data) {
-		Iterator iterator = data.keySet().iterator();
-		while (iterator.hasNext()) {
-			String key = iterator.next().toString();
-			this.data.put(key, data.get(key));
-		}
-		return this;
-	}
-
-	public Result addData(String key, Object object) {
-		if (this.data == null) {
-			data = new NutMap();
-		}
-		data.put(key, object);
-		return this;
-	}
-
-	public Result clear() {
-		this.operationState = OperationState.SUCCESS;
-		if (data != null) {
-			this.data.clear();
-		}
-		return this;
-	}
-
-	public NutMap getData() {
-		return data;
-	}
-
-	public OperationState getOperationState() {
-		return operationState;
-	}
-
-	public boolean isSuccess() {
-		return getOperationState() == OperationState.SUCCESS;
-	}
-
-	public Result setData(Map<String, Object> data) {
-		this.data = NutMap.WRAP(data);
-		return this;
-	}
-
-	public Result setOperationState(OperationState operationState) {
-		this.operationState = operationState;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return Json.toJson(this, JsonFormat.forLook());
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return Json.toJson(this, JsonFormat.forLook());
+    }
 }

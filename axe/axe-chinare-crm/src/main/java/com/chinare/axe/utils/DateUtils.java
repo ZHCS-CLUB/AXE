@@ -9,14 +9,13 @@ import java.util.Locale;
 import org.nutz.lang.Times;
 
 /**
- * 
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 public class DateUtils extends Times {
-	
-	public static final String DATE_FORMAT_MONTH="yyyy-MM";
-	public static final String DATE_FORMAT_DAY="yyyy-MM-dd";
+
+    public static final String DATE_FORMAT_MONTH = "yyyy-MM";
+    public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
+
     /**
      * 日期加减
      * 
@@ -51,7 +50,9 @@ public class DateUtils extends Times {
      * @return 天数
      */
     public static double daysBetween(Date start, Date end) {
-        return BigDecimal.valueOf((end.getTime() - start.getTime()) / 1000.0d / 24.0d / 60.0d / 60.0d).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        return BigDecimal.valueOf((end.getTime() - start.getTime()) / 1000.0d / 24.0d / 60.0d / 60.0d)
+                         .setScale(0, RoundingMode.HALF_UP)
+                         .doubleValue();
     }
 
     /**
@@ -276,5 +277,4 @@ public class DateUtils extends Times {
     public static int getDayOfMonth() {
         return Calendar.getInstance(Locale.CHINA).getActualMaximum(Calendar.DATE);
     }
-
 }

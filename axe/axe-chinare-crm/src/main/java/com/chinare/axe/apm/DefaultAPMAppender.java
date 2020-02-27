@@ -4,26 +4,27 @@ import org.nutz.lang.Times;
 import org.nutz.log.Logs;
 
 /**
- * @author 王贵源(wangguiyuan@chinarecrm.com.cn)
+ * @author 王贵源(kerbores@gmail.com)
  */
-public class DefaultAPMAppender implements APMAppender {
+public class DefaultApmAppender implements ApmAppender {
 
     @Override
-    public void append(APMLog log) {
+    public void append(ApmLog log) {
         Logs.get().debug(log);
     }
 
     @Override
-    public APMLog collect(String url, String user, APM log, Object[] args, Object obj, long duration, boolean exception) {
-        return APMLog.builder()
+    public ApmLog collect(String url, String user, Apm log, Object[] args, Object returnObj, long duration, boolean isException) {
+        return ApmLog.builder()
                      .url(url)
                      .user(user)
                      .actionDuration(duration)
                      .args(args)
                      .actionTime(Times.now())
-                     .exception(exception)
-                     .retuenObj(obj)
+                     .exception(isException)
+                     .retuenObj(returnObj)
                      .tag(log.value())
                      .build();
     }
+
 }

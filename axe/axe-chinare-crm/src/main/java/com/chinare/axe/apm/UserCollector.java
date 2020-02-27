@@ -1,11 +1,13 @@
 package com.chinare.axe.apm;
 
 /**
- * @author kerbores
- *
+ * @author 王贵源(kerbores@gmail.com)
  */
 public interface UserCollector {
-
-	String collector();
-
+    /**
+     * 收集当前用户
+     * 
+     * @return 当前用户
+     */
+    String collector();
 }

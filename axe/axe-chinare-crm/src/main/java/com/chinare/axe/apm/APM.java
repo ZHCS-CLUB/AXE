@@ -7,14 +7,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 自定义注解 拦截Controller
+ * @author 王贵源(kerbores@gmail.com)
  */
-
+@Documented
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
-public @interface APM {
+public @interface Apm {
 
+    /**
+     * 拦截器标签
+     * 
+     * @return 标签值
+     */
     String value() default "";
-
 }

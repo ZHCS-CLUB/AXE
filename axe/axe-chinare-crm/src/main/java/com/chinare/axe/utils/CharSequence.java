@@ -6,137 +6,143 @@ import java.util.List;
 import org.nutz.lang.Lang;
 
 /**
- * 字符串内码编码解码方法
- * 
- * @author Kerbores
- * 
+ * @author 王贵源(kerbores@gmail.com)
  */
 public class CharSequence {
-	/**
-	 * 解码
-	 * 
-	 * @param data 数据数组
-	 * @return 原数据
-	 */
-	public static String decode(Integer[] data) {
-		return decode(Lang.array2list(data));
-	}
+    /**
+     * 解码
+     * 
+     * @param data
+     *            数据数组
+     * @return 原数据
+     */
+    public static String decode(Integer[] data) {
+        return decode(Lang.array2list(data));
+    }
 
-	/**
-	 * 解码
-	 * 
-	 * @param data 数据list
-	 * @return 原数据
-	 */
-	public static String decode(List<Integer> data) {
-		return new CharSequence(data).toString();
-	}
+    /**
+     * 解码
+     * 
+     * @param data
+     *            数据list
+     * @return 原数据
+     */
+    public static String decode(List<Integer> data) {
+        return new CharSequence(data).toString();
+    }
 
-	/**
-	 * 解码
-	 * 
-	 * @param data 数据串 用 ',' 分隔
-	 * @return 原数据
-	 */
-	public static String decode(String data) {
-		List<Integer> value = parse(data);
-		return decode(value);
-	}
+    /**
+     * 解码
+     * 
+     * @param data
+     *            数据串 用 ',' 分隔
+     * @return 原数据
+     */
+    public static String decode(String data) {
+        List<Integer> value = parse(data);
+        return decode(value);
+    }
 
-	/**
-	 * NB解码
-	 * 
-	 * @param data  数据
-	 * @param times 次数
-	 * @return 解码结果
-	 */
-	public static String decode(String data, int times) {
-		String target = data;
-		String cache = null;
-		for (int i = 0; i < times; i++) {
-			try {
-				target = decode(target);
-			} catch (Exception e) {
-				return cache;
-			}
-			cache = target;
-		}
-		return target;
-	}
+    /**
+     * NB解码
+     * 
+     * @param data
+     *            数据
+     * @param times
+     *            次数
+     * @return 解码结果
+     */
+    public static String decode(String data, int times) {
+        String target = data;
+        String cache = null;
+        for (int i = 0; i < times; i++) {
+            try {
+                target = decode(target);
+            }
+            catch (Exception e) {
+                return cache;
+            }
+            cache = target;
+        }
+        return target;
+    }
 
-	/**
-	 * 编码
-	 * 
-	 * @param info 带编码字符串
-	 * @return 编码结果串
-	 */
-	public static List<Integer> encode(String info) {
-		return new CharSequence(info).getValue();
-	}
+    /**
+     * 编码
+     * 
+     * @param info
+     *            带编码字符串
+     * @return 编码结果串
+     */
+    public static List<Integer> encode(String info) {
+        return new CharSequence(info).getValue();
+    }
 
-	/**
-	 * 编码成串
-	 * 
-	 * @param info 数据
-	 * @return 返回串
-	 */
-	public static String encodeToString(String info) {
-		StringBuilder builder = new StringBuilder();
-		for (Integer i : encode(info)) {
-			builder.append(i + ",");
-		}
-		if (builder.length() == 0) {
-			return "";
-		}
-		return builder.substring(0, builder.length() - 1);
-	}
+    /**
+     * 编码成串
+     * 
+     * @param info
+     *            数据
+     * @return 返回串
+     */
+    public static String encodeToString(String info) {
+        StringBuilder builder = new StringBuilder();
+        for (Integer i : encode(info)) {
+            builder.append(i + ",");
+        }
+        if (builder.length() == 0) {
+            return "";
+        }
+        return builder.substring(0, builder.length() - 1);
+    }
 
-	/**
-	 * 编码成串
-	 * 
-	 * @param info  数据
-	 * @param times 次数
-	 * @return 返回串
-	 */
-	public static String encodeToString(String info, int times) {
-		String target = info;
-		for (int i = 0; i < times; i++) {
-			target = encodeToString(target);
-		}
-		return target;
-	}
+    /**
+     * 编码成串
+     * 
+     * @param info
+     *            数据
+     * @param times
+     *            次数
+     * @return 返回串
+     */
+    public static String encodeToString(String info, int times) {
+        String target = info;
+        for (int i = 0; i < times; i++) {
+            target = encodeToString(target);
+        }
+        return target;
+    }
 
-	private static List<Integer> parse(String data) {
-		List<Integer> target = new ArrayList<>();
-		String[] infos = data.split(",");
-		for (String info : infos) {
-			target.add(Integer.parseInt(info.trim()));
-		}
-		return target;
-	}
+    private static List<Integer> parse(String data) {
+        List<Integer> target = new ArrayList<>();
+        String[] infos = data.split(",");
+        for (String info : infos) {
+            target.add(Integer.parseInt(info.trim()));
+        }
+        return target;
+    }
 
-	private List<Integer> value = new ArrayList<>();
+    private List<Integer> value = new ArrayList<>();
 
-	private String stringValue;
+    private String stringValue;
 
-	public CharSequence(List<Integer> value) {
-		this.value = value;
-		this.stringValue = toString();
-	}
+    public CharSequence(List<Integer> value) {
+        this.value = value;
+        this.stringValue = toString();
+    }
 
-	private CharSequence(String in) {
-		for (char c : in.toCharArray()) {
-			value.add((int) c);
-		}
-		this.stringValue = in;
-	}
+    private CharSequence(String in) {
+        for (char c : in.toCharArray()) {
+            value.add((int) c);
+        }
+        this.stringValue = in;
+    }
 
-	public String getStringValue() {
-		return stringValue;
-	}
+    public String getStringValue() {
+        return stringValue;
+    }
 
-	public List<Integer> getValue() {
-		return value;
-	}
-
+    public List<Integer> getValue() {
+        return value;
+    }
 }
