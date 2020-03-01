@@ -58,7 +58,7 @@ public class ApmInterceptor {
         }
     }
 
-    @Around("@within(com.kerbores.mdp.axe.apm.Apm)|| @annotation(com.kerbores.mdp.axe.apm.Apm)")
+    @Around("@within(com.chinare.axe.apm.Apm)|| @annotation(com.chinare.axe.apm.Apm)")
     public Object filter(ProceedingJoinPoint point) throws Throwable {
         Apm log = getApm(point);
         Object[] args = point.getArgs();

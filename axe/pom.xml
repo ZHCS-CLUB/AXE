@@ -1,15 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>cn.com.chinarecrm</groupId>
 	<artifactId>axe</artifactId>
 	<name>AXE</name>
+	<version>2.2.5.1.RELEASE</version>
 	<description>工具包</description>
 	<url>https://github.com/ZHCS-CLUB/AXE</url>
 	<packaging>pom</packaging>
 	<properties>
-		<axe-version>2.2.5.RELEASE</axe-version>
+		<axe-version>2.2.5.1.RELEASE</axe-version>
 	</properties>
 	<repositories>
 		<repository>
