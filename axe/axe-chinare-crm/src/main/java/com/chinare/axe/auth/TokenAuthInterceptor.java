@@ -53,7 +53,7 @@ public class TokenAuthInterceptor {
         }
     }
 
-    @Around("@within(com.kerbores.mdp.axe.auth.Auth)|| @annotation(com.kerbores.mdp.axe.auth.Auth)")
+    @Around("@within(com.chinare.axe.auth.Auth)|| @annotation(com.chinare.axe.auth.Auth)")
     public Object filter(ProceedingJoinPoint point) throws Throwable {
         if (!authService.authentication(this.withoutAuthenticationUrlRegulars)) {
             throw new AuthException();

@@ -10,7 +10,7 @@ import lombok.Data;
  * @author 王贵源(kerbores@gmail.com)
  */
 @Data
-@ConfigurationProperties("mdp.global.response")
+@ConfigurationProperties("axe.global.response")
 public class GlobalResponseConfigurationProerties {
 
     /**

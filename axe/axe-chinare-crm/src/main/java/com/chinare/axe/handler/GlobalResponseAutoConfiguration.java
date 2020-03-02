@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @EnableConfigurationProperties(GlobalResponseConfigurationProerties.class)
-@ConditionalOnExpression("${mdp.global.response.enabled:false}")
+@ConditionalOnExpression("${axe.global.response.enabled:false}")
 public class GlobalResponseAutoConfiguration {
 
     @Bean
